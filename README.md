@@ -1,0 +1,28 @@
+# 오토봇 도감 (AUTOBOT ARCHIVE)
+
+사이버트론에서 온 오토봇 12명을 한눈에 보는 어린이용 도감 웹앱입니다.
+서울 서초구 잠원동 LUKA(초2)가 갤럭시탭 S9의 삼성 인터넷에서 앱처럼 설치해 쓰도록 만들었습니다.
+
+- 주소: https://yuuunjk.github.io/transformers/
+- 수록: 옵티머스 프라임 · 범블비 · 아이언하이드 · 라쳇 · 재즈 · 휠잭 · 알시 · 프롤 · 그림록 · 울트라 매그너스 · 하운드 · 미라지
+- 기능: 역할별 필터(전체·지휘관·정찰·전투·의무/발명·다이노봇), 이름·특징 검색, ⭐ 내 최애(localStorage), 낮/밤 화면, 상세 모달(역할·특징·강점·약점·능력치·성격·활약 에피소드)
+- 설치: 삼성 인터넷 우측 상단 `⋮` → `홈 화면에 추가` (manifest + sw.js + 아이콘 180/192/512 + maskable)
+
+## 구성
+
+```
+index.html                 앱 전체 (데이터·스타일·스크립트 포함)
+assets/bots/{id}.webp      12명 오토봇 일러스트 640×640
+app-icon-180/192/512.png   앱 아이콘
+app-icon-maskable-*.png    마스커블 아이콘
+manifest.webmanifest       name: "오토봇 도감"
+sw.js                      오프라인 캐시 (autobot-dex-v1)
+screenshots/               라이브 화면 캡처
+```
+
+## 배포
+
+정적 파일만으로 동작합니다. `main` 브랜치 루트를 GitHub Pages(`Deploy from a branch` → `main` / `/ (root)`)로 지정하면 됩니다.
+`.nojekyll`이 있어 Jekyll 처리를 건너뜁니다.
+
+일러스트는 AI로 생성한 팬 아트이며, 어린이용 팬 도감입니다.

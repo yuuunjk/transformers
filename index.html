@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>오토봇 도감 | AUTOBOT ARCHIVE</title>
+<meta name="description" content="사이버트론에서 온 12명의 오토봇 영웅 도감. 역할, 능력치, 성격과 명장면을 한눈에!">
+<meta name="theme-color" content="#071226">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="오토봇 도감">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="./app-icon-192.png">
+<link rel="apple-touch-icon" href="./app-icon-180.png">
+<style>
+  :root{
+    --bg:#050a18;
+    --bg-2:#0a1734;
+    --panel:rgba(13,24,49,.82);
+    --panel-solid:#0d1830;
+    --panel-2:rgba(20,36,70,.72);
+    --line:rgba(110,166,255,.22);
+    --line-strong:rgba(110,166,255,.42);
+    --txt:#eaf2ff;
+    --muted:#93a8ca;
+    --blue:#3d9bff;
+    --blue-deep:#1b5fd0;
+    --cyan:#6fe3ff;
+    --red:#ff4d5e;
+    --gold:#ffc24a;
+    --shadow:0 18px 44px rgba(0,0,0,.45);
+    --radius:20px;
+    --header-bg:rgba(6,12,26,.78);
+    color-scheme:dark;
+  }
+  html[data-theme="light"]{
+    --bg:#e9f1fc;
+    --bg-2:#d6e6fb;
+    --panel:rgba(255,255,255,.88);
+    --panel-solid:#ffffff;
+    --panel-2:rgba(232,242,255,.9);
+    --line:rgba(23,63,130,.16);
+    --line-strong:rgba(23,63,130,.3);
+    --txt:#0c1a32;
+    --muted:#55698c;
+    --blue:#1b6fe0;
+    --blue-deep:#0d4ba8;
+    --cyan:#0f9fc4;
+    --red:#e5364b;
+    --gold:#d68a00;
+    --shadow:0 16px 36px rgba(20,50,100,.16);
+    --header-bg:rgba(240,246,255,.86);
+    color-scheme:light;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    min-height:100vh;
+    background:
+      radial-gradient(900px 600px at 12% -10%, rgba(61,155,255,.22), transparent 60%),
+      radial-gradient(760px 520px at 92% 0%, rgba(255,77,94,.16), transparent 62%),
+      radial-gradient(800px 700px at 50% 120%, rgba(35,90,190,.22), transparent 65%),
+      linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 58%, var(--bg) 100%);
+    background-attachment:fixed;
+    color:var(--txt);
+    font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",system-ui,-apple-system,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    letter-spacing:-0.01em;
+  }
+  body::before{
+    content:"";
+    position:fixed;inset:0;pointer-events:none;z-index:0;
+    background-image:
+      linear-gradient(rgba(110,166,255,.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(110,166,255,.055) 1px, transparent 1px);
+    background-size:48px 48px;
+    mask-image:radial-gradient(ellipse at 50% 20%, #000 20%, transparent 78%);
+    -webkit-mask-image:radial-gradient(ellipse at 50% 20%, #000 20%, transparent 78%);
+  }
+  html[data-theme="light"] body::before{
+    background-image:
+      linear-gradient(rgba(23,63,130,.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(23,63,130,.055) 1px, transparent 1px);
+  }
+  button{font:inherit;color:inherit}
+  img{display:block;max-width:100%}
+  :focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+
+  /* ---------- header ---------- */
+  .site-header{
+    position:sticky;top:0;z-index:30;
+    backdrop-filter:blur(16px) saturate(140%);
+    -webkit-backdrop-filter:blur(16px) saturate(140%);
+    background:var(--header-bg);
+    border-bottom:1px solid var(--line);
+  }
+  .header-inner{
+    max-width:1180px;margin:0 auto;padding:14px 20px 12px;
+    display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  }
+  .brand{display:flex;align-items:center;gap:12px;min-width:0;flex:1 1 auto}
+  .brand-mark{
+    width:48px;height:48px;border-radius:14px;overflow:hidden;flex:none;
+    box-shadow:0 0 0 1px var(--line-strong), 0 8px 20px rgba(30,90,200,.35);
+    background:#071226;
+  }
+  .brand-mark img{width:100%;height:100%;object-fit:cover}
+  .brand-text{min-width:0}
+  .eyebrow{
+    font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;
+    color:var(--cyan);font-weight:800;margin-bottom:2px;
+  }
+  .brand h1{
+    margin:0;font-size:clamp(20px,2.6vw,27px);font-weight:900;letter-spacing:.01em;
+    background:linear-gradient(92deg,#ffffff 5%, #b9d8ff 45%, #ffb3b9 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    white-space:nowrap;
+  }
+  html[data-theme="light"] .brand h1{
+    background:linear-gradient(92deg,#0c2a5c 5%, #1b6fe0 55%, #c92a3e 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .brand-sub{font-size:11.5px;color:var(--muted);margin-top:2px;font-weight:600;letter-spacing:.02em}
+  .header-tools{display:flex;align-items:center;gap:8px;flex:0 0 auto}
+  .icon-btn{
+    width:44px;height:44px;border-radius:13px;border:1px solid var(--line);
+    background:var(--panel-2);cursor:pointer;font-size:19px;line-height:1;
+    display:grid;place-items:center;transition:transform .15s ease, border-color .15s ease, background .15s ease;
+  }
+  .icon-btn:hover{transform:translateY(-1px);border-color:var(--line-strong)}
+  .icon-btn:active{transform:scale(.96)}
+
+  .search-row{
+    max-width:1180px;margin:0 auto;padding:0 20px 16px;
+    display:flex;gap:10px;align-items:center;flex-wrap:wrap;
+  }
+  .search-box{
+    position:relative;flex:1 1 300px;min-width:220px;
+  }
+  .search-box .mag{
+    position:absolute;left:15px;top:50%;transform:translateY(-50%);
+    font-size:15px;opacity:.75;pointer-events:none;
+  }
+  #search{
+    width:100%;height:48px;border-radius:14px;border:1px solid var(--line);
+    background:var(--panel);color:var(--txt);padding:0 44px 0 42px;
+    font-size:15px;font-weight:600;letter-spacing:-.01em;
+    transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  #search::placeholder{color:var(--muted);font-weight:500}
+  #search:focus{
+    outline:none;border-color:var(--blue);
+    box-shadow:0 0 0 3px rgba(61,155,255,.2);
+  }
+  .fav-toggle{
+    height:48px;padding:0 18px;border-radius:14px;cursor:pointer;
+    border:1px solid var(--line);background:var(--panel);
+    font-weight:800;font-size:14px;display:flex;align-items:center;gap:8px;
+    transition:all .15s ease;white-space:nowrap;
+  }
+  .fav-toggle:hover{border-color:var(--line-strong)}
+  .fav-toggle[aria-pressed="true"]{
+    background:linear-gradient(135deg, rgba(255,194,74,.2), rgba(255,77,94,.18));
+    border-color:rgba(255,194,74,.6);color:var(--gold);
+  }
+  .fav-toggle .count{
+    background:rgba(255,194,74,.2);color:var(--gold);
+    min-width:22px;height:22px;border-radius:999px;font-size:12px;
+    display:inline-grid;place-items:center;padding:0 6px;font-weight:900;
+  }
+
+  /* ---------- filters ---------- */
+  .filters{
+    max-width:1180px;margin:0 auto;padding:0 20px 18px;
+    display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;
+    -ms-overflow-style:none;
+  }
+  .filters::-webkit-scrollbar{display:none}
+  .chip{
+    flex:none;height:38px;padding:0 16px;border-radius:999px;cursor:pointer;
+    border:1px solid var(--line);background:rgba(255,255,255,.04);
+    color:var(--muted);font-weight:800;font-size:13.5px;letter-spacing:.01em;
+    display:inline-flex;align-items:center;gap:7px;
+    transition:all .16s ease;
+  }
+  html[data-theme="light"] .chip{background:rgba(255,255,255,.6)}
+  .chip:hover{color:var(--txt);border-color:var(--line-strong)}
+  .chip[aria-pressed="true"]{
+    color:#fff;border-color:transparent;
+    background:linear-gradient(135deg,#2f8bff,#1657c8);
+    box-shadow:0 6px 18px rgba(40,120,255,.35);
+  }
+  .chip .n{
+    font-size:11px;font-weight:900;opacity:.75;
+    background:rgba(0,0,0,.18);border-radius:999px;padding:2px 6px;min-width:20px;text-align:center;
+  }
+  .chip[aria-pressed="true"] .n{background:rgba(255,255,255,.22);opacity:1}
+
+  /* ---------- main ---------- */
+  main{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:4px 20px 64px}
+  .result-line{
+    display:flex;justify-content:space-between;align-items:baseline;gap:12px;
+    margin:2px 2px 16px;font-size:13px;color:var(--muted);font-weight:700;
+  }
+  .result-line b{color:var(--txt);font-weight:900}
+  .result-line .hint{font-size:12px;font-weight:600;opacity:.8}
+
+  .grid{
+    display:grid;gap:16px;
+    grid-template-columns:repeat(auto-fill,minmax(212px,1fr));
+  }
+  .card{
+    position:relative;border-radius:var(--radius);overflow:hidden;
+    border:1px solid var(--line);
+    background:linear-gradient(180deg,var(--panel-2),var(--panel));
+    box-shadow:var(--shadow);
+    cursor:pointer;text-align:left;
+    transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+    padding:0;display:flex;flex-direction:column;
+    animation:cardIn .38s ease both;
+  }
+  @keyframes cardIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .card:hover{transform:translateY(-4px);border-color:var(--line-strong);
+    box-shadow:0 24px 48px rgba(0,0,0,.5), 0 0 0 1px rgba(110,166,255,.18)}
+  html[data-theme="light"] .card:hover{box-shadow:0 22px 40px rgba(20,50,100,.2)}
+  .card-media{position:relative;aspect-ratio:1/1;overflow:hidden;background:#0a1224}
+  .card-media img{width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+  .card:hover .card-media img{transform:scale(1.05)}
+  .card-media::after{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(180deg,rgba(5,10,24,0) 52%,rgba(5,10,24,.62) 88%,var(--panel-solid) 100%);
+  }
+  html[data-theme="light"] .card-media::after{
+    background:linear-gradient(180deg,rgba(255,255,255,0) 55%,rgba(255,255,255,.55) 88%,var(--panel-solid) 100%);
+  }
+  .role-badge{
+    position:absolute;top:11px;left:11px;z-index:2;
+    font-size:11px;font-weight:900;letter-spacing:.06em;
+    padding:5px 10px;border-radius:999px;color:#fff;
+    background:rgba(8,18,38,.72);border:1px solid rgba(255,255,255,.24);
+    backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  }
+  .fav-btn{
+    position:absolute;top:9px;right:9px;z-index:3;
+    width:38px;height:38px;border-radius:50%;cursor:pointer;
+    border:1px solid rgba(255,255,255,.26);background:rgba(8,18,38,.66);
+    backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+    display:grid;place-items:center;font-size:17px;line-height:1;
+    transition:transform .14s ease, background .14s ease, border-color .14s ease;
+    color:#cfdcf5;
+  }
+  .fav-btn:hover{transform:scale(1.08);border-color:rgba(255,194,74,.7)}
+  .fav-btn[aria-pressed="true"]{
+    background:linear-gradient(135deg,rgba(255,194,74,.92),rgba(255,140,60,.92));
+    border-color:rgba(255,214,120,.9);color:#3a2600;
+    box-shadow:0 4px 16px rgba(255,170,60,.45);
+  }
+  .card-body{padding:2px 15px 15px;display:flex;flex-direction:column;gap:8px;flex:1}
+  .card-name{margin:0;font-size:18.5px;font-weight:900;letter-spacing:-.01em;line-height:1.2}
+  .card-en{
+    font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--cyan);font-weight:800;margin-top:-4px;
+  }
+  .card-tag{
+    font-size:12.5px;color:var(--muted);line-height:1.45;font-weight:600;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+    min-height:36px;
+  }
+  .mini-stats{display:flex;gap:8px;margin-top:auto;padding-top:4px}
+  .mini{flex:1;display:flex;flex-direction:column;gap:4px}
+  .mini span{font-size:9.5px;letter-spacing:.08em;color:var(--muted);font-weight:800;text-transform:uppercase}
+  .mini i{display:block;height:5px;border-radius:999px;background:rgba(140,175,230,.18);overflow:hidden}
+  .mini i b{display:block;height:100%;border-radius:999px;
+    background:linear-gradient(90deg,var(--blue),var(--cyan));}
+  .mini.fire i b{background:linear-gradient(90deg,var(--red),var(--gold))}
+  .mini.str i b{background:linear-gradient(90deg,#7c5cff,var(--blue))}
+
+  /* ---------- empty ---------- */
+  .empty{
+    grid-column:1/-1;text-align:center;padding:64px 20px;
+    border:1px dashed var(--line-strong);border-radius:var(--radius);
+    background:var(--panel);
+  }
+  .empty .big{font-size:40px;margin-bottom:10px}
+  .empty p{margin:0;color:var(--muted);font-weight:700;font-size:14px;line-height:1.6}
+
+  /* ---------- footer ---------- */
+  footer{
+    position:relative;z-index:1;max-width:1180px;margin:0 auto;
+    padding:8px 20px 46px;color:var(--muted);font-size:12px;line-height:1.7;
+    text-align:center;font-weight:600;
+  }
+  footer .install{
+    display:inline-flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center;
+    border:1px solid var(--line);border-radius:999px;padding:9px 16px;
+    background:var(--panel);margin-bottom:10px;
+  }
+  footer .install b{color:var(--txt)}
+
+  /* ---------- modal ---------- */
+  .modal{
+    position:fixed;inset:0;z-index:80;display:none;
+    align-items:flex-start;justify-content:center;
+    padding:24px 16px 40px;overflow-y:auto;
+    background:rgba(3,7,16,.72);
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  }
+  .modal.open{display:flex;animation:fadeIn .18s ease both}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .modal-card{
+    width:min(980px,100%);margin:auto;border-radius:26px;overflow:hidden;
+    border:1px solid var(--line-strong);
+    background:linear-gradient(165deg,var(--panel-solid),var(--panel));
+    box-shadow:0 40px 100px rgba(0,0,0,.65);
+    animation:pop .26s cubic-bezier(.2,.9,.25,1) both;
+  }
+  @keyframes pop{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
+  .modal-hero{position:relative;background:#08101f}
+  .modal-hero img{width:100%;aspect-ratio:16/11;object-fit:cover;object-position:center 18%}
+  .modal-hero::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(4,9,20,0) 45%,rgba(4,9,20,.86) 100%);
+  }
+  html[data-theme="light"] .modal-hero::after{
+    background:linear-gradient(180deg,rgba(255,255,255,0) 45%,rgba(255,255,255,.9) 100%);
+  }
+  .modal-hero .hero-text{
+    position:absolute;left:24px;right:24px;bottom:16px;z-index:2;
+  }
+  .modal-hero .hero-text .role-line{
+    font-size:11.5px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);
+    margin-bottom:4px;
+  }
+  .modal-hero h2{
+    margin:0;font-size:clamp(24px,4.4vw,38px);font-weight:900;line-height:1.08;
+    color:#fff;text-shadow:0 2px 18px rgba(0,0,0,.6);
+  }
+  html[data-theme="light"] .modal-hero h2{color:#0b1a33;text-shadow:0 2px 14px rgba(255,255,255,.9)}
+  .modal-hero .en{
+    font-size:12px;letter-spacing:.22em;text-transform:uppercase;font-weight:800;
+    color:rgba(255,255,255,.72);margin-top:5px;
+  }
+  html[data-theme="light"] .modal-hero .en{color:var(--muted)}
+  .modal-close{
+    position:absolute;top:14px;right:14px;z-index:4;
+    width:42px;height:42px;border-radius:50%;cursor:pointer;
+    border:1px solid rgba(255,255,255,.3);background:rgba(8,18,38,.66);
+    color:#fff;font-size:20px;display:grid;place-items:center;
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    transition:transform .14s ease,background .14s ease;
+  }
+  .modal-close:hover{transform:rotate(90deg);background:rgba(255,77,94,.85)}
+  .hero-fav{
+    position:absolute;top:14px;left:14px;z-index:4;
+    height:42px;padding:0 16px;border-radius:999px;cursor:pointer;
+    border:1px solid rgba(255,255,255,.3);background:rgba(8,18,38,.66);
+    color:#fff;font-size:13px;font-weight:800;display:inline-flex;align-items:center;gap:7px;
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    transition:all .14s ease;
+  }
+  .hero-fav[aria-pressed="true"]{
+    background:linear-gradient(135deg,rgba(255,194,74,.95),rgba(255,140,60,.95));
+    color:#3a2600;border-color:rgba(255,220,140,.9);
+  }
+  .modal-body{padding:22px 26px 30px}
+  .quote{
+    margin:0 0 20px;padding:14px 18px;border-radius:14px;
+    border-left:3px solid var(--blue);
+    background:linear-gradient(90deg,rgba(61,155,255,.14),rgba(61,155,255,0));
+    font-size:15px;font-weight:800;line-height:1.5;
+  }
+  .facts{
+    display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+    margin-bottom:20px;
+  }
+  .fact{
+    border:1px solid var(--line);border-radius:14px;padding:12px 14px;
+    background:var(--panel-2);
+  }
+  .fact dt{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:900;margin-bottom:5px}
+  .fact dd{margin:0;font-size:14px;font-weight:700;line-height:1.45}
+  .sec-title{
+    display:flex;align-items:center;gap:9px;
+    font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--muted);font-weight:900;margin:0 0 12px;
+  }
+  .sec-title::before{
+    content:"";width:4px;height:16px;border-radius:2px;
+    background:linear-gradient(180deg,var(--blue),var(--red));
+  }
+  .stat-block{margin-bottom:24px}
+  .stat-row{display:grid;grid-template-columns:64px 1fr 34px;align-items:center;gap:12px;margin-bottom:9px}
+  .stat-row .lbl{font-size:12.5px;font-weight:800;color:var(--muted)}
+  .stat-track{height:10px;border-radius:999px;background:rgba(140,175,230,.16);overflow:hidden}
+  .stat-fill{height:100%;border-radius:999px;width:0;transition:width .7s cubic-bezier(.2,.8,.2,1)}
+  .stat-row .val{font-size:12.5px;font-weight:900;text-align:right;font-variant-numeric:tabular-nums}
+  .sw-block{display:grid;gap:12px;grid-template-columns:1fr 1fr;margin-bottom:24px}
+  .sw{border-radius:16px;padding:15px 16px;border:1px solid var(--line);background:var(--panel-2)}
+  .sw.good{border-color:rgba(61,155,255,.42);background:linear-gradient(160deg,rgba(61,155,255,.14),var(--panel-2))}
+  .sw.bad{border-color:rgba(255,77,94,.36);background:linear-gradient(160deg,rgba(255,77,94,.12),var(--panel-2))}
+  .sw h4{margin:0 0 6px;font-size:12px;letter-spacing:.1em;font-weight:900;color:var(--muted);text-transform:uppercase}
+  .sw p{margin:0;font-size:13.5px;line-height:1.55;font-weight:650}
+  .tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:24px}
+  .tag{
+    font-size:12px;font-weight:800;padding:6px 11px;border-radius:999px;
+    color:var(--cyan);border:1px solid rgba(111,227,255,.3);
+    background:rgba(61,155,255,.1);
+  }
+  .personality{
+    font-size:14.5px;line-height:1.72;font-weight:600;color:var(--txt);margin:0 0 24px;
+    padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:var(--panel-2);
+  }
+  .eps{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+  .ep{
+    display:flex;gap:14px;padding:15px 16px;border-radius:16px;
+    border:1px solid var(--line);background:var(--panel-2);
+  }
+  .ep .no{
+    flex:none;width:30px;height:30px;border-radius:10px;
+    display:grid;place-items:center;font-size:13px;font-weight:900;color:#fff;
+    background:linear-gradient(135deg,var(--blue),var(--blue-deep));
+    box-shadow:0 4px 12px rgba(40,110,230,.4);
+  }
+  .ep h5{margin:0 0 4px;font-size:14.5px;font-weight:900;line-height:1.3}
+  .ep p{margin:0;font-size:13px;line-height:1.6;color:var(--muted);font-weight:600}
+  .funfact{
+    margin-top:22px;padding:14px 16px;border-radius:16px;
+    border:1px dashed rgba(255,194,74,.5);
+    background:linear-gradient(135deg,rgba(255,194,74,.12),rgba(255,194,74,.03));
+    font-size:13.5px;font-weight:700;line-height:1.6;
+  }
+  .funfact b{color:var(--gold);letter-spacing:.06em;font-size:11.5px;text-transform:uppercase;display:block;margin-bottom:3px}
+
+  @media (max-width:720px){
+    .header-inner{padding:11px 16px 8px;gap:10px}
+    .brand-mark{width:42px;height:42px;border-radius:12px}
+    .brand-sub{display:none}
+    .search-row{padding:0 16px 12px}
+    .filters{padding:0 16px 14px}
+    main{padding:2px 16px 48px}
+    .grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:11px}
+    .card-body{padding:0 12px 12px;gap:6px}
+    .card-name{font-size:16px}
+    .card-tag{font-size:11.5px;min-height:32px}
+    .mini-stats{gap:6px}
+    .modal{padding:0;align-items:stretch}
+    .modal-card{border-radius:0;min-height:100%;border:none}
+    .modal-hero img{aspect-ratio:1/1}
+    .modal-body{padding:18px 18px 40px}
+    .sw-block{grid-template-columns:1fr}
+    .modal-hero .hero-text{left:18px;right:18px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-mark"><img src="./app-icon-192.png" alt="오토봇 도감 엠블럼"></div>
+      <div class="brand-text">
+        <div class="eyebrow">Autobot Archive · Cyberton</div>
+        <h1>오토봇 도감</h1>
+        <div class="brand-sub">사이버트론에서 온 12명의 영웅을 만나 보세요</div>
+      </div>
+    </div>
+    <div class="header-tools">
+      <button class="icon-btn" id="themeBtn" type="button" aria-label="낮/밤 화면 바꾸기" title="낮/밤 화면 바꾸기">🌙</button>
+    </div>
+  </div>
+
+  <div class="search-row">
+    <div class="search-box">
+      <span class="mag" aria-hidden="true">🔍</span>
+      <input id="search" type="search" autocomplete="off" spellcheck="false"
+             placeholder="이름이나 특징으로 찾아보기 (예: 옵티머스, 트럭, 저격)"
+             aria-label="오토봇 검색">
+    </div>
+    <button class="fav-toggle" id="favToggle" type="button" aria-pressed="false">
+      ⭐ 내 최애 <span class="count" id="favCount">0</span>
+    </button>
+  </div>
+
+  <div class="filters" id="filters" role="group" aria-label="역할별 필터"></div>
+</header>
+
+<main>
+  <div class="result-line">
+    <span id="resultText"><b>12</b>명의 오토봇</span>
+    <span class="hint">카드를 누르면 자세히 볼 수 있어요</span>
+  </div>
+  <div class="grid" id="grid"></div>
+</main>
+
+<footer>
+  <div class="install">
+    📲 <b>삼성 인터넷</b>에서 오른쪽 위 <b>⋮</b> → <b>홈 화면에 추가</b>를 누르면 앱처럼 열려요
+  </div>
+  <div>오토봇 도감 · 팬이 만든 어린이용 도감입니다 · 모든 기록은 이 기기에만 저장돼요</div>
+</footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+  <div class="modal-card" id="modalCard">
+    <div class="modal-hero">
+      <img id="mImg" src="" alt="">
+      <button class="hero-fav" id="mFav" type="button" aria-pressed="false">⭐ 최애</button>
+      <button class="modal-close" id="mClose" type="button" aria-label="닫기">✕</button>
+      <div class="hero-text">
+        <div class="role-line" id="mRole"></div>
+        <h2 id="modalTitle"></h2>
+        <div class="en" id="mEn"></div>
+      </div>
+    </div>
+    <div class="modal-body">
+      <p class="quote" id="mQuote"></p>
+      <dl class="facts">
+        <div class="fact"><dt>맡은 역할</dt><dd id="mRoleText"></dd></div>
+        <div class="fact"><dt>변신 모습</dt><dd id="mVehicle"></dd></div>
+        <div class="fact"><dt>대표 무기</dt><dd id="mWeapon"></dd></div>
+        <div class="fact"><dt>상징 컬러</dt><dd id="mColor"></dd></div>
+      </dl>
+
+      <section class="stat-block">
+        <h3 class="sec-title">특성 · 능력치</h3>
+        <div id="mStats"></div>
+      </section>
+
+      <div class="tags" id="mTags"></div>
+
+      <section class="stat-block">
+        <h3 class="sec-title">성격</h3>
+        <p class="personality" id="mPersonality"></p>
+      </section>
+
+      <div class="sw-block">
+        <div class="sw good"><h4>💪 강점</h4><p id="mStrong"></p></div>
+        <div class="sw bad"><h4>⚠️ 약점</h4><p id="mWeak"></p></div>
+      </div>
+
+      <section>
+        <h3 class="sec-title">활약 에피소드</h3>
+        <ol class="eps" id="mEps"></ol>
+      </section>
+
+      <div class="funfact"><b>알고 있나요?</b><span id="mFun"></span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var ROLES = [
+    { key:"all",     label:"전체",       icon:"🤖" },
+    { key:"command", label:"지휘관",     icon:"👑" },
+    { key:"scout",   label:"정찰",       icon:"🔍" },
+    { key:"combat",  label:"전투",       icon:"⚔️" },
+    { key:"medic",   label:"의무/발명",  icon:"🛠️" },
+    { key:"dino",    label:"다이노봇",   icon:"🦖" }
+  ];
+  var ROLE_LABEL = { command:"지휘관", scout:"정찰", combat:"전투", medic:"의무/발명", dino:"다이노봇" };
+  var STAT_DEFS = [
+    { key:"str",  label:"힘",   color:"linear-gradient(90deg,#7a5cff,#3d9bff)" },
+    { key:"spd",  label:"스피드", color:"linear-gradient(90deg,#3d9bff,#6fe3ff)" },
+    { key:"int",  label:"지능", color:"linear-gradient(90deg,#2fb0c9,#8be9c0)" },
+    { key:"cour", label:"용기", color:"linear-gradient(90deg,#ff7a4d,#ffc24a)" },
+    { key:"fire", label:"화력", color:"linear-gradient(90deg,#ff4d5e,#ff9a3d)" }
+  ];
+
+  var BOTS = [
+    {
+      id:"optimus", ko:"옵티머스 프라임", en:"Optimus Prime", role:"command",
+      roleText:"오토봇 총사령관",
+      tagline:"모두의 등불이 되어 앞장서는 오토봇의 리더",
+      quote:"“자유는 모든 생명의 권리다!”",
+      vehicle:"빨간색 대형 세미 트럭",
+      weapon:"에너존 도끼 · 이온 블래스터",
+      color:"빨강 · 파랑 · 은색",
+      stats:{str:10,spd:7,int:10,cour:10,fire:9},
+      tags:["#총사령관","#매트릭스","#에너존도끼","#믿음직한리더"],
+      personality:"책임감이 아주 강하고 마음이 따뜻해요. 싸움이 끝나면 언제나 자기보다 친구들을 먼저 챙기고, 누구에게나 존댓말을 쓰는 신사 같은 리더예요.",
+      strong:"뛰어난 지휘력과 흔들리지 않는 용기. 위험할 때일수록 더 침착하게 모두를 이끌어요.",
+      weak:"친구를 너무 걱정해서 자기 몸을 돌보지 않아요. 또 정직해서 적의 속임수에 걸리기도 해요.",
+      episodes:[
+        {t:"아크 호의 눈뜸", d:"400만 년 동안 잠들어 있던 오토봇들이 지구의 화산 속에서 처음 눈을 뜬 날. 옵티머스는 낯선 지구의 하늘을 보며 동료들에게 말했어요. “이제 우리의 새 집을 지키자.”"},
+        {t:"매트릭스의 빛", d:"오토봇 지도자의 증표인 ‘매트릭스’가 환하게 빛나며 어둠을 밀어낸 순간. 그 빛은 옵티머스의 용기를 모두에게 나눠 주는 등불 같았어요."},
+        {t:"마지막까지 남는 지휘관", d:"모두가 물러난 뒤에도 혼자 남아 친구들을 지켜 낸 장면. 옵티머스는 “먼저 가, 내가 막을게!”라고 말하고 끝까지 자리를 지켰어요."}
+      ],
+      funFact:"매트릭스는 오토봇의 지도자만 들 수 있는, 빛나는 보물이에요."
+    },
+    {
+      id:"bumblebee", ko:"범블비", en:"Bumblebee", role:"scout",
+      roleText:"정찰병 · 인간의 친구",
+      tagline:"작지만 가장 용감한 노란 정찰병",
+      quote:"“작다고 얕보지 마!”",
+      vehicle:"노란색 소형차 (비틀)",
+      weapon:"스팅어 블래스터 · 빠른 몸놀림",
+      color:"노랑 · 검정",
+      stats:{str:5,spd:9,int:7,cour:10,fire:6},
+      tags:["#정찰병","#인간의친구","#노란비틀","#막내"],
+      personality:"장난기 많고 호기심이 많은 막내예요. 겁이 나도 친구가 위험하면 제일 먼저 달려가고, 금방 친해지는 밝은 성격이에요.",
+      strong:"몸집이 작고 빨라서 숨기와 정찰에 최고예요. 좁은 골목도 쏜살같이 지나가며 적의 위치를 알려 줘요.",
+      weak:"힘싸움에서는 큰 로봇을 이기기 어려워요. 가끔 덤벙대서 일을 크게 만들기도 해요.",
+      episodes:[
+        {t:"작은 정찰병의 첫 출동", d:"인간 친구 스파이크를 처음 만난 날. 범블비는 작은 몸으로 골목을 누비며 적의 위치를 하나하나 알려 줘서 모두를 구했어요."},
+        {t:"라디오로 말하는 오토봇", d:"목소리가 고장 나 버린 범블비는 라디오 방송을 이어 붙여 친구들과 대화했어요. 엉뚱한 말이 튀어나올 때마다 모두가 웃음바다가 되었죠."},
+        {t:"가장 용감한 막내", d:"모두가 “위험해!” 하고 말릴 때도 범블비는 친구를 구하러 먼저 달려갔어요. 그날 모두가 범블비를 진짜 영웅이라고 불렀답니다."}
+      ],
+      funFact:"처음에는 노란 비틀이었는데, 영화에서는 멋진 노란 스포츠카로 변신해요."
+    },
+    {
+      id:"ironhide", ko:"아이언하이드", en:"Ironhide", role:"combat",
+      roleText:"무기 담당 · 경비대장",
+      tagline:"몸으로 모두를 지키는 강철 베테랑",
+      quote:"“내 장갑은 절대 뚫리지 않아!”",
+      vehicle:"검은색 픽업 트럭",
+      weapon:"트윈 캐논 · 액체 질소",
+      color:"검정 · 오렌지",
+      stats:{str:10,spd:4,int:6,cour:10,fire:10},
+      tags:["#무기담당","#강철장갑","#베테랑","#투덜이"],
+      personality:"말투는 거칠고 투덜대지만 속은 아주 따뜻한 할아버지 같은 전사예요. 후배들이 다치면 누구보다 화를 내고, 몰래 약을 챙겨 줘요.",
+      strong:"거의 뚫리지 않는 두꺼운 장갑과 오랜 경험에서 나오는 노련함이 무기예요.",
+      weak:"몸이 무거워서 빠르게 움직이지 못해요. 고집이 세서 남의 말을 잘 듣지 않을 때가 있어요.",
+      episodes:[
+        {t:"강철 방패", d:"기지로 밀려오는 적을 홀로 막아선 날. 장갑에 불꽃이 튀어도 아이언하이드는 한 발짝도 물러서지 않았어요."},
+        {t:"액체 질소 작전", d:"뜨겁게 달아오른 적 로봇에게 액체 질소를 뿌려 순식간에 얼려 버린 냉각 작전. 모두가 “와!” 하고 외쳤죠."},
+        {t:"투덜이 할아버지의 선물", d:"새로 온 후배가 다치자 자기 장갑 조각을 떼어 주며 말했어요. “이거라도 발라. 다음엔 조심하고.”"}
+      ],
+      funFact:"손가락 끝에 아주 작은 미사일이 숨어 있어요."
+    },
+    {
+      id:"ratchet", ko:"라쳇", en:"Ratchet", role:"medic",
+      roleText:"의무관 · 수리 박사",
+      tagline:"다친 친구를 살리는 따뜻한 손",
+      quote:"“다쳐도 걱정 마, 내가 고쳐 줄게.”",
+      vehicle:"흰색 구급차",
+      weapon:"수리 도구 · 방어용 블래스터",
+      color:"흰색 · 빨강",
+      stats:{str:6,spd:5,int:9,cour:8,fire:4},
+      tags:["#의무관","#수리박사","#구급차","#걱정쟁이"],
+      personality:"무뚝뚝하고 걱정이 많아 보이지만, 동료가 상처를 입으면 누구보다 먼저 달려가는 다정한 의무관이에요.",
+      strong:"어떤 부상도 고쳐 내는 의료 기술과 침착한 판단력이 있어요. 전투 중에도 정확하게 치료해요.",
+      weak:"전투는 되도록 피하려 해요. 팔 하나가 수리용이라 화력은 약한 편이에요.",
+      episodes:[
+        {t:"구급차가 달려간다", d:"쓰러진 동료를 위해 전장을 가로질러 달려간 라쳇. 적의 공격을 피해 가며 단숨에 수리를 끝냈어요."},
+        {t:"코스믹 러스트를 이겨라", d:"오토봇을 녹슬게 만드는 무서운 병이 퍼졌을 때, 라쳇은 밤을 새워 치료약을 찾아냈어요."},
+        {t:"한 팔로 고친 심장", d:"부품이 모자라자 자기 팔 부품을 떼어 내 동료의 심장을 고쳐 준 날. 그날 라쳇은 조용히 웃기만 했어요."}
+      ],
+      funFact:"말투가 무뚝뚝해서 화난 것처럼 보여도, 사실은 아주 따뜻한 마음이에요."
+    },
+    {
+      id:"jazz", ko:"재즈", en:"Jazz", role:"combat",
+      roleText:"부관 · 특수작전 요원",
+      tagline:"리듬 타는 쿨한 특수작전 요원",
+      quote:"“쿨하게, 신나게, 임무 완수!”",
+      vehicle:"흰색·검정 스포츠카",
+      weapon:"포톤 라이플 · 그라플링 훅",
+      color:"흰색 · 검정 · 파랑",
+      stats:{str:6,spd:9,int:8,cour:9,fire:7},
+      tags:["#부관","#특수작전","#댄스","#쿨가이"],
+      personality:"늘 리듬을 타는 쿨한 성격이에요. 위기에서도 여유를 잃지 않고, 지구의 음악과 춤을 누구보다 좋아해요.",
+      strong:"민첩한 몸놀림과 임기응변. 지구의 문화를 잘 알아서 인간 친구들과도 금방 친해져요.",
+      weak:"장난이 심해서 위험한 순간에도 농담을 해요. 정면 승부보다 기습에 약해요.",
+      episodes:[
+        {t:"도시 한복판의 잠입", d:"적의 기지가 있는 도시에 몰래 들어가 정보를 빼 온 특수 작전. 재즈는 아무도 모르게 임무를 끝냈어요."},
+        {t:"리듬을 타는 전투", d:"음악에 맞춰 춤추듯 적을 피해 다니며 임무를 완수한 장면. 모두가 “저게 싸우는 거야, 춤추는 거야?” 하고 웃었죠."},
+        {t:"부관의 판단", d:"지휘관이 자리를 비운 사이 작전이 틀어졌을 때, 재즈가 재빨리 계획을 바꿔 모두를 구했어요."}
+      ],
+      funFact:"지구의 음악과 춤을 누구보다 좋아해서, 쉬는 시간엔 늘 노래를 흥얼거려요."
+    },
+    {
+      id:"wheeljack", ko:"휠잭", en:"Wheeljack", role:"medic",
+      roleText:"발명가 · 과학자",
+      tagline:"이번엔 진짜 성공할 발명왕",
+      quote:"“이번 발명은… 아마 성공할걸?”",
+      vehicle:"흰색·초록 스포츠카",
+      weapon:"발명품 · 연막 장치 · 렌치",
+      color:"흰색 · 초록 · 빨강",
+      stats:{str:6,spd:7,int:10,cour:7,fire:6},
+      tags:["#발명왕","#다이노봇의아버지","#폭발주의","#천재"],
+      personality:"호기심이 폭발하는 천재 발명가예요. “이번엔 진짜 성공할 거야!”를 입에 달고 살고, 실험이 터져도 웃으며 다시 도전해요.",
+      strong:"무엇이든 만들어 내는 발명 실력. 다이노봇도 휠잭이 만든 작품이에요.",
+      weak:"실험이 자주 펑펑 터져요. 설명이 너무 길어서 친구들이 지칠 때도 있어요.",
+      episodes:[
+        {t:"다이노봇 탄생", d:"공룡 화석을 보고 만든 다섯 대의 공룡 로봇. 처음엔 말을 안 듣던 다이노봇이 휠잭 덕분에 오토봇의 든든한 동료가 되었어요."},
+        {t:"폭발은 실패가 아니야", d:"실험실이 펑 터져도 휠잭은 얼굴에 그을음이 묻은 채 웃었어요. “거의 됐어! 한 번만 더!” 결국 그 발명품이 결정적 도움이 되었죠."},
+        {t:"연막 속의 탈출", d:"적에게 둘러싸였을 때 연막 장치를 터뜨려 모두를 안전하게 빼낸 작전. 휠잭다운 재치였어요."}
+      ],
+      funFact:"말할 때마다 얼굴 양옆의 불빛이 깜빡깜빡해요."
+    },
+    {
+      id:"arcee", ko:"알시", en:"Arcee", role:"combat",
+      roleText:"전사 · 저격수",
+      tagline:"한 발로 끝내는 당찬 여전사",
+      quote:"“한 발이면 충분해.”",
+      vehicle:"분홍색 오토바이",
+      weapon:"에너존 블래스터 · 저격 라이플",
+      color:"분홍 · 흰색",
+      stats:{str:5,spd:9,int:9,cour:10,fire:7},
+      tags:["#여전사","#저격수","#오토바이","#당찬누나"],
+      personality:"당차고 상냥한 누나 같은 성격이에요. 어린 후배들을 끔찍이 아끼고, 위험할 때는 누구보다 빠르게 나서요.",
+      strong:"빠른 판단과 정확한 사격. 좁은 곳에서도 자유자재로 움직여요.",
+      weak:"몸이 가벼워서 큰 충격에는 밀려요. 혼자 앞서 나가다 위험에 빠지기도 해요.",
+      episodes:[
+        {t:"다니엘을 지켜라", d:"어린 인간 친구 다니엘을 적에게서 지켜낸 날. 알시는 오토바이로 변신해 쏜살같이 달려 다니엘을 태우고 도망쳤어요."},
+        {t:"한 발의 저격", d:"아주 먼 곳에 있는 표적을 단 한 발로 정확히 맞혀 위기를 끝냈어요. 모두가 숨을 죽였던 순간이었죠."},
+        {t:"가장 빠른 구조대", d:"무너지는 건물 아래 갇힌 친구를 가장 먼저 찾아간 활약. 알시의 빠른 달리기 덕분에 모두 무사했어요."}
+      ],
+      funFact:"오토봇 중에서 가장 빠른 오토바이로 변신해요."
+    },
+    {
+      id:"prowl", ko:"프롤", en:"Prowl", role:"scout",
+      roleText:"경비대장 · 수사관",
+      tagline:"규칙으로 도시를 지키는 냉철한 수사관",
+      quote:"“규칙을 지키는 것이 모두를 지키는 길.”",
+      vehicle:"흰색·검정 경찰차",
+      weapon:"숄더 캐논 · 산탄총",
+      color:"흰색 · 검정",
+      stats:{str:7,spd:8,int:9,cour:8,fire:7},
+      tags:["#경비대장","#수사관","#경찰차","#원칙주의"],
+      personality:"원칙을 꼭 지키는 성격이에요. 규칙을 어기는 걸 못 참지만, 바로 그 규칙으로 모두를 지켜요.",
+      strong:"냉철한 판단과 뛰어난 전술. 수상한 점을 한눈에 알아채는 관찰력이 있어요.",
+      weak:"융통성이 없어서 계획이 틀어지면 당황해요. 감정 표현이 서툴러 오해를 받기도 해요.",
+      episodes:[
+        {t:"위장 작전을 간파하다", d:"적이 인간으로 변장해 숨어들었을 때, 프롤은 표정 하나만 보고 알아챘어요. “저 사람, 눈빛이 달라.”"},
+        {t:"교통 정리의 달인", d:"도시가 엉망으로 막혔을 때 프롤이 도로를 정리해 오토봇들이 한눈에 이동할 수 있게 했어요."},
+        {t:"규칙으로 지킨 약속", d:"모두가 “이번만은 괜찮아”라고 말했지만, 프롤은 규칙을 지켜 큰 사고를 막아냈어요."}
+      ],
+      funFact:"지구의 경찰차를 처음 봤을 때 “나랑 똑같이 생겼잖아!” 하고 아주 좋아했대요."
+    },
+    {
+      id:"grimlock", ko:"그림록", en:"Grimlock", role:"dino",
+      roleText:"다이노봇 대장",
+      tagline:"티라노로 변신하는 힘 최강 대장",
+      quote:"“나, 그림록! 제일 강하다!”",
+      vehicle:"티라노사우루스",
+      weapon:"에너존 검 · 화염 브레스",
+      color:"금색 · 은색 · 빨강",
+      stats:{str:10,spd:6,int:5,cour:10,fire:9},
+      tags:["#다이노봇대장","#티라노","#파워","#허세"],
+      personality:"“나 그림록, 제일 강하다!” 하고 허세를 부리지만, 사실은 동료가 다치면 누구보다 화를 내는 정 많은 대장이에요.",
+      strong:"압도적인 힘과 겁 없는 돌격. 어떤 벽도 부수고 나아가요.",
+      weak:"머리보다 주먹이 먼저 나가요. 자존심이 세서 지는 걸 못 견뎌요.",
+      episodes:[
+        {t:"공룡 로봇, 첫 변신", d:"휠잭의 실험실에서 티라노사우루스로 처음 변신한 날. 그림록의 우렁찬 포효에 모두가 깜짝 놀랐어요."},
+        {t:"벽을 부수는 대장", d:"길이 막혔을 때 앞장서서 벽을 밀어 버린 그림록. 덕분에 작전이 성공했고, 모두가 박수를 보냈어요."},
+        {t:"말보다 행동", d:"머뭇거리는 동료들을 대신해 먼저 뛰어든 날. “나 따라와!” 한마디면 충분했어요."}
+      ],
+      funFact:"화가 나면 말이 어눌해져서 “나 그림록!” 하고 짧게 말해요."
+    },
+    {
+      id:"ultramagnus", ko:"울트라 매그너스", en:"Ultra Magnus", role:"command",
+      roleText:"부사령관",
+      tagline:"묵직한 한 방으로 임무를 끝내는 부사령관",
+      quote:"“맡은 임무는 반드시 완수한다.”",
+      vehicle:"대형 캐리어 트럭",
+      weapon:"매그너스 해머 · 어깨 미사일",
+      color:"파랑 · 은색 · 빨강",
+      stats:{str:9,spd:6,int:8,cour:9,fire:9},
+      tags:["#부사령관","#매그너스해머","#중장갑","#성실"],
+      personality:"성실하고 겸손한 부사령관이에요. 옵티머스가 없을 때는 조용히 앞에 나서서 모두를 이끌어요.",
+      strong:"두꺼운 장갑과 묵직한 한 방. 맡은 임무는 어떤 일이 있어도 끝까지 해내요.",
+      weak:"자기 의견보다 명령을 따르는 편이라, 스스로 판단해야 할 때 자신감이 부족해요.",
+      episodes:[
+        {t:"지휘관이 쓰러진 날", d:"옵티머스가 쓰러졌을 때 울트라 매그너스가 모두를 이끌고 기지를 지켜냈어요. “내가 맡을게. 걱정 마.”"},
+        {t:"매그너스 해머", d:"거대한 망치 한 방으로 적의 방어막을 무너뜨린 장면. 땅이 울릴 정도였다고 해요."},
+        {t:"가장 성실한 오토봇", d:"아무도 보지 않는 곳에서도 임무를 끝까지 해낸 이야기. 그 성실함이 모두를 살렸어요."}
+      ],
+      funFact:"옵티머스와 똑같이 생긴 커다란 장갑 안에 다른 로봇이 들어 있다는 재미있는 이야기도 있어요."
+    },
+    {
+      id:"hound", ko:"하운드", en:"Hound", role:"combat",
+      roleText:"경비병 · 추적자",
+      tagline:"지구의 자연을 사랑하는 씩씩한 추적자",
+      quote:"“지구의 친구는 내가 지킨다!”",
+      vehicle:"초록색 지프",
+      weapon:"기관총 · 홀로그램 투사기",
+      color:"초록 · 회색",
+      stats:{str:8,spd:6,int:7,cour:9,fire:8},
+      tags:["#경비병","#추적자","#홀로그램","#야외파"],
+      personality:"밝고 씩씩한 야외파예요. 지구의 자연을 사랑하고, 친구를 지키는 일에는 목숨을 걸어요.",
+      strong:"뛰어난 추적 능력과 지구 야생 지식. 홀로그램으로 적을 속이는 재주도 있어요.",
+      weak:"전투를 너무 좋아해서 앞뒤 안 가리고 돌격할 때가 있어요.",
+      episodes:[
+        {t:"홀로그램 작전", d:"가짜 오토봇 홀로그램을 만들어 적을 헷갈리게 한 작전. 적들은 진짜인 줄 알고 한참을 헤맸어요."},
+        {t:"숲속의 추격", d:"발자국과 나뭇가지 흔적만 보고 적을 찾아낸 추적자. 하운드는 지구의 숲을 자기 집처럼 알고 있었어요."},
+        {t:"지구의 친구", d:"야생 동물을 돌봐 주고, 동네 아이들에게 로봇 친구가 되어 준 장면. 아이들이 하운드를 가장 좋아했대요."}
+      ],
+      funFact:"지구의 나무와 동물 이름을 거의 다 외우고 있어요."
+    },
+    {
+      id:"mirage", ko:"미라지", en:"Mirage", role:"scout",
+      roleText:"잠입 요원 · 첩보",
+      tagline:"보이지 않는 곳에서 임무를 끝내는 신사",
+      quote:"“보이지 않는 곳에서 임무를 끝내지.”",
+      vehicle:"파란색 포뮬러 원 경주차",
+      weapon:"전자 디스럽터 레이저 · 홀로그램 분신",
+      color:"파랑 · 흰색",
+      stats:{str:6,spd:10,int:8,cour:8,fire:6},
+      tags:["#잠입요원","#홀로그램","#포뮬러","#신사"],
+      personality:"도도하고 여유로운 신사 같은 성격이에요. 지루한 걸 싫어해서 늘 짓궂은 장난을 준비해 두죠.",
+      strong:"몸을 투명하게 만드는 은폐 능력과 홀로그램 분신. 가장 빠른 경주차로 변신해요.",
+      weak:"혼자 행동하기 좋아해서 팀 작전이 어긋날 때가 있어요. 장난 때문에 위기를 만들기도 해요.",
+      episodes:[
+        {t:"보이지 않는 오토봇", d:"몸을 투명하게 만들어 적의 기지에 숨어든 잠입 작전. 미라지는 숨소리 하나 없이 임무를 끝냈어요."},
+        {t:"홀로그램 분신", d:"여러 개의 가짜 모습을 만들어 적을 속이고 동료를 구한 장면. 적들은 어느 쪽이 진짜인지 몰라 헤맸어요."},
+        {t:"가장 빠른 경주차", d:"포뮬러 원으로 변신해 트랙을 질주하며 중요한 정보를 전달한 활약. 그보다 빠른 오토봇은 없었어요."}
+      ],
+      funFact:"홀로그램으로 진짜 같은 가짜 경주차를 만들어 낼 수 있어요."
+    }
+  ];
+
+  BOTS.forEach(function(b){ b._search = [b.ko,b.en,b.roleText,b.tagline,b.vehicle,b.weapon,b.color,b.personality,b.strong,b.weak,(b.tags||[]).join(" ")].join(" ").toLowerCase(); });
+
+  /* ---------- state ---------- */
+  var FAV_KEY = "autobotDex.favorites.v1";
+  var THEME_KEY = "autobotDex.theme.v1";
+  var favorites = loadFavorites();
+  var state = { role:"all", q:"", favOnly:false };
+
+  function loadFavorites(){
+    try{
+      var raw = localStorage.getItem(FAV_KEY);
+      if(!raw) return [];
+      var arr = JSON.parse(raw);
+      if(!Array.isArray(arr)) return [];
+      return arr.filter(function(v){ return typeof v === "string" && BOTS.some(function(b){return b.id===v;}); });
+    }catch(e){ return []; }
+  }
+  function saveFavorites(){
+    try{ localStorage.setItem(FAV_KEY, JSON.stringify(favorites)); }catch(e){}
+  }
+  function isFav(id){ return favorites.indexOf(id) !== -1; }
+  function toggleFav(id){
+    var i = favorites.indexOf(id);
+    if(i === -1) favorites.push(id); else favorites.splice(i,1);
+    saveFavorites(); render(); syncModalFav();
+  }
+
+  /* ---------- theme ---------- */
+  function applyTheme(t){
+    if(t === "light") document.documentElement.setAttribute("data-theme","light");
+    else document.documentElement.removeAttribute("data-theme");
+    var btn = document.getElementById("themeBtn");
+    if(btn) btn.textContent = (t === "light") ? "☀️" : "🌙";
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if(meta) meta.setAttribute("content", t === "light" ? "#e9f1fc" : "#071226");
+    try{ localStorage.setItem(THEME_KEY, t); }catch(e){}
+  }
+  (function initTheme(){
+    var t = null;
+    try{ t = localStorage.getItem(THEME_KEY); }catch(e){}
+    if(!t && window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) t = "light";
+    applyTheme(t === "light" ? "light" : "dark");
+  })();
+
+  /* ---------- filters ---------- */
+  function buildFilters(){
+    var wrap = document.getElementById("filters");
+    wrap.innerHTML = "";
+    ROLES.forEach(function(r){
+      var n = (r.key === "all") ? BOTS.length : BOTS.filter(function(b){return b.role===r.key;}).length;
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "chip";
+      btn.dataset.role = r.key;
+      btn.setAttribute("aria-pressed", String(state.role === r.key));
+      btn.innerHTML = '<span aria-hidden="true">'+r.icon+'</span>'+r.label+'<span class="n">'+n+'</span>';
+      btn.addEventListener("click", function(){ state.role = r.key; render(); });
+      wrap.appendChild(btn);
+    });
+  }
+
+  /* ---------- render ---------- */
+  function filtered(){
+    var q = state.q.trim().toLowerCase();
+    return BOTS.filter(function(b){
+      if(state.role !== "all" && b.role !== state.role) return false;
+      if(state.favOnly && !isFav(b.id)) return false;
+      if(q && b._search.indexOf(q) === -1) return false;
+      return true;
+    });
+  }
+
+  function statBar(key,val,fmt){
+    var d = STAT_DEFS.filter(function(s){return s.key===key;})[0];
+    return '<div class="mini '+(key==="fire"?"fire":key==="str"?"str":"")+'">'+
+             '<span>'+(fmt||d.label)+'</span>'+
+             '<i><b style="width:'+(val*10)+'%"></b></i>'+
+           '</div>';
+  }
+
+  function cardHTML(b){
+    var fav = isFav(b.id);
+    return '<button class="card" type="button" data-id="'+b.id+'" aria-label="'+b.ko+' 상세 보기">'+
+      '<div class="card-media">'+
+        '<img src="./assets/bots/'+b.id+'.webp" alt="'+b.ko+' 일러스트" width="640" height="640" loading="lazy" decoding="async">'+
+        '<span class="role-badge">'+ROLE_LABEL[b.role]+'</span>'+
+        '<span class="fav-btn" role="button" tabindex="0" data-fav="'+b.id+'" aria-pressed="'+fav+'" aria-label="'+b.ko+' 즐겨찾기">'+(fav?"⭐":"☆")+'</span>'+
+      '</div>'+
+      '<div class="card-body">'+
+        '<h3 class="card-name">'+b.ko+'</h3>'+
+        '<div class="card-en">'+b.en+'</div>'+
+        '<p class="card-tag">'+b.tagline+'</p>'+
+        '<div class="mini-stats">'+statBar("str",b.stats.str,"힘")+statBar("spd",b.stats.spd,"스피드")+statBar("fire",b.stats.fire,"화력")+'</div>'+
+      '</div>'+
+    '</button>';
+  }
+
+  function render(){
+    var list = filtered();
+    var grid = document.getElementById("grid");
+
+    Array.prototype.forEach.call(document.querySelectorAll(".chip"), function(c){
+      c.setAttribute("aria-pressed", String(c.dataset.role === state.role));
+    });
+    var favT = document.getElementById("favToggle");
+    favT.setAttribute("aria-pressed", String(state.favOnly));
+    document.getElementById("favCount").textContent = String(favorites.length);
+
+    if(!list.length){
+      grid.innerHTML = '<div class="empty"><div class="big">🕳️</div><p>'+
+        (state.favOnly ? "아직 최애 오토봇이 없어요.<br>카드의 ☆를 눌러 마음에 드는 오토봇을 골라 보세요!"
+                       : "조건에 맞는 오토봇이 없어요.<br>다른 이름이나 특징으로 찾아보세요!")+'</p></div>';
+    }else{
+      grid.innerHTML = list.map(cardHTML).join("");
+    }
+
+    var rt = document.getElementById("resultText");
+    if(state.q || state.favOnly || state.role !== "all"){
+      rt.innerHTML = '찾은 오토봇 <b>'+list.length+'</b>명 <span style="opacity:.6">/ 전체 '+BOTS.length+'명</span>';
+    }else{
+      rt.innerHTML = '<b>'+BOTS.length+'</b>명의 오토봇';
+    }
+  }
+
+  /* ---------- modal ---------- */
+  var currentId = null;
+  var lastFocus = null;
+
+  function openModal(id){
+    var b = BOTS.filter(function(x){return x.id===id;})[0];
+    if(!b) return;
+    currentId = id;
+    lastFocus = document.activeElement;
+
+    var img = document.getElementById("mImg");
+    img.src = "./assets/bots/"+b.id+".webp";
+    img.alt = b.ko + " 일러스트";
+
+    document.getElementById("mRole").textContent = ROLE_LABEL[b.role] + " · " + b.en;
+    document.getElementById("modalTitle").textContent = b.ko;
+    document.getElementById("mEn").textContent = b.en;
+    document.getElementById("mQuote").textContent = b.quote;
+    document.getElementById("mRoleText").textContent = b.roleText;
+    document.getElementById("mVehicle").textContent = b.vehicle;
+    document.getElementById("mWeapon").textContent = b.weapon;
+    document.getElementById("mColor").textContent = b.color;
+    document.getElementById("mPersonality").textContent = b.personality;
+    document.getElementById("mStrong").textContent = b.strong;
+    document.getElementById("mWeak").textContent = b.weak;
+    document.getElementById("mFun").textContent = b.funFact;
+
+    document.getElementById("mStats").innerHTML = STAT_DEFS.map(function(s){
+      var v = b.stats[s.key] || 0;
+      return '<div class="stat-row">'+
+        '<span class="lbl">'+s.label+'</span>'+
+        '<span class="stat-track"><span class="stat-fill" data-w="'+(v*10)+'" style="background:'+s.color+'"></span></span>'+
+        '<span class="val">'+v+'/10</span>'+
+      '</div>';
+    }).join("");
+
+    document.getElementById("mTags").innerHTML = (b.tags||[]).map(function(t){
+      return '<span class="tag">'+t+'</span>';
+    }).join("");
+
+    document.getElementById("mEps").innerHTML = (b.episodes||[]).map(function(e,i){
+      return '<li class="ep"><span class="no">'+(i+1)+'</span><div><h5>'+e.t+'</h5><p>'+e.d+'</p></div></li>';
+    }).join("");
+
+    syncModalFav();
+
+    var modal = document.getElementById("modal");
+    modal.hidden = false;
+    modal.classList.add("open");
+    modal.scrollTop = 0;
+    document.body.style.overflow = "hidden";
+
+    requestAnimationFrame(function(){
+      Array.prototype.forEach.call(document.querySelectorAll(".stat-fill"), function(el){
+        el.style.width = el.dataset.w + "%";
+      });
+    });
+    document.getElementById("mClose").focus({preventScroll:true});
+  }
+
+  function syncModalFav(){
+    var btn = document.getElementById("mFav");
+    if(!currentId){ btn.setAttribute("aria-pressed","false"); btn.textContent="⭐ 최애"; return; }
+    var f = isFav(currentId);
+    btn.setAttribute("aria-pressed", String(f));
+    btn.textContent = f ? "⭐ 내 최애" : "☆ 최애";
+  }
+
+  function closeModal(){
+    var modal = document.getElementById("modal");
+    modal.classList.remove("open");
+    modal.hidden = true;
+    document.body.style.overflow = "";
+    currentId = null;
+    if(lastFocus && lastFocus.focus) lastFocus.focus({preventScroll:true});
+  }
+
+  /* ---------- events ---------- */
+  document.getElementById("grid").addEventListener("click", function(ev){
+    var favEl = ev.target.closest("[data-fav]");
+    if(favEl){
+      ev.stopPropagation();
+      toggleFav(favEl.dataset.fav);
+      return;
+    }
+    var card = ev.target.closest(".card");
+    if(card) openModal(card.dataset.id);
+  });
+  document.getElementById("grid").addEventListener("keydown", function(ev){
+    var favEl = ev.target.closest("[data-fav]");
+    if(favEl && (ev.key === "Enter" || ev.key === " ")){
+      ev.preventDefault(); ev.stopPropagation(); toggleFav(favEl.dataset.fav);
+    }
+  });
+
+  var searchEl = document.getElementById("search");
+  var searchTimer = null;
+  searchEl.addEventListener("input", function(){
+    clearTimeout(searchTimer);
+    var v = searchEl.value;
+    searchTimer = setTimeout(function(){ state.q = v; render(); }, 90);
+  });
+
+  document.getElementById("favToggle").addEventListener("click", function(){
+    state.favOnly = !state.favOnly;
+    render();
+  });
+
+  document.getElementById("themeBtn").addEventListener("click", function(){
+    var light = document.documentElement.getAttribute("data-theme") === "light";
+    applyTheme(light ? "dark" : "light");
+  });
+
+  document.getElementById("mClose").addEventListener("click", closeModal);
+  document.getElementById("modal").addEventListener("click", function(ev){
+    if(ev.target === this) closeModal();
+  });
+  document.getElementById("mFav").addEventListener("click", function(){
+    if(currentId) toggleFav(currentId);
+  });
+  document.addEventListener("keydown", function(ev){
+    if(ev.key === "Escape" && currentId) closeModal();
+  });
+
+  /* ---------- start ---------- */
+  buildFilters();
+  render();
+
+  /* ---------- service worker ---------- */
+  if("serviceWorker" in navigator){
+    window.addEventListener("load", function(){
+      navigator.serviceWorker.register("./sw.js").catch(function(){});
+    });
+  }
+})();
+</script>
+</body>
+</html>
