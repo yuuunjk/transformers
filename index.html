@@ -316,15 +316,21 @@
     animation:pop .26s cubic-bezier(.2,.9,.25,1) both;
   }
   @media (min-width:900px){
-    .modal-card{display:grid;grid-template-columns:392px minmax(0,1fr);align-items:start}
-    .modal-hero{position:sticky;top:0}
+    .modal-card{display:grid;grid-template-columns:392px minmax(0,1fr);align-items:stretch}
   }
   @keyframes pop{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
-  .modal-hero{position:relative;background:#08101f}
-  .modal-hero img{width:100%;aspect-ratio:1/1;object-fit:cover;object-position:center 30%}
+  .modal-hero{position:relative;background:#08101f;overflow:hidden}
+  .modal-hero::before{
+    content:"";position:absolute;inset:-10%;
+    background:var(--hero-img) center/cover no-repeat;
+    filter:blur(26px) saturate(.85) brightness(.42);
+    transform:scale(1.1);
+  }
+  html[data-theme="light"] .modal-hero::before{filter:blur(26px) saturate(.9) brightness(1.15);opacity:.55}
+  .modal-hero img{position:relative;z-index:1;width:100%;aspect-ratio:1/1;object-fit:cover;object-position:center 30%}
   .modal-hero::after{
-    content:"";position:absolute;inset:0;pointer-events:none;
-    background:linear-gradient(180deg,rgba(4,9,20,.18) 0%,rgba(4,9,20,0) 22%,rgba(4,9,20,0) 76%,rgba(4,9,20,.35) 100%);
+    content:"";position:absolute;inset:0;pointer-events:none;z-index:2;
+    background:linear-gradient(180deg,rgba(4,9,20,.18) 0%,rgba(4,9,20,0) 22%,rgba(4,9,20,0) 72%,var(--panel-solid) 100%);
   }
   .title-block{padding:0 0 18px}
   .title-block .role-line{
@@ -500,7 +506,7 @@
 
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
   <div class="modal-card" id="modalCard">
-    <div class="modal-hero">
+    <div class="modal-hero" id="mHero">
       <img id="mImg" src="" alt="">
       <button class="hero-fav" id="mFav" type="button" aria-pressed="false">⭐ 최애</button>
       <button class="modal-close" id="mClose" type="button" aria-label="닫기">✕</button>
@@ -947,6 +953,7 @@
     var img = document.getElementById("mImg");
     img.src = "./assets/bots/"+b.id+".webp";
     img.alt = b.ko + " 일러스트";
+    document.getElementById("mHero").style.setProperty("--hero-img", 'url("./assets/bots/'+b.id+'.webp")');
 
     document.getElementById("mRole").textContent = ROLE_LABEL[b.role] + " · " + b.en;
     document.getElementById("modalTitle").textContent = b.ko;
