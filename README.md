@@ -12,11 +12,11 @@
 
 ```
 index.html                 앱 전체 (데이터·스타일·스크립트 포함)
-assets/bots/{id}.webp      12명 오토봇 일러스트 640×640
+assets/bots/{id}.webp      12명 오토봇 실사 영화 모습 640×640
 app-icon-180/192/512.png   앱 아이콘
 app-icon-maskable-*.png    마스커블 아이콘
 manifest.webmanifest       name: "오토봇 도감"
-sw.js                      오프라인 캐시 (autobot-dex-v1)
+sw.js                      오프라인 캐시 (autobot-dex-v2)
 screenshots/               화면 캡처
 ```
 
@@ -26,4 +26,4 @@ screenshots/               화면 캡처
 `.nojekyll`이 있어 Jekyll 처리를 건너뜁니다.
 
 즐겨찾기 기록은 서버로 보내지 않고 그 기기의 브라우저 저장소에만 남습니다.
-일러스트는 AI로 생성한 팬 아트이며, 어린이용 팬 도감입니다.
+사진은 영화사·해즈브로가 공개한 공식 스틸·프로모 렌더 이미지를 비영리 어린이 팬 도감 용도로 쓴 것이며, 원본 파일은 Transformers Wiki(tfwiki.net)에서 받았습니다.

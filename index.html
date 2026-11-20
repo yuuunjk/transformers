@@ -906,7 +906,7 @@
     var fav = isFav(b.id);
     return '<button class="card" type="button" data-id="'+b.id+'" aria-label="'+b.ko+' 상세 보기">'+
       '<div class="card-media">'+
-        '<img src="./assets/bots/'+b.id+'.webp" alt="'+b.ko+' 일러스트" width="640" height="640" loading="lazy" decoding="async">'+
+        '<img src="./assets/bots/'+b.id+'.webp" alt="'+b.ko+' 실사 영화 모습" width="640" height="640" loading="lazy" decoding="async">'+
         '<span class="role-badge">'+ROLE_LABEL[b.role]+'</span>'+
         '<span class="fav-btn" role="button" tabindex="0" data-fav="'+b.id+'" aria-pressed="'+fav+'" aria-label="'+b.ko+' 즐겨찾기">'+(fav?"⭐":"☆")+'</span>'+
       '</div>'+
@@ -958,7 +958,7 @@
 
     var img = document.getElementById("mImg");
     img.src = "./assets/bots/"+b.id+".webp";
-    img.alt = b.ko + " 일러스트";
+    img.alt = b.ko + " 실사 영화 모습";
     document.getElementById("mHero").style.setProperty("--hero-img", 'url("./assets/bots/'+b.id+'.webp")');
 
     document.getElementById("mRole").textContent = ROLE_LABEL[b.role] + " · " + b.en;
