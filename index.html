@@ -184,7 +184,7 @@
     display:inline-flex;align-items:center;gap:7px;
     transition:all .16s ease;
   }
-  html[data-theme="light"] .chip{background:rgba(255,255,255,.6)}
+  html[data-theme="light"] .chip:not([aria-pressed="true"]){background:rgba(255,255,255,.6)}
   .chip:hover{color:var(--txt);border-color:var(--line-strong)}
   .chip[aria-pressed="true"]{
     color:#fff;border-color:transparent;
@@ -309,39 +309,35 @@
   .modal.open{display:flex;animation:fadeIn .18s ease both}
   @keyframes fadeIn{from{opacity:0}to{opacity:1}}
   .modal-card{
-    width:min(980px,100%);margin:auto;border-radius:26px;overflow:hidden;
+    width:min(1000px,100%);margin:auto;border-radius:26px;overflow:hidden;
     border:1px solid var(--line-strong);
     background:linear-gradient(165deg,var(--panel-solid),var(--panel));
     box-shadow:0 40px 100px rgba(0,0,0,.65);
     animation:pop .26s cubic-bezier(.2,.9,.25,1) both;
   }
+  @media (min-width:900px){
+    .modal-card{display:grid;grid-template-columns:392px minmax(0,1fr);align-items:start}
+    .modal-hero{position:sticky;top:0}
+  }
   @keyframes pop{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
   .modal-hero{position:relative;background:#08101f}
-  .modal-hero img{width:100%;aspect-ratio:16/11;object-fit:cover;object-position:center 18%}
+  .modal-hero img{width:100%;aspect-ratio:1/1;object-fit:cover;object-position:center 30%}
   .modal-hero::after{
-    content:"";position:absolute;inset:0;
-    background:linear-gradient(180deg,rgba(4,9,20,0) 45%,rgba(4,9,20,.86) 100%);
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(180deg,rgba(4,9,20,.18) 0%,rgba(4,9,20,0) 22%,rgba(4,9,20,0) 76%,rgba(4,9,20,.35) 100%);
   }
-  html[data-theme="light"] .modal-hero::after{
-    background:linear-gradient(180deg,rgba(255,255,255,0) 45%,rgba(255,255,255,.9) 100%);
-  }
-  .modal-hero .hero-text{
-    position:absolute;left:24px;right:24px;bottom:16px;z-index:2;
-  }
-  .modal-hero .hero-text .role-line{
+  .title-block{padding:0 0 18px}
+  .title-block .role-line{
     font-size:11.5px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);
-    margin-bottom:4px;
+    margin-bottom:5px;
   }
-  .modal-hero h2{
-    margin:0;font-size:clamp(24px,4.4vw,38px);font-weight:900;line-height:1.08;
-    color:#fff;text-shadow:0 2px 18px rgba(0,0,0,.6);
+  .title-block h2{
+    margin:0;font-size:clamp(26px,3.8vw,34px);font-weight:900;line-height:1.1;color:var(--txt);
   }
-  html[data-theme="light"] .modal-hero h2{color:#0b1a33;text-shadow:0 2px 14px rgba(255,255,255,.9)}
-  .modal-hero .en{
+  .title-block .en{
     font-size:12px;letter-spacing:.22em;text-transform:uppercase;font-weight:800;
-    color:rgba(255,255,255,.72);margin-top:5px;
+    color:var(--muted);margin-top:6px;
   }
-  html[data-theme="light"] .modal-hero .en{color:var(--muted)}
   .modal-close{
     position:absolute;top:14px;right:14px;z-index:4;
     width:42px;height:42px;border-radius:50%;cursor:pointer;
@@ -449,7 +445,6 @@
     .modal-hero img{aspect-ratio:1/1}
     .modal-body{padding:18px 18px 40px}
     .sw-block{grid-template-columns:1fr}
-    .modal-hero .hero-text{left:18px;right:18px}
   }
   @media (prefers-reduced-motion:reduce){
     *{animation:none!important;transition:none!important}
@@ -509,13 +504,13 @@
       <img id="mImg" src="" alt="">
       <button class="hero-fav" id="mFav" type="button" aria-pressed="false">⭐ 최애</button>
       <button class="modal-close" id="mClose" type="button" aria-label="닫기">✕</button>
-      <div class="hero-text">
+    </div>
+    <div class="modal-body">
+      <div class="title-block">
         <div class="role-line" id="mRole"></div>
         <h2 id="modalTitle"></h2>
         <div class="en" id="mEn"></div>
       </div>
-    </div>
-    <div class="modal-body">
       <p class="quote" id="mQuote"></p>
       <dl class="facts">
         <div class="fact"><dt>맡은 역할</dt><dd id="mRoleText"></dd></div>
