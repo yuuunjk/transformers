@@ -140,7 +140,7 @@
   }
   .search-box .mag{
     position:absolute;left:15px;top:50%;transform:translateY(-50%);
-    font-size:15px;opacity:.75;pointer-events:none;
+    color:var(--muted);pointer-events:none;display:flex;
   }
   #search{
     width:100%;height:48px;border-radius:14px;border:1px solid var(--line);
@@ -482,7 +482,7 @@
 
   <div class="search-row">
     <div class="search-box">
-      <span class="mag" aria-hidden="true">🔍</span>
+      <span class="mag" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.4-4.4"/></svg></span>
       <input id="search" type="search" autocomplete="off" spellcheck="false"
              placeholder="이름이나 특징으로 찾아보기 (예: 옵티머스, 트럭, 저격)"
              aria-label="오토봇 검색">
