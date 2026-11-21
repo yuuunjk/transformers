@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>트랜스포머 | TRANSFORMERS ARCHIVE</title>
-<meta name="description" content="오토봇 12명과 디셉티콘 10명, 22명의 트랜스포머 선수 프로필. 진영·역할·소속·변신 기종·신장·주무장·관계·능력치·활약 작품과 트리비아까지 한눈에!">
+<meta name="description" content="오토봇 12명과 디셉티콘 10명, 22명의 트랜스포머 프로필. 진영·역할·소속·변신 기종·신장·주무장·관계·능력치·활약 에피소드와 숨은 이야기까지 한눈에!">
 <meta name="theme-color" content="#071226">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -797,7 +797,7 @@
       <div class="ap-head">
         <span class="ap-eyebrow">Role Index</span>
         <span class="ap-rule" aria-hidden="true"></span>
-        <span class="ap-cnt" id="apCount"><b>22</b>명 표시</span>
+        <span class="ap-cnt" id="apCount">진영 <b>22</b>명</span>
       </div>
       <div class="filters" id="filters" role="group" aria-label="역할별 필터"></div>
     </div>
@@ -807,7 +807,7 @@
 <main>
   <div class="result-line">
     <span id="resultText"><b>22</b>명의 트랜스포머</span>
-    <span class="hint">카드를 누르면 선수 프로필이 열려요</span>
+    <span class="hint">카드를 누르면 프로필이 열려요</span>
   </div>
   <div class="grid" id="grid"></div>
 </main>
@@ -834,8 +834,8 @@
         <button type="button" data-go="sec-profile">프로필</button>
         <button type="button" data-go="sec-rel">관계</button>
         <button type="button" data-go="sec-stats">능력치</button>
-        <button type="button" data-go="sec-eps">활약 작품</button>
-        <button type="button" data-go="sec-trivia">트리비아</button>
+        <button type="button" data-go="sec-eps">활약 에피소드</button>
+        <button type="button" data-go="sec-trivia">알고 있나요?</button>
       </nav>
 
       <div class="title-block">
@@ -906,16 +906,16 @@
     { key:"decepticon", label:"디셉티콘",  icon:"⚔️" }
   ];
   var ROLES = [
-    { key:"all",     label:"전체",       icon:"🤖" },
+    { key:"all",     label:"역할 전체",   icon:"🤖" },
     { key:"command", label:"지휘관",     icon:"👑" },
     { key:"air",     label:"항공",       icon:"✈️" },
     { key:"scout",   label:"정찰",       icon:"🔍" },
     { key:"combat",  label:"전투",       icon:"⚔️" },
     { key:"science", label:"과학·첩보",  icon:"🔬" },
-    { key:"medic",   label:"의무/발명",  icon:"🛠️" },
+    { key:"medic",   label:"의무·발명",  icon:"🛠️" },
     { key:"dino",    label:"다이노봇",   icon:"🦖" }
   ];
-  var ROLE_LABEL = { command:"지휘관", air:"항공", scout:"정찰", combat:"전투", science:"과학·첩보", medic:"의무/발명", dino:"다이노봇" };
+  var ROLE_LABEL = { command:"지휘관", air:"항공", scout:"정찰", combat:"전투", science:"과학·첩보", medic:"의무·발명", dino:"다이노봇" };
   var FACTION_ICON = { autobot:"🛡️", decepticon:"⚔️" };
   var STAT_DEFS = [
     { key:"str",  label:"힘",   color:"linear-gradient(90deg,#7a5cff,#3d9bff)" },
@@ -1306,7 +1306,7 @@
       id:"mirage", ko:"미라지", en:"Mirage", role:"scout",
       roleText:"잠입 요원 · 첩보 전문가",
       tagline:"보이지 않는 곳에서 임무를 끝내는 신사",
-      quote:"“보이지 않는 곳에서 임무를 끝내지.”",
+      quote:"“어디 있냐고? 바로 네 뒤에 있어.”",
       team:"아크 승무원 · 특수작전대", teamShort:"아크 승무원",
       vehicle:"포르쉐 964 카레라 RS 3.8 (비스트의 서막) · 페라리 458 이탈리아 (다크 오브 더 문, '디노') · 리지에 JS11 F1 (G1)",
       height:"3.8m", heightNote:"영화 《비스트의 서막》 기준 · G1 애니 4m",
@@ -1785,7 +1785,7 @@
     var panel = document.getElementById("archivePanel");
     var cnt = document.getElementById("apCount");
     if(panel) panel.dataset.faction = state.faction;
-    if(cnt) cnt.innerHTML = "<b>" + factionBots().length + "</b>명 표시";
+    if(cnt) cnt.innerHTML = "진영 <b>" + factionBots().length + "</b>명";
   }
 
   /* ---------- render ---------- */
@@ -1809,11 +1809,11 @@
 
   function cardHTML(b){
     var fav = isFav(b.id);
-    return '<button class="card '+b.faction+'" type="button" data-id="'+b.id+'" aria-label="'+b.ko+' 선수 프로필 보기">'+
+    return '<button class="card '+b.faction+'" type="button" data-id="'+b.id+'" aria-label="'+b.ko+' 프로필 보기">'+
       '<div class="card-media">'+
         '<img src="./assets/bots/'+b.id+'.webp" alt="'+b.ko+' 실사 영화 모습" width="640" height="640" loading="lazy" decoding="async">'+
         '<span class="role-badge"><span aria-hidden="true">'+FACTION_ICON[b.faction]+'</span> '+ROLE_LABEL[b.role]+'</span>'+
-        '<span class="fav-btn" role="button" tabindex="0" data-fav="'+b.id+'" aria-pressed="'+fav+'" aria-label="'+b.ko+' 즐겨찾기">'+(fav?"⭐":"☆")+'</span>'+
+        '<span class="fav-btn" role="button" tabindex="0" data-fav="'+b.id+'" aria-pressed="'+fav+'" aria-label="'+b.ko+' 최애">'+(fav?"⭐":"☆")+'</span>'+
       '</div>'+
       '<div class="card-body">'+
         '<h3 class="card-name">'+b.ko+'</h3>'+
