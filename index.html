@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>오토봇 도감 | AUTOBOT ARCHIVE</title>
-<meta name="description" content="사이버트론에서 온 12명의 오토봇 선수 프로필. 역할·소속·변신 차량·신장·주무장·관계·능력치·활약 작품과 트리비아까지 한눈에!">
+<title>트랜스포머 | TRANSFORMERS ARCHIVE</title>
+<meta name="description" content="오토봇 12명과 디셉티콘 10명, 22명의 트랜스포머 선수 프로필. 진영·역할·소속·변신 기종·신장·주무장·관계·능력치·활약 작품과 트리비아까지 한눈에!">
 <meta name="theme-color" content="#071226">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="오토봇 도감">
+<meta name="apple-mobile-web-app-title" content="트랜스포머">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="./app-icon-192.png">
 <link rel="apple-touch-icon" href="./app-icon-180.png">
@@ -190,6 +190,70 @@
     background:rgba(0,0,0,.18);border-radius:999px;padding:2px 6px;min-width:20px;text-align:center;
   }
   .chip[aria-pressed="true"] .n{background:rgba(255,255,255,.22);opacity:1}
+
+  /* ---------- faction layer ---------- */
+  .faction-filters{padding-bottom:10px}
+  .chip.faction-chip{height:42px;padding:0 18px;font-size:14.5px}
+  .chip.faction-autobot{border-color:rgba(61,155,255,.34)}
+  .chip.faction-autobot[aria-pressed="true"]{
+    background:linear-gradient(135deg,#2f8bff,#1657c8);
+    box-shadow:0 6px 20px rgba(40,120,255,.36);
+  }
+  .chip.faction-decepticon{border-color:rgba(168,85,247,.38)}
+  .chip.faction-decepticon:hover{border-color:rgba(196,130,255,.7);color:#e6d4ff}
+  .chip.faction-decepticon[aria-pressed="true"]{
+    background:linear-gradient(135deg,#a855f7,#b91f43);
+    box-shadow:0 6px 20px rgba(150,40,190,.42);
+  }
+  .chip.faction-decepticon[aria-pressed="true"] .n{background:rgba(255,255,255,.24)}
+
+  .card.decepticon{
+    border-color:rgba(168,85,247,.3);
+    background:linear-gradient(180deg,rgba(40,22,64,.74),var(--panel));
+  }
+  .card.decepticon:hover{
+    border-color:rgba(190,120,255,.62);
+    box-shadow:0 24px 48px rgba(24,0,40,.6), 0 0 0 1px rgba(168,85,247,.28);
+  }
+  .card.decepticon .role-badge{
+    background:linear-gradient(135deg,rgba(92,32,150,.82),rgba(140,22,48,.8));
+    border-color:rgba(214,170,255,.5);
+  }
+  .card.decepticon .card-en{color:#cfa9ff}
+  .card.decepticon .mini i b{background:linear-gradient(90deg,#a855f7,#ff5b7c)}
+  .card.decepticon .mini.fire i b{background:linear-gradient(90deg,#ff4d5e,#ffb03a)}
+  .card.decepticon .mini.str i b{background:linear-gradient(90deg,#7a3cff,#c06bff)}
+
+  .modal-card.decepticon{border-color:rgba(168,85,247,.46)}
+  .modal-card.decepticon .role-line{color:#cfa9ff}
+  .modal-card.decepticon .sec-title::before{background:linear-gradient(180deg,#a855f7,#ff4d5e)}
+  .modal-card.decepticon .sec-title .n{color:#e2ccff;border-color:rgba(168,85,247,.42);background:rgba(168,85,247,.13)}
+  .modal-card.decepticon .quote{
+    border-left-color:#a855f7;
+    background:linear-gradient(90deg,rgba(168,85,247,.2),rgba(168,85,247,0));
+  }
+  .modal-card.decepticon .profile-head{
+    background:linear-gradient(90deg,rgba(168,85,247,.2),rgba(255,77,94,.1));
+  }
+  .modal-card.decepticon .profile-head .p-label{color:#d7bbff}
+  .modal-card.decepticon .rel.duo{
+    border-color:rgba(168,85,247,.46);
+    background:linear-gradient(160deg,rgba(168,85,247,.16),var(--panel-2));
+  }
+  .modal-card.decepticon .sw.good{
+    border-color:rgba(168,85,247,.44);
+    background:linear-gradient(160deg,rgba(168,85,247,.14),var(--panel-2));
+  }
+  .modal-card.decepticon .ep .no{
+    background:linear-gradient(135deg,#a855f7,#7c1030);
+    box-shadow:0 4px 12px rgba(120,20,160,.48);
+  }
+  .modal-card.decepticon .tag{color:#ddc2ff;border-color:rgba(168,85,247,.36);background:rgba(168,85,247,.13)}
+  .modal-card.decepticon .modal-nav button:active{background:rgba(168,85,247,.2);color:#fff}
+  .modal-card.decepticon .trivia li{
+    border-color:rgba(214,170,255,.42);
+    background:linear-gradient(135deg,rgba(168,85,247,.1),rgba(255,77,94,.04));
+  }
 
   /* ---------- main ---------- */
   main{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:4px 20px 64px}
@@ -591,11 +655,11 @@
 <header class="site-header">
   <div class="header-inner">
     <div class="brand">
-      <div class="brand-mark"><img src="./app-icon-192.png" alt="오토봇 도감 엠블럼"></div>
+      <div class="brand-mark"><img src="./app-icon-192.png" alt="트랜스포머 엠블럼"></div>
       <div class="brand-text">
-        <div class="eyebrow">Autobot Archive · Cyberton</div>
-        <h1>오토봇 도감</h1>
-        <div class="brand-sub">사이버트론에서 온 12명의 영웅, 선수 프로필로 만나 보세요</div>
+        <div class="eyebrow">Transformers Archive · Cybertron</div>
+        <h1>트랜스포머</h1>
+        <div class="brand-sub">오토봇 12명 + 디셉티콘 10명, 22명의 전사를 선수 프로필로 만나 보세요</div>
       </div>
     </div>
     <div class="header-tools">
@@ -607,27 +671,28 @@
     <div class="search-box">
       <span class="mag" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.4-4.4"/></svg></span>
       <input id="search" type="search" autocomplete="off" spellcheck="false"
-             placeholder="이름·차량·작품으로 찾아보기 (예: 피터빌트, 프라임, 1984)"
-             aria-label="오토봇 검색">
+             placeholder="이름·변신 기종·작품으로 찾아보기 (예: 피터빌트, 메가트론, 2007)"
+             aria-label="트랜스포머 검색">
     </div>
     <button class="fav-toggle" id="favToggle" type="button" aria-pressed="false">
       ⭐ 내 최애 <span class="count" id="favCount">0</span>
     </button>
   </div>
 
+  <div class="filters faction-filters" id="factionFilters" role="group" aria-label="진영 필터"></div>
   <div class="filters" id="filters" role="group" aria-label="역할별 필터"></div>
 </header>
 
 <main>
   <div class="result-line">
-    <span id="resultText"><b>12</b>명의 오토봇</span>
+    <span id="resultText"><b>22</b>명의 트랜스포머</span>
     <span class="hint">카드를 누르면 선수 프로필이 열려요</span>
   </div>
   <div class="grid" id="grid"></div>
 </main>
 
 <footer>
-  <div>오토봇 도감 · 팬이 만든 어린이용 도감입니다 · 모든 기록은 이 기기에만 저장돼요</div>
+  <div>트랜스포머 도감 · 팬이 만든 어린이용 도감입니다 · 모든 기록은 이 기기에만 저장돼요</div>
   <div>설정 참고: Transformers Wiki(TFWiki)와 각 작품의 공식 설정</div>
 </footer>
 
@@ -661,10 +726,10 @@
       <p class="quote" id="mQuote"></p>
 
       <section class="sec" id="sec-profile">
-        <h3 class="sec-title">오토봇 프로필 <span class="n" id="mDebutBadge"></span></h3>
+        <h3 class="sec-title"><span id="mProfileTitle">오토봇 프로필</span> <span class="n" id="mDebutBadge"></span></h3>
         <div class="profile">
           <div class="profile-head">
-            <span class="p-label">Autobot Profile</span>
+            <span class="p-label" id="mProfileLabel">Autobot Profile</span>
             <span class="p-num" id="mProfileNo"></span>
           </div>
           <div class="profile-grid" id="mProfile"></div>
@@ -714,15 +779,23 @@
 (function(){
   "use strict";
 
+  var FACTIONS = [
+    { key:"all",        label:"전체",      icon:"🌐" },
+    { key:"autobot",    label:"오토봇",    icon:"🛡️" },
+    { key:"decepticon", label:"디셉티콘",  icon:"⚔️" }
+  ];
   var ROLES = [
     { key:"all",     label:"전체",       icon:"🤖" },
     { key:"command", label:"지휘관",     icon:"👑" },
+    { key:"air",     label:"항공",       icon:"✈️" },
     { key:"scout",   label:"정찰",       icon:"🔍" },
     { key:"combat",  label:"전투",       icon:"⚔️" },
+    { key:"science", label:"과학·첩보",  icon:"🔬" },
     { key:"medic",   label:"의무/발명",  icon:"🛠️" },
     { key:"dino",    label:"다이노봇",   icon:"🦖" }
   ];
-  var ROLE_LABEL = { command:"지휘관", scout:"정찰", combat:"전투", medic:"의무/발명", dino:"다이노봇" };
+  var ROLE_LABEL = { command:"지휘관", air:"항공", scout:"정찰", combat:"전투", science:"과학·첩보", medic:"의무/발명", dino:"다이노봇" };
+  var FACTION_ICON = { autobot:"🛡️", decepticon:"⚔️" };
   var STAT_DEFS = [
     { key:"str",  label:"힘",   color:"linear-gradient(90deg,#7a5cff,#3d9bff)" },
     { key:"spd",  label:"스피드", color:"linear-gradient(90deg,#3d9bff,#6fe3ff)" },
@@ -736,6 +809,7 @@
     g1:    { t:"애니 《트랜스포머 G1》",        k:"anime", y:"1984" },
     mov86: { t:"영화 《트랜스포머 더 무비》",   k:"movie", y:"1986" },
     mov07: { t:"영화 《트랜스포머》",           k:"movie", y:"2007" },
+    rotf:  { t:"영화 《트랜스포머: 패자의 역습》", k:"movie", y:"2009" },
     prime: { t:"애니 《트랜스포머 프라임》",    k:"anime", y:"2010" },
     dotm:  { t:"영화 《트랜스포머: 다크 오브 더 문》", k:"movie", y:"2011" },
     aoe:   { t:"영화 《트랜스포머: 사라진 시대》",     k:"movie", y:"2014" },
@@ -746,7 +820,7 @@
     one:   { t:"영화 《트랜스포머 ONE》",       k:"movie", y:"2024" }
   };
 
-  var BOTS = [
+  var AUTOBOTS = [
     {
       id:"optimus", ko:"옵티머스 프라임", en:"Optimus Prime", role:"command",
       roleText:"오토봇 총사령관",
@@ -1142,6 +1216,336 @@
     }
   ];
 
+  var DECEPTICONS = [
+    {
+      id:"megatron", ko:"메가트론", en:"Megatron", role:"command", faction:"decepticon",
+      roleText:"디셉티콘 총사령관",
+      tagline:"사이버트론을 다시 세우려는 철의 지배자",
+      quote:"“약한 자를 위해 싸우니까 지는 거다!”",
+      team:"디셉티콘 최고사령부 · 네메시스", teamShort:"디셉티콘 군단",
+      vehicle:"사이버트론 제트 (2007) · 실버커리언 탱크 (패자의 역습) · 맥 탱커 트럭 (다크 오브 더 문) · 기사단 제트 (최후의 기사)",
+      height:"약 10m", heightNote:"영화 CG 모델의 화면 비율로 어림한 값 · 작품마다 체형이 달라요",
+      color:"은색 · 검정 · 보라 (눈은 붉은빛)",
+      weapon:"퓨전 캐논 · 에너존 메이스 · 체인 블레이드",
+      gear:"스파크 흡수 · 매트릭스 강탈 시도 · 디셉티콘 전 군 지휘",
+      first:"mov07", debutYear:"2007", debutWork:"영화 《트랜스포머》",
+      partner:{ n:"사운드웨이브", d:"지구 어디서든 정보를 가져오는 참모. 메가트론이 사운드웨이브를 곁에 두는 이유는 충성이 아니라, 실패를 숨기지 않고 그대로 보고하는 무서운 정확함 때문이다." },
+      rival:{ n:"옵티머스 프라임", d:"사이버트론에서 형제처럼 지낸 사이. 서로의 마지막 한 방을 가장 잘 알기에, 두 사람이 마주치면 전쟁의 운명이 갈린다." },
+      combat:"압도적인 완력과 화력으로 정면을 그냥 밀어버리는 돌파형. 필요하면 부하를 방패로 세우는 냉혹함까지 갖췄다.",
+      stats:{str:10,spd:6,int:9,cour:9,fire:10},
+      tags:["#총사령관","#퓨전캐논","#아이스맨","#철의지배자","#숙적"],
+      personality:"자기 목표 앞에서는 부하도, 자기 행성도, 심지어 자기 스파크도 아끼지 않는 지배자예요. 말투는 늘 명령조이고, 이기기 위해서라면 어떤 수든 씁니다. 그런데 그 집념의 끝에는 ‘사이버트론을 다시 세우겠다’는 목표가 숨어 있어요.",
+      strong:"상대를 압도하는 힘과 화력, 그리고 수천 년을 내다보는 계획. 한 번 정한 목표는 반드시 이루고야 맙니다.",
+      weak:"목표만 보느라 주변을 놓쳐요. 부하를 도구로 여기기 때문에 결정적인 순간에 혼자 남는 일이 많아요.",
+      episodes:[
+        { t:"북극의 얼음 아래에서", d:"알스파크를 혼자 쫓아가다 북극에 추락한 메가트론은 수십 년 동안 얼음 속에 잠들어 있었어요. 섹터 세븐은 그를 ‘아이스맨’이라 부르며 비밀 기지에 숨겼죠. 프렌지가 보내온 정보 덕분에 얼음이 녹으면서, 지구 최악의 손님이 다시 깨어납니다.", src:["mov07"] },
+        { t:"미션 시티, 마지막 한 방", d:"알스파크를 손에 넣으려고 도시 한복판을 불바다로 만든 메가트론. 옵티머스가 샘을 지키는 동안 두 거인이 빌딩 사이에서 맞붙었어요. “약한 자를 위해 싸우니까 지는 거다!” 메가트론은 그렇게 외치며 마지막 힘을 쏟아 냈답니다.", src:["mov07"] },
+        { t:"심해에서 다시 일어나다", d:"로렌시아 심연에 가라앉은 몸이 알스파크 조각의 힘으로 되살아났어요. 숲에서 옵티머스와 맞붙은 메가트론은 “이번엔 내가 이긴다”며 덤벼들었고, 그 전투에서 옵티머스는 목숨을 잃을 뻔했죠.", src:["rotf"] },
+        { t:"시카고의 마지막 불꽃", d:"《다크 오브 더 문》에서 메가트론은 부상당한 몸으로도 시카고를 장악하려 했어요. 하지만 마지막 순간, 그는 자기보다 약해 보이는 인간의 말 한마디에 흔들렸고, 그 틈을 옵티머스가 놓치지 않았답니다.", src:["dotm"] },
+        { t:"용의 왕, 다시 날다", d:"《최후의 기사》에서 메가트론은 퀸테사의 힘으로 다시 깨어나 날개 달린 기사가 되었어요. “이번에는 반드시”라며 옵티머스를 노렸지만, 끝내 승리는 그의 것이 되지 못했죠.", src:["tlk"] }
+      ],
+      trivia:[
+        "2007년 영화에서 메가트론의 목소리를 맡은 배우는 《매트릭스》의 휴고 위빙이에요. 그래서 그해 메가트론의 말투가 유난히 느리고 위압적이었답니다.",
+        "메가트론이 변신하는 모습은 작품마다 달라요. 2007년에는 외계 제트, 《패자의 역습》에서는 탱크, 《다크 오브 더 문》에서는 맥 트럭이에요.",
+        "이름은 그리스어로 ‘거대한’을 뜻하는 메가(mega)와 ‘전자’를 뜻하는 트론(tron)을 합친 말이에요. 그래서 이름만 들어도 벌써 악당 같죠?"
+      ]
+    },
+    {
+      id:"starscream", ko:"스타스크림", en:"Starscream", role:"air", faction:"decepticon",
+      roleText:"디셉티콘 공군 사령관",
+      tagline:"하늘을 지배하려는 자존심 강한 2인자",
+      quote:"“겁쟁이는 살아남는 법이지.”",
+      team:"디셉티콘 공군 · 시커 부대", teamShort:"디셉티콘 공군",
+      vehicle:"F-22 랩터 (2007 · 다크 오브 더 문) · 사이버트론 제트 (범블비 2018)",
+      height:"약 9m", heightNote:"영화 CG 모델의 화면 비율로 어림한 값",
+      color:"은색 · 회색 (눈은 붉은빛)",
+      weapon:"개틀링 캐논 · 공대지 미사일 · 발톱",
+      gear:"초음속 비행 · 공중 폭격 · 살아남는 눈치",
+      first:"mov07", debutYear:"2007", debutWork:"영화 《트랜스포머》",
+      partner:{ n:"블랙아웃 · 바리케이드", d:"메가트론이 사라진 동안 지구에 남은 디셉티콘을 이끈 공군 사령관과 지상 사냥꾼들. 서로를 믿지는 않지만 함께 움직이면 하늘과 땅이 동시에 위험해진다." },
+      rival:{ n:"메가트론", d:"충성하는 척하지만 늘 다음 자리를 노린다. 메가트론도 그걸 알기에 스타스크림을 곁에 두면서도 사운드웨이브에게 감시를 시킨다." },
+      combat:"공중에서 내려찍고 다시 솟구치는 히트 앤 런형. 정면 승부보다 고도와 속도로 이점을 만든 뒤 한 번에 급소를 노린다.",
+      stats:{str:7,spd:10,int:8,cour:6,fire:8},
+      tags:["#공군사령관","#F22","#자존심","#배신의달인","#최고속도"],
+      personality:"자존심이 아주 강하고, 자기가 옳다고 믿는 일에는 좀처럼 물러서지 않아요. 겉으로는 메가트론에게 충성하는 척하지만 속으로는 늘 ‘내가 더 나은 지도자’라고 생각하죠. 위험해지면 재빨리 빠져나가는 것도 잊지 않아요.",
+      strong:"압도적인 비행 능력과 화려한 공중 전술. 어떤 상황에서도 살아남는 눈치가 있어요.",
+      weak:"충성이 아니라 계산으로 움직여서 결정적인 순간에 아군을 버려요. 자존심 때문에 위험한 승부를 걸기도 합니다.",
+      episodes:[
+        { t:"미션 시티의 하늘을 점령하다", d:"2007년, 오토봇들이 도시에 모인 틈을 타 스타스크림은 F-22 편대를 뚫고 하늘에서 내려와 거리를 폭격했어요. 인간 군인들은 그가 진짜 전투기인 줄 알고 한참을 헤맸답니다.", src:["mov07"] },
+        { t:"부활한 주인에게 목이 잡히다", d:"《패자의 역습》에서 스타스크림은 메가트론이 돌아오지 않길 바랐어요. 하지만 사운드웨이브가 그 마음을 그대로 보고했고, 되살아난 메가트론은 스타스크림의 목을 붙잡아 들어 올렸죠. “내가 없는 동안 잘 지냈나?”", src:["rotf"] },
+        { t:"시카고, 마지막 비행", d:"《다크 오브 더 문》에서 스타스크림은 시카고 상공을 누비며 오토봇을 괴롭혔어요. 하지만 마지막 결전에서 옵티머스와 정면으로 맞붙었고, 그 싸움에서 다시는 날지 못하게 되었답니다.", src:["dotm"] },
+        { t:"사이버트론의 마지막 하늘", d:"《범블비》의 사이버트론 전투 장면에서 스타스크림은 디셉티콘의 제트 부대를 이끌고 하늘을 뒤덮었어요. 고향이 무너지는 순간에도 그는 여전히 하늘의 주인이었죠.", src:["bee"] }
+      ],
+      trivia:[
+        "스타스크림이 변신하는 F-22 랩터는 실제 미 공군의 스텔스 전투기예요. 영화에서는 진짜 전투기처럼 보이도록 실제 촬영 장면에 CG를 겹쳐 만들었답니다.",
+        "2007년 영화에서 스타스크림의 목소리를 맡은 배우는 찰리 애들러예요. G1 애니메이션에서는 크리스 라타가 맡아, 특유의 지르는 듯한 목소리로 유명해졌죠.",
+        "이름은 ‘별(star)’과 ‘비명(scream)’을 합친 말이에요. 하늘에서 비명을 지르며 내려온다는 뜻이 담겨 있답니다."
+      ]
+    },
+    {
+      id:"soundwave", ko:"사운드웨이브", en:"Soundwave", role:"science", faction:"decepticon",
+      roleText:"통신·정보 참모",
+      tagline:"우주에서 모든 대화를 엿듣는 정보의 왕",
+      quote:"“지구에서 움직이는 모든 것을 나는 보고 듣는다.”",
+      team:"디셉티콘 정보부 · 네메시스", teamShort:"디셉티콘 정보부",
+      vehicle:"궤도 위성 (패자의 역습) · 메르세데스-벤츠 SLS AMG (다크 오브 더 문) · 사이버트론 전투기 (범블비 2018)",
+      height:"약 6.5m", heightNote:"영화 CG 모델의 화면 비율로 어림한 값",
+      color:"은청색 · 남색 (바이저는 붉은빛)",
+      weapon:"소닉 캐논 · 금속 촉수 · 미니콘 사출",
+      gear:"전 지구 통신 감청 · 레이저버드·래비지 사출 · 정보 조작",
+      first:"rotf", debutYear:"2009", debutWork:"영화 《트랜스포머: 패자의 역습》",
+      partner:{ n:"레이저버드 · 래비지", d:"몸속에서 튀어나오는 미니콘 부대. 하늘을 나는 레이저버드는 암살을, 그림자처럼 움직이는 래비지는 잠입을 맡는다. 사운드웨이브의 눈과 귀가 되어 준다." },
+      rival:{ n:"범블비", d:"《다크 오브 더 문》에서 사운드웨이브는 범블비의 친구들을 노렸고, 두 로봇은 도시 한복판에서 마지막으로 맞붙었다. 정보의 왕과 정찰병의 대결이었다." },
+      combat:"싸움보다 정보로 이기는 참모형. 하지만 소닉 캐논이 터지면 지구의 전파가 통째로 흔들릴 만큼 강력하다.",
+      stats:{str:6,spd:7,int:10,cour:7,fire:8},
+      tags:["#정보참모","#위성감청","#미니콘","#소닉캐논","#냉정"],
+      personality:"감정을 거의 드러내지 않는 냉정한 참모예요. 목소리는 낮고 느릿하지만, 그가 보내는 정보 한 줄에 전쟁의 방향이 바뀌죠. 부하의 실패도 숨기지 않고 그대로 보고하는 무서운 성실함이 있어요.",
+      strong:"행성 하나의 통신을 감청하는 정보력과, 몸속에서 미니콘을 꺼내 쓰는 재주.",
+      weak:"대기권 밖에서는 소닉 캐논을 쓸 수 없어요. 직접 싸우는 일에는 약한 편이에요.",
+      episodes:[
+        { t:"위성에서 지구를 엿보다", d:"사운드웨이브는 지구 궤도에 떠 있는 위성을 붙잡아, 인류의 모든 통화와 군사 통신을 듣기 시작했어요. “지구에서 움직이는 모든 것을 나는 보고 듣는다.” 그 말은 과장이 아니었답니다.", src:["rotf"] },
+        { t:"래비지를 지구로 내려보내다", d:"디에고 가르시아 기지에 알스파크 조각이 있다는 걸 알아낸 사운드웨이브는 래비지를 사출했어요. 작은 표범 로봇이 밤이 되자 몰래 기지에 들어가 조각을 훔쳐 나왔고, 그 조각이 메가트론을 되살렸죠.", src:["rotf"] },
+        { t:"메르세데스로 위장한 첩보왕", d:"《다크 오브 더 문》에서 사운드웨이브는 근사한 은색 스포츠카로 변신해 인간들 사이에 숨어들었어요. 겉모습은 평범한 자동차지만, 안에서는 지구의 모든 대화가 흘러 들어왔답니다.", src:["dotm"] },
+        { t:"레이저버드의 사냥", d:"사운드웨이브는 레이저버드를 풀어 인간 아이들을 납치하게 했어요. 작은 새 로봇이 창문을 뚫고 들어오는 장면은 《다크 오브 더 문》에서 가장 무서운 장면 중 하나로 꼽힙니다.", src:["dotm"] },
+        { t:"사이버트론의 붉은 바이저", d:"《범블비》의 사이버트론 장면에서 사운드웨이브는 오토봇들을 향해 소닉 캐논을 쏘아 대며 고향을 지켰어요. 그때의 모습은 G1 애니메이션의 사운드웨이브를 그대로 떠올리게 한답니다.", src:["bee"] }
+      ],
+      trivia:[
+        "사운드웨이브의 목소리는 G1 시절부터 프랭크 웰커가 맡았어요. 《패자의 역습》과 《다크 오브 더 문》에서도 그가 목소리를 이어 갔답니다.",
+        "《다크 오브 더 문》에서 사운드웨이브가 변신하는 차는 메르세데스-벤츠 SLS AMG예요. 위로 열리는 ‘갈매기 날개’ 문이 아주 인상적이죠.",
+        "이름은 ‘소리(sound)’와 ‘파동(wave)’을 합친 말이에요. 소리로 정보를 다루는 캐릭터에게 딱 맞는 이름이죠."
+      ]
+    },
+    {
+      id:"shockwave", ko:"쇼크웨이브", en:"Shockwave", role:"science", faction:"decepticon",
+      roleText:"디셉티콘 과학자 · 처형자",
+      tagline:"감정 없이 계산만 하는 외눈의 처형자",
+      quote:"“감정은 계산을 방해할 뿐이다.”",
+      team:"디셉티콘 과학부 · 사이버트론 수비대", teamShort:"디셉티콘 과학부",
+      vehicle:"사이버트론 전차 (다크 오브 더 문) · 거대 드릴 웜 ‘드릴러’와 함께 다님",
+      height:"약 10m", heightNote:"영화 CG 모델의 화면 비율로 어림한 값 · 드릴러는 그보다 훨씬 거대해요",
+      color:"자주색 · 회색 (얼굴에는 붉은 외눈)",
+      weapon:"아스트로매그 캐논 (팔에 장착) · 블레이드",
+      gear:"드릴러 조종 · 냉철한 논리 · 중장갑",
+      first:"dotm", debutYear:"2011", debutWork:"영화 《트랜스포머: 다크 오브 더 문》",
+      partner:{ n:"드릴러", d:"땅속을 뚫고 다니는 거대 벌레 로봇. 쇼크웨이브가 손짓 한 번이면 건물을 무너뜨리러 나타난다. 둘이 함께 있는 곳에는 땅이 갈라진다." },
+      rival:{ n:"옵티머스 프라임", d:"쇼크웨이브는 옵티머스를 ‘가장 이해하기 어려운 적’이라 여긴다. 반대로 옵티머스는 그를 “감정도 자비도 없는 처형자”라고 부른다." },
+      combat:"지형을 뚫고 나타나 압도적인 화력으로 밀어붙이는 포격형. 팔의 캐논 한 방은 건물 벽을 그대로 무너뜨린다.",
+      stats:{str:9,spd:5,int:10,cour:9,fire:10},
+      tags:["#외눈","#아스트로매그","#드릴러","#논리파","#처형자"],
+      personality:"감정을 완전히 지운 냉혈한이에요. 이기고 지는 것보다 ‘논리적으로 옳은가’를 먼저 따지고, 그 계산대로 움직이죠. 목소리가 아주 낮고 느려서, 그가 말을 시작하면 주변이 조용해진답니다.",
+      strong:"압도적인 중장갑과 팔 하나로 건물을 부수는 화력. 무엇보다 흔들리지 않는 냉철한 판단이 강점이에요.",
+      weak:"감정이 없어서 부하의 마음을 이해하지 못해요. 느린 몸으로 인해 좁은 곳에서는 불리해요.",
+      episodes:[
+        { t:"체르노빌의 함정", d:"오토봇들을 체르노빌로 불러들인 것은 쇼크웨이브의 함정이었어요. 진짜 목표는 아크 호의 연료 전지였고, 그는 드릴러 속에 숨어 있다가 옵티머스 앞에 모습을 드러냈죠. 옵티머스는 그를 보고 크게 놀랐답니다.", src:["dotm"] },
+        { t:"드릴러와 함께 땅을 뚫다", d:"시카고 침공에서 쇼크웨이브는 드릴러와 함께 아스팔트 아래에서 튀어나왔어요. 거대한 벌레가 옵티머스의 트레일러를 끌고 가고, 쇼크웨이브는 그 뒤를 천천히 걸어 나왔죠.", src:["dotm"] },
+        { t:"레커즈를 상대하다", d:"레커즈가 쇼크웨이브를 막으러 왔지만, 그는 차 한 대를 방패처럼 들어 올려 총알을 막았어요. 그리고 천천히 걸어가며 그들을 쫓아냈답니다.", src:["dotm"] },
+        { t:"드릴러를 잃고 분노하다", d:"옵티머스가 비행 장비로 드릴러를 쓰러뜨리자, 쇼크웨이브는 처음으로 감정을 드러냈어요. 펫을 잃은 분노에 옵티머스에게 달려들었지만, 그 분노가 오히려 그의 마지막이 되었죠.", src:["dotm"] }
+      ],
+      trivia:[
+        "쇼크웨이브의 얼굴에는 눈이 하나뿐이에요. 그래서 팬들은 그를 ‘사이클롭스’라고도 불러요.",
+        "《다크 오브 더 문》에서 쇼크웨이브의 목소리는 프랭크 웰커가 맡았어요. 메가트론, 사운드웨이브와 같은 성우라서, 한 영화에 그 목소리가 세 번 나오는 셈이죠.",
+        "G1 애니메이션에서 쇼크웨이브는 사이버트론을 지키는 ‘논리’의 화신이었어요. 감정보다 계산을 앞세우는 성격은 그때부터 이어져 내려온 거예요."
+      ]
+    },
+    {
+      id:"barricade", ko:"바리케이드", en:"Barricade", role:"scout", faction:"decepticon",
+      roleText:"추적자 · 사냥꾼",
+      tagline:"경찰차로 위장한 끈질긴 사냥개",
+      quote:"“도망쳐 봐라. 어차피 내가 찾아낸다.”",
+      team:"디셉티콘 추적대 · 프렌지와 콤비", teamShort:"디셉티콘 추적대",
+      vehicle:"세일린 S281E 경찰차 (2007 · 다크 오브 더 문 · 최후의 기사)",
+      height:"약 5.8m", heightNote:"영화 CG 모델의 화면 비율로 어림한 값",
+      color:"검정 · 흰색 경찰 마킹",
+      weapon:"기관총 · 회전 클로 · 스파이크",
+      gear:"프렌지 잠입 · 위장 추적 · 경찰 무전 해킹",
+      first:"mov07", debutYear:"2007", debutWork:"영화 《트랜스포머》",
+      partner:{ n:"프렌지", d:"몸이 작고 재빠른 해킹 전문가. 프렌지가 정보를 훔쳐 오면 바리케이드가 차로 태우고 달아난다. 지구에서 가장 위험한 ‘순찰차 두 대’ 콤비다." },
+      rival:{ n:"범블비", d:"바리케이드의 경찰차와 범블비의 카마로는 자동차 영화 역사에 남을 추격전을 만들었다. 바리케이드는 그날의 패배를 아직도 잊지 못한다." },
+      combat:"도시를 누비며 표적을 몰아붙이는 추격형. 경찰차 위장 덕분에 인간들 사이에 숨기 쉽고, 좁은 골목에서도 잘 빠져나간다.",
+      stats:{str:7,spd:8,int:8,cour:8,fire:7},
+      tags:["#경찰차","#추적자","#프렌지","#위장","#집요함"],
+      personality:"표적을 정하면 끝까지 쫓는 집요한 사냥꾼이에요. 말투는 비꼬는 듯하고, 상대를 겁먹게 만드는 걸 즐기죠. 경찰차로 위장한 채 인간 행세를 하는 것을 아주 재미있어 한답니다.",
+      strong:"경찰차 위장과 뛰어난 추적 능력. 한 번 물면 놓지 않는 집요함이 무기예요.",
+      weak:"혼자 덤비다가 오토봇에게 크게 당한 적이 많아요. 큰 로봇과의 정면 승부는 불리해요.",
+      episodes:[
+        { t:"사람을 찾는 경찰차", d:"샘 윗위키가 첫 차를 고르던 날, 바리케이드는 경찰차로 변신해 그 앞을 가로막았어요. “이봐, 소년. 도움이 필요해 보이는군.” 정체를 알 리 없는 샘은 그를 진짜 경찰인 줄 알았답니다.", src:["mov07"] },
+        { t:"샘을 쫓는 밤", d:"프렌지가 훔쳐 온 정보로 샘이 알스파크의 위치를 새긴 안경을 가졌다는 걸 알아낸 바리케이드. 그는 밤새 샘을 쫓아다니며 “안경을 내놔”라고 윽박질렀어요.", src:["mov07"] },
+        { t:"고속도로의 사냥", d:"범블비가 샘을 태우고 달아나자 바리케이드가 고속도로로 뛰어들었어요. 두 자동차가 도로 위에서 부딪치고 구르는 추격전 끝에, 바리케이드는 크게 부서져 물러났답니다.", src:["mov07"] },
+        { t:"시카고에 다시 나타나다", d:"《다크 오브 더 문》에서 세상은 바리케이드가 이미 사라진 줄 알았어요. 하지만 그는 시카고의 연기 속에서 다시 모습을 드러내, 인간들을 사냥하기 시작했죠.", src:["dotm"] },
+        { t:"최후의 기사, 다시 한 번", d:"《최후의 기사》에서도 바리케이드는 경찰차로 돌아왔어요. 메가트론의 부름을 받고 모여든 디셉티콘 중에서도 가장 먼저 도착한 것이 그였답니다.", src:["tlk"] }
+      ],
+      trivia:[
+        "바리케이드의 뒤 범퍼에는 ‘To punish and enslave(벌하고 노예로 삼는다)’라는 문구가 있어요. 진짜 경찰의 표어 ‘To protect and serve(보호하고 섬긴다)’를 비튼 장난이죠.",
+        "바리케이드가 변신하는 차는 세일린 S281E 머스탱을 경찰차로 꾸민 모델이에요. 실제 영화 촬영장에서도 세일린 경찰차를 직접 빌려 썼답니다.",
+        "작은 프렌지와 콤비를 이루는 장면은 2007년 영화의 명장면으로 꼽혀요. 차 안에서 해킹하고, 밖에서 쫓고, 둘이서 임무를 나눠 하는 모습이 아주 재미있답니다."
+      ]
+    },
+    {
+      id:"blackout", ko:"블랙아웃", en:"Blackout", role:"air", faction:"decepticon",
+      roleText:"습격 부대장 · 강습 헬기",
+      tagline:"하늘에서 내려와 기지를 지우는 강습병",
+      quote:"“메가트론님을 찾아라. 그분이 없는 하늘은 의미 없다.”",
+      team:"디셉티콘 강습대 · 스콜포녹과 한 몸처럼", teamShort:"디셉티콘 강습대",
+      vehicle:"MH-53M 페이브 로우 대형 헬리콥터",
+      height:"약 9.5m", heightNote:"영화 CG 모델의 화면 비율로 어림한 값",
+      color:"검정 · 회색",
+      weapon:"로터 블레이드 · 미니건 · EMP 충격파",
+      gear:"EMP 폭발 · 스콜포녹 사출 · 기지 제압",
+      first:"mov07", debutYear:"2007", debutWork:"영화 《트랜스포머》",
+      partner:{ n:"스콜포녹", d:"몸속에 품고 다니는 작은 전갈 로봇. 블랙아웃이 하늘을 지키는 동안 스콜포녹은 모래 속을 파고들어 적의 발목을 잡는다." },
+      rival:{ n:"레녹스 대위", d:"카타르 기지를 습격한 날, 살아남은 레녹스 대위는 블랙아웃의 얼굴을 기억했다. 마지막에 그를 쓰러뜨린 것도 인간 군인들이었으니, 둘은 피할 수 없는 앙금이 있다." },
+      combat:"기지 위로 내려앉아 EMP로 전원을 끊고, 그 틈에 부하를 풀어놓는 제압형. 로터 블레이드는 건물을 반으로 가른다.",
+      stats:{str:9,spd:7,int:7,cour:9,fire:9},
+      tags:["#강습헬기","#EMP","#스콜포녹","#충신","#기지제압"],
+      personality:"말수는 적고 행동은 빠른 강습병이에요. 메가트론을 찾는 일에 목숨을 걸 만큼 충직해서, 스타스크림이 지휘권을 쥐면 대놓고 반항하죠. 작은 스콜포녹을 품에 넣고 다니는 다정한(?) 구석도 있어요.",
+      strong:"기습과 제압에 특화된 강습 능력. EMP로 상대의 전자 장비를 한 번에 무력화할 수 있어요.",
+      weak:"한 번 내려앉으면 다시 하늘로 오르는 데 시간이 걸려요. 화려한 전술보다 단순한 돌격을 좋아해 함정에 잘 걸려요.",
+      episodes:[
+        { t:"카타르 기지의 첫 공격", d:"영화의 첫 장면, 사막 기지에 정체불명의 헬리콥터가 나타났어요. 모두가 구조 헬기인 줄 안 순간, 블랙아웃은 변신해 기지를 순식간에 불바다로 만들었죠. 오토봇과 디셉티콘의 전쟁이 지구에 왔다는 첫 신호였답니다.", src:["mov07"] },
+        { t:"스콜포녹을 풀어놓다", d:"기지를 습격한 뒤 블랙아웃은 몸속에서 작은 전갈 로봇을 꺼냈어요. 모래 속으로 사라진 스콜포녹은 도망치는 군인들을 쫓아다니며 공포를 퍼뜨렸죠.", src:["mov07"] },
+        { t:"미션 시티 상공", d:"미션 시티 결전에서 블랙아웃은 하늘에서 오토봇과 인간을 동시에 공격했어요. 건물 사이를 날아다니며 쏘는 모습에 모두가 숨을 죽였답니다.", src:["mov07"] },
+        { t:"메가트론을 찾는 충신", d:"메가트론이 사라진 뒤 블랙아웃은 누구보다 간절하게 그를 찾았어요. 스타스크림이 지휘권을 쥐는 것을 못마땅해하며, 언제든 그 앞에서 반항할 준비가 되어 있었죠.", src:["mov07"] }
+      ],
+      trivia:[
+        "블랙아웃이 변신하는 MH-53 페이브 로우는 실제로 미군이 쓰던 대형 수송 헬리콥터예요. 그래서 영화 속 기지 장면이 더욱 진짜처럼 느껴진답니다.",
+        "2007년 영화에서 블랙아웃은 단 한 번의 등장으로 가장 강렬한 인상을 남긴 디셉티콘으로 꼽혀요. 첫 장면을 장식하는 ‘변신 연출’이 특히 유명하죠.",
+        "몸속에서 스콜포녹을 꺼내는 설정은 장난감에서도 그대로 재현되었어요. 등 뒤를 열면 작은 전갈 로봇이 나오는 구조랍니다."
+      ]
+    },
+    {
+      id:"lockdown", ko:"록다운", en:"Lockdown", role:"combat", faction:"decepticon",
+      roleText:"현상금 사냥꾼 · 용병",
+      tagline:"계약만 지키면 무엇이든 사냥하는 냉혈한",
+      quote:"“우린 모두 누군가의 부하일 뿐이지.”",
+      team:"무소속 용병 · 크리에이터의 사냥개", teamShort:"용병",
+      vehicle:"람보르기니 아벤타도르 (사라진 시대)",
+      height:"약 8m", heightNote:"영화 CG 모델의 화면 비율로 어림한 값",
+      color:"검정 · 회색 (눈은 초록빛)",
+      weapon:"페이스 건(얼굴이 총으로 변신) · 사슬 훅 · 수류탄",
+      gear:"우주선 ‘나이트십’ · 표적 감금 · 트로피 수집",
+      first:"aoe", debutYear:"2014", debutWork:"영화 《트랜스포머: 사라진 시대》",
+      partner:{ n:"해럴드 에팅거", d:"인간 사냥 조직 ‘세마터리 윈드’의 대표. 옵티머스를 넘기면 ‘시드’를 주기로 한 거래로 손을 잡았다. 서로를 얕보지만 계약은 지키는 위험한 동업자다." },
+      rival:{ n:"옵티머스 프라임", d:"록다운은 옵티머스를 ‘마지막 남은 기사의 표적’으로만 여긴다. 옵티머스는 그런 그를 “아무것도 믿지 않는 사냥꾼”이라 부른다." },
+      combat:"표적을 먼저 지치게 만든 뒤 사슬과 훅으로 끌어내는 사냥형. 얼굴이 총으로 변하는 순간이 마지막 경고다.",
+      stats:{str:8,spd:7,int:9,cour:7,fire:9},
+      tags:["#현상금사냥꾼","#페이스건","#나이트십","#용병","#냉정"],
+      personality:"감정 없이 계약대로 움직이는 냉정한 사냥꾼이에요. 인간을 아주 얕보고, 자기 표적만은 절대 놓치지 않죠. ‘누구든 누군가의 부하’라는 말을 입에 달고 살아요.",
+      strong:"표적을 쫓는 끈질김과 압도적인 장비. 우주선 하나를 통째로 감옥으로 쓸 만큼 준비성이 뛰어나요.",
+      weak:"의뢰인의 명령에 묶여 있어 스스로 판단할 때가 줄어요. 오만해서 인간을 얕보다 결정적인 순간을 놓칩니다.",
+      episodes:[
+        { t:"랫쳇을 사냥하다", d:"부상당한 랫쳇이 숨은 곳을 찾아낸 록다운은 멀리서 머리 캐논으로 그를 무력화했어요. 옵티머스의 위치를 말하지 않자, 그는 랫쳇의 스파크를 뽑아 버렸죠. 오토봇들이 가장 슬퍼한 날 중 하나였답니다.", src:["aoe"] },
+        { t:"텍사스의 습격", d:"케이드 예거의 집에서 옵티머스가 모습을 드러내자, 록다운은 곡물 저장탑 위로 올라가 미사일을 퍼부었어요. 집이 무너지는 동안에도 그는 담담하게 표적을 확인했죠.", src:["aoe"] },
+        { t:"나이트십의 감옥", d:"록다운의 우주선 ‘나이트십’은 원래 기사단의 배였어요. 그는 이 배를 감옥으로 바꿔, 잡아들인 기사들을 수백 년 동안 가둬 두었답니다.", src:["aoe"] },
+        { t:"홍콩의 마지막 사냥", d:"홍콩에서 옵티머스와 맞붙은 록다운은 그의 검에 꿰뚫렸어요. “인간을 구하려다 죽는군.” 그가 마지막으로 남긴 말은, 자기 방식대로 끝까지 옳았던 사냥꾼의 말이었죠.", src:["aoe"] }
+      ],
+      trivia:[
+        "록다운이 변신하는 차는 람보르기니 아벤타도르예요. 영화에 나온 슈퍼카 중에서도 가장 비싼 차 중 하나로 꼽힙니다.",
+        "록다운의 얼굴은 필요할 때 총으로 변신해요. 그래서 팬들은 그를 ‘얼굴이 무기인 로봇’이라고 부른답니다.",
+        "‘우린 모두 누군가의 부하일 뿐이지(We all work for someone)’는 록다운의 대표 대사예요. 자기 일에 자부심이 있는 사냥꾼다운 말이죠."
+      ]
+    },
+    {
+      id:"brawl", ko:"브롤", en:"Brawl", role:"combat", faction:"decepticon",
+      roleText:"돌격대장 · 전차 병기",
+      tagline:"도시를 통째로 밀어버리는 포격 전차",
+      quote:"“길을 비켜라. 아니면 부숴 버린다.”",
+      team:"디셉티콘 돌격대", teamShort:"디셉티콘 돌격대",
+      vehicle:"M1A1 에이브람스 전차 (개조)",
+      height:"약 7.5m", heightNote:"영화 CG 모델의 화면 비율로 어림한 값",
+      color:"군녹색 · 검정",
+      weapon:"주포 · 다연장 기관포 · 미사일 포드",
+      gear:"중장갑 · 야간 포격 · 압도적 화력",
+      first:"mov07", debutYear:"2007", debutWork:"영화 《트랜스포머》",
+      partner:{ n:"본크러셔", d:"같은 2007년 돌격조. 브롤이 포격으로 길을 열면 본크러셔가 그 틈으로 돌진한다. 말없이 손발이 맞는, 가장 시끄러운 콤비다." },
+      rival:{ n:"아이언하이드", d:"무기 담당관 아이언하이드와 브롤은 서로의 화력을 겨루는 사이. 미션 시티의 시가전에서 두 로봇의 포격이 정면으로 부딪쳤다." },
+      combat:"버티면서 쏘고, 쏘면서 전진하는 포격형. 좁은 거리에서도 주포를 그대로 쏴 대며 건물을 부순다.",
+      stats:{str:9,spd:5,int:6,cour:9,fire:10},
+      tags:["#전차","#포격","#돌격대장","#중장갑","#시가전"],
+      personality:"말보다 포격이 먼저인 돌격대장이에요. 성격은 거칠고 직선적이라 복잡한 작전은 잘 못 참죠. 하지만 한번 맡은 전투는 끝까지 물고 늘어진답니다.",
+      strong:"압도적인 화력과 두꺼운 장갑. 건물을 부수고 길을 만드는 데는 최고예요.",
+      weak:"느리고 시야가 좁아요. 측면이나 뒤에서 기습당하면 쉽게 흔들립니다.",
+      episodes:[
+        { t:"미션 시티의 전차", d:"도시 한복판에 나타난 거대한 전차가 순식간에 로봇으로 변신했어요. 브롤은 거리를 가로지르며 주포를 쏘아 대, 오토봇과 인간 모두를 궁지로 몰았습니다.", src:["mov07"] },
+        { t:"재즈와 아이언하이드의 협공", d:"브롤의 포격에 오토봇들이 흩어졌어요. 재즈와 아이언하이드가 좌우에서 협공했지만, 그는 두꺼운 장갑으로 버티며 계속해서 포를 쏘아 댔죠.", src:["mov07"] },
+        { t:"거리의 포격전", d:"미션 시티의 빌딩들이 하나둘 무너지는 동안, 브롤은 가장 먼저 도로를 점령했어요. 인간 군인들이 숨을 곳을 찾지 못할 만큼 대담한 돌격이었답니다.", src:["mov07"] },
+        { t:"최후의 일격", d:"오토봇들과 미군의 합동 공격이 이어지자 브롤도 결국 쓰러졌어요. 마지막까지 포를 놓지 않았던 그 모습은 디셉티콘의 집념을 그대로 보여 줬죠.", src:["mov07"] }
+      ],
+      trivia:[
+        "브롤이 변신하는 차는 M1A1 에이브람스 전차를 로봇용으로 개조한 모습이에요. 실제 전차보다 훨씬 많은 무기를 달고 있답니다.",
+        "2007년 장난감 중에는 브롤의 이름이 ‘데바스테이터’로 나온 적이 있어요. 나중에 이름이 정리되면서 지금의 브롤이 되었죠.",
+        "영화 속 브롤은 디셉티콘 중에서도 가장 많은 화기를 단 로봇 중 하나예요. 팔, 어깨, 등 곳곳에 총구가 달려 있답니다."
+      ]
+    },
+    {
+      id:"scourge", ko:"스컬지", en:"Scourge", role:"combat", faction:"decepticon",
+      roleText:"유니크론의 사냥꾼 · 테러콘 두목",
+      tagline:"쓰러뜨린 적의 휘장을 몸에 붙이는 공포의 사냥꾼",
+      quote:"“열등한 존재가 상위 존재를 만났을 때의 그 표정, 나는 그게 좋다.”",
+      team:"테러콘 · 유니크론의 사냥개", teamShort:"테러콘",
+      vehicle:"매드맥스 스타일 장갑 트럭 (비스트의 서막)",
+      height:"약 7m", heightNote:"영화 CG 모델의 화면 비율로 어림한 값",
+      color:"검정 · 보라 (눈은 붉은빛)",
+      weapon:"에너존 블레이드 · 발톱 · 다크 에너지",
+      gear:"트로피 휘장 · 프리저·노바케인 소환 · 부패 감염",
+      first:"rotb", debutYear:"2023", debutWork:"영화 《트랜스포머: 비스트의 서막》",
+      partner:{ n:"프리저 · 노바케인", d:"몸속에서 나오는 두 명의 스윕. 표적을 쫓을 때 먼저 풀어놓는 사냥개 같은 존재다. 스컬지가 손을 들면 그들은 냄새를 맡듯 표적을 찾아낸다." },
+      rival:{ n:"옵티머스 프라임", d:"유니크론을 부르려는 사냥꾼과 지구를 지키려는 지휘관. 페루의 마지막 결전에서 두 사람은 서로의 목숨을 걸고 맞붙었다." },
+      combat:"긴 팔과 칼날로 거리를 지배하고, 상대를 감염시켜 부하로 만드는 사냥형. 쓰러뜨린 적의 휘장을 몸에 붙이는 것이 그의 취미다.",
+      stats:{str:9,spd:8,int:8,cour:9,fire:8},
+      tags:["#테러콘","#유니크론","#트로피","#사냥꾼","#다크에너지"],
+      personality:"오만하고 잔인한 사냥꾼이에요. 약한 상대를 만나면 실망하고, 강한 상대를 만나면 오히려 즐거워하죠. 유니크론의 명령에는 절대적이지만, 실패하면 곧바로 고통을 받는 처지라 늘 긴장하고 있어요.",
+      strong:"다크 에너지로 거의 무적에 가까운 몸. 상대를 감염시켜 아군으로 만드는 무서운 능력이 있어요.",
+      weak:"유니크론의 명령에서 벗어날 수 없어요. 오만해서 상대를 얕보다 결정적인 순간을 놓칩니다.",
+      episodes:[
+        { t:"맥시멀의 행성을 덮치다", d:"유니크론이 다가오자 스컬지는 스콜포녹 부대를 이끌고 맥시멀의 고향 행성을 습격했어요. 트랜스워프 키를 빼앗으려는 그의 앞에 맥시멀의 지도자 아펠링크가 맞섰지만, 끝내 키는 그의 손에 들어갔죠.", src:["rotb"] },
+        { t:"1994년, 뉴욕에 내려오다", d:"트랜스워프 키의 반쪽을 쫓아 스컬지는 1994년 뉴욕 엘리스 아일랜드에 모습을 드러냈어요. 오토봇들이 달려들었지만, 그에게는 상대가 되지 않았답니다.", src:["rotb"] },
+        { t:"휘장을 모으는 사냥꾼", d:"스컬지의 몸에는 그가 쓰러뜨린 수많은 트랜스포머의 휘장이 붙어 있어요. 하나하나가 ‘내가 이만큼 강하다’는 증거인 셈이죠. 그래서 오토봇들은 그를 볼 때마다 긴장한답니다.", src:["rotb"] },
+        { t:"페루의 마지막 결전", d:"페루 산속에서 스컬지는 트랜스워프 키를 작동시켜 유니크론을 부르려 했어요. 오토봇과 맥시멀의 연합이 막아섰고, 마지막에는 옵티머스 프라임과 단둘이 맞붙어 쓰러졌습니다.", src:["rotb"] }
+      ],
+      trivia:[
+        "스컬지의 목소리는 《왕좌의 게임》의 피터 딩클리지가 맡았어요. 낮고 느린 목소리가 그를 더 무섭게 만들었답니다.",
+        "스컬지의 몸에 붙은 휘장은 모두 그가 쓰러뜨린 트랜스포머의 것이에요. 영화 곳곳에 이 휘장이 자세히 보인답니다.",
+        "《비스트의 서막》에서 스컬지는 갱스터 영화의 보스처럼 연출되었어요. 검은 트럭과 긴 코트 같은 실루엣이 그 분위기를 만들어 줍니다."
+      ]
+    },
+    {
+      id:"nightbird", ko:"나이트버드", en:"Nightbird", role:"combat", faction:"decepticon",
+      roleText:"테러콘 닌자 · 암살자",
+      tagline:"어둠 속에서 쌍검으로 끝내는 보랏빛 닌자",
+      quote:"“두려워 마라, 인간. 곧 끝난다.”",
+      team:"테러콘 · 유니크론의 암살대", teamShort:"테러콘",
+      vehicle:"보랏빛 닛산 스카이라인 GT-R (R33) (비스트의 서막)",
+      height:"약 5.5m", heightNote:"영화 CG 모델의 화면 비율로 어림한 값",
+      color:"보라 · 검정 · 은색",
+      weapon:"쌍 카타나 · 발톱 · 로켓 스러스터",
+      gear:"은신 · 공중 도약 · 검술",
+      first:"rotb", debutYear:"2023", debutWork:"영화 《트랜스포머: 비스트의 서막》",
+      partner:{ n:"배틀트랩", d:"묵직한 사슬 무기를 쓰는 테러콘 전사. 나이트버드가 어둠 속에서 먼저 움직이고, 배틀트랩이 정면에서 길을 막는다. 말없이 호흡이 맞는 사냥 콤비다." },
+      rival:{ n:"알시", d:"빠른 오토바이 전사와 하늘을 나는 닌자. 페루 산길에서 두 여성 전사가 처음 맞붙었고, 그 대결은 팬들이 가장 좋아하는 장면이 되었다." },
+      combat:"어둠에 숨어 접근해 두 자루 검으로 단번에 끝내는 암살형. 로켓으로 하늘을 나는 기습도 가능하다.",
+      stats:{str:6,spd:10,int:8,cour:8,fire:6},
+      tags:["#닌자","#쌍검","#테러콘","#은신","#여전사"],
+      personality:"도도하고 차가운 닌자예요. 실력이 없는 상대에게는 실망을 숨기지 않고, 강한 상대에게는 예의를 갖춰 정면 승부를 즐기죠. 테러콘 중에서는 가장 침착한 편이에요.",
+      strong:"압도적인 스피드와 검술, 그리고 하늘을 나는 기습. 어둠 속에서는 누구보다 위험해요.",
+      weak:"단단한 장갑을 상대할 때는 힘이 부족해요. 오만해서 상대를 얕보다 크게 당하기도 합니다.",
+      episodes:[
+        { t:"엘리스 아일랜드의 기습", d:"1994년 뉴욕, 오토봇들이 트랜스워프 키를 찾고 있을 때 나이트버드가 하늘에서 내려왔어요. 로켓으로 날아오르는 모습에 미라지도 깜짝 놀랐답니다. “이 정도 상대라면 재미없겠네.”", src:["rotb"] },
+        { t:"페루 산길의 추격", d:"페루 산길에서 나이트버드는 미라지를 도로 밖으로 밀어내려 했어요. 하지만 알시와 휠잭이 일으킨 눈사태에 휩쓸려 잠시 멈춰야 했죠.", src:["rotb"] },
+        { t:"하늘로 낚아채다", d:"결전 중 나이트버드는 노아 디아스를 하늘로 끌어올렸어요. 그 순간 치타가 던진 창이 그녀를 맞히면서 노아는 가까스로 떨어져 나왔답니다.", src:["rotb"] },
+        { t:"범블비와의 마지막", d:"범블비가 하늘에서 내려와 스윕들을 쓸어버리자, 나이트버드는 그에게 곧장 달려들었어요. 하지만 범블비는 그녀를 붙잡아 방패처럼 쓰고, 날개를 뽑아 스파크에 꽂았죠. 그날의 폭발로 그녀의 쌍검만이 남았답니다.", src:["rotb"] }
+      ],
+      trivia:[
+        "나이트버드는 원래 G1 애니메이션에서 인간이 만든 닌자 로봇으로 처음 등장했어요. 《비스트의 서막》에서는 테러콘 닌자로 다시 태어났답니다.",
+        "나이트버드가 변신하는 차는 보랏빛 닛산 스카이라인 GT-R(R33)이에요. 일본 스포츠카 팬들에게 아주 반가운 선택이었죠.",
+        "《비스트의 서막》에서 나이트버드의 목소리는 마이클라 자이 로드리게스가 맡았어요. 차갑고 우아한 말투가 캐릭터와 잘 어울린답니다."
+      ]
+    }
+  ];
+
+  AUTOBOTS.forEach(function(b){ b.faction = "autobot"; });
+
+  var BOTS = AUTOBOTS.concat(DECEPTICONS);
+
   function srcBadge(key){
     var s = SRC[key];
     if(!s) return "";
@@ -1168,7 +1572,7 @@
   var FAV_KEY = "autobotDex.favorites.v1";
   var THEME_KEY = "autobotDex.theme.v1";
   var favorites = loadFavorites();
-  var state = { role:"all", q:"", favOnly:false };
+  var state = { faction:"all", role:"all", q:"", favOnly:false };
 
   function loadFavorites(){
     try{
@@ -1207,19 +1611,51 @@
   })();
 
   /* ---------- filters ---------- */
+  function inFaction(b){ return state.faction === "all" || b.faction === state.faction; }
+  function factionBots(){ return BOTS.filter(inFaction); }
+
+  function buildFactionFilters(){
+    var wrap = document.getElementById("factionFilters");
+    wrap.innerHTML = "";
+    FACTIONS.forEach(function(f){
+      var n = (f.key === "all") ? BOTS.length : BOTS.filter(function(b){return b.faction===f.key;}).length;
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "chip faction-chip faction-"+f.key;
+      btn.dataset.faction = f.key;
+      btn.setAttribute("aria-pressed", String(state.faction === f.key));
+      btn.innerHTML = '<span aria-hidden="true">'+f.icon+'</span>'+f.label+'<span class="n">'+n+'</span>';
+      btn.addEventListener("click", function(){
+        state.faction = f.key;
+        if(state.role !== "all" && !factionBots().some(function(b){return b.role===state.role;})) state.role = "all";
+        render();
+      });
+      wrap.appendChild(btn);
+    });
+  }
+
   function buildFilters(){
     var wrap = document.getElementById("filters");
     wrap.innerHTML = "";
     ROLES.forEach(function(r){
-      var n = (r.key === "all") ? BOTS.length : BOTS.filter(function(b){return b.role===r.key;}).length;
       var btn = document.createElement("button");
       btn.type = "button";
       btn.className = "chip";
       btn.dataset.role = r.key;
       btn.setAttribute("aria-pressed", String(state.role === r.key));
-      btn.innerHTML = '<span aria-hidden="true">'+r.icon+'</span>'+r.label+'<span class="n">'+n+'</span>';
+      btn.innerHTML = '<span aria-hidden="true">'+r.icon+'</span>'+r.label+'<span class="n">0</span>';
       btn.addEventListener("click", function(){ state.role = r.key; render(); });
       wrap.appendChild(btn);
+    });
+    refreshRoleCounts();
+  }
+
+  function refreshRoleCounts(){
+    var pool = factionBots();
+    Array.prototype.forEach.call(document.querySelectorAll("#filters .chip"), function(c){
+      var n = (c.dataset.role === "all") ? pool.length : pool.filter(function(b){return b.role===c.dataset.role;}).length;
+      var badge = c.querySelector(".n");
+      if(badge) badge.textContent = String(n);
     });
   }
 
@@ -1227,6 +1663,7 @@
   function filtered(){
     var q = state.q.trim().toLowerCase();
     return BOTS.filter(function(b){
+      if(!inFaction(b)) return false;
       if(state.role !== "all" && b.role !== state.role) return false;
       if(state.favOnly && !isFav(b.id)) return false;
       if(q && b._search.indexOf(q) === -1) return false;
@@ -1243,10 +1680,10 @@
 
   function cardHTML(b){
     var fav = isFav(b.id);
-    return '<button class="card" type="button" data-id="'+b.id+'" aria-label="'+b.ko+' 선수 프로필 보기">'+
+    return '<button class="card '+b.faction+'" type="button" data-id="'+b.id+'" aria-label="'+b.ko+' 선수 프로필 보기">'+
       '<div class="card-media">'+
         '<img src="./assets/bots/'+b.id+'.webp" alt="'+b.ko+' 실사 영화 모습" width="640" height="640" loading="lazy" decoding="async">'+
-        '<span class="role-badge">'+ROLE_LABEL[b.role]+'</span>'+
+        '<span class="role-badge"><span aria-hidden="true">'+FACTION_ICON[b.faction]+'</span> '+ROLE_LABEL[b.role]+'</span>'+
         '<span class="fav-btn" role="button" tabindex="0" data-fav="'+b.id+'" aria-pressed="'+fav+'" aria-label="'+b.ko+' 즐겨찾기">'+(fav?"⭐":"☆")+'</span>'+
       '</div>'+
       '<div class="card-body">'+
@@ -1263,26 +1700,30 @@
     var list = filtered();
     var grid = document.getElementById("grid");
 
-    Array.prototype.forEach.call(document.querySelectorAll(".chip"), function(c){
+    Array.prototype.forEach.call(document.querySelectorAll("#factionFilters .chip"), function(c){
+      c.setAttribute("aria-pressed", String(c.dataset.faction === state.faction));
+    });
+    Array.prototype.forEach.call(document.querySelectorAll("#filters .chip"), function(c){
       c.setAttribute("aria-pressed", String(c.dataset.role === state.role));
     });
+    refreshRoleCounts();
     var favT = document.getElementById("favToggle");
     favT.setAttribute("aria-pressed", String(state.favOnly));
     document.getElementById("favCount").textContent = String(favorites.length);
 
     if(!list.length){
       grid.innerHTML = '<div class="empty"><div class="big">🕳️</div><p>'+
-        (state.favOnly ? "아직 최애 오토봇이 없어요.<br>카드의 ☆를 눌러 마음에 드는 오토봇을 골라 보세요!"
-                       : "조건에 맞는 오토봇이 없어요.<br>다른 이름이나 특징으로 찾아보세요!")+'</p></div>';
+        (state.favOnly ? "아직 최애 트랜스포머가 없어요.<br>카드의 ☆를 눌러 마음에 드는 로봇을 골라 보세요!"
+                       : "조건에 맞는 트랜스포머가 없어요.<br>다른 이름이나 특징으로 찾아보세요!")+'</p></div>';
     }else{
       grid.innerHTML = list.map(cardHTML).join("");
     }
 
     var rt = document.getElementById("resultText");
-    if(state.q || state.favOnly || state.role !== "all"){
-      rt.innerHTML = '찾은 오토봇 <b>'+list.length+'</b>명 <span style="opacity:.6">/ 전체 '+BOTS.length+'명</span>';
+    if(state.q || state.favOnly || state.role !== "all" || state.faction !== "all"){
+      rt.innerHTML = '찾은 트랜스포머 <b>'+list.length+'</b>명 <span style="opacity:.6">/ 전체 '+BOTS.length+'명</span>';
     }else{
-      rt.innerHTML = '<b>'+BOTS.length+'</b>명의 오토봇';
+      rt.innerHTML = '<b>'+BOTS.length+'</b>명의 트랜스포머 <span style="opacity:.6">· 오토봇 '+AUTOBOTS.length+' · 디셉티콘 '+DECEPTICONS.length+'</span>';
     }
   }
 
@@ -1309,12 +1750,20 @@
     currentId = id;
     lastFocus = document.activeElement;
 
+    var card = document.getElementById("modalCard");
+    card.classList.toggle("decepticon", b.faction === "decepticon");
+    card.classList.toggle("autobot", b.faction === "autobot");
+    var pTitle = document.getElementById("mProfileTitle");
+    var pLabel = document.getElementById("mProfileLabel");
+    if(pTitle) pTitle.textContent = (b.faction === "decepticon") ? "디셉티콘 프로필" : "오토봇 프로필";
+    if(pLabel) pLabel.textContent = (b.faction === "decepticon") ? "Decepticon Profile" : "Autobot Profile";
+
     var img = document.getElementById("mImg");
     img.src = "./assets/bots/"+b.id+".webp";
     img.alt = b.ko + " 실사 영화 모습";
     document.getElementById("mHero").style.setProperty("--hero-img", 'url("./assets/bots/'+b.id+'.webp")');
 
-    document.getElementById("mRole").textContent = ROLE_LABEL[b.role] + " · " + b.en;
+    document.getElementById("mRole").textContent = (b.faction === "decepticon" ? "디셉티콘" : "오토봇") + " · " + ROLE_LABEL[b.role] + " · " + b.en;
     document.getElementById("modalTitle").textContent = b.ko;
     document.getElementById("mEn").textContent = b.en;
     document.getElementById("mTagline").textContent = b.tagline;
@@ -1323,7 +1772,7 @@
     document.getElementById("mTeamShort").textContent = b.teamShort;
     document.getElementById("mHeightShort").textContent = b.height;
     document.getElementById("mDebutBadge").textContent = b.debutYear + " 데뷔";
-    document.getElementById("mProfileNo").textContent = "No. " + String(BOTS.indexOf(b)+1).padStart(2,"0") + " / 12";
+    document.getElementById("mProfileNo").textContent = "No. " + String(BOTS.indexOf(b)+1).padStart(2,"0") + " / " + String(BOTS.length);
 
     document.getElementById("mProfile").innerHTML = profileRows(b).map(function(r){
       return '<dl class="p-row'+(r.wide?" wide":"")+'">'+
@@ -1462,6 +1911,7 @@
   });
 
   /* ---------- start ---------- */
+  buildFactionFilters();
   buildFilters();
   render();
 
