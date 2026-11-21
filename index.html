@@ -95,7 +95,7 @@
     border-bottom:1px solid var(--line);
   }
   .header-inner{
-    max-width:1180px;margin:0 auto;padding:14px 20px 12px;
+    max-width:1180px;margin:0 auto;padding:11px 20px 8px;
     display:flex;align-items:center;gap:14px;flex-wrap:wrap;
   }
   .brand{display:flex;align-items:center;gap:12px;min-width:0;flex:1 1 auto}
@@ -131,7 +131,7 @@
   .icon-btn:active{transform:scale(.96)}
 
   .search-row{
-    max-width:1180px;margin:0 auto;padding:0 20px 16px;
+    max-width:1180px;margin:0 auto;padding:0 20px 12px;
     display:flex;gap:10px;align-items:center;flex-wrap:wrap;
   }
   .search-box{position:relative;flex:1 1 300px;min-width:220px}
@@ -651,6 +651,113 @@
     .stat-row{grid-template-columns:58px 1fr 42px;gap:9px}
     .ep{padding:14px 13px;gap:11px}
   }
+  /* ---------- 진영 폴더 탭 + 사이버트론 아카이브 패널 ---------- */
+  .archive-wrap{max-width:1180px;margin:0 auto;padding:0 20px 12px;position:relative;z-index:3}
+  .foldertabs{
+    display:flex;align-items:flex-end;gap:5px;padding:0 0 2px;margin:0;
+    max-width:none;overflow-x:auto;overflow-y:hidden;position:relative;z-index:2;
+    scrollbar-width:none;-ms-overflow-style:none;
+  }
+  .foldertabs::-webkit-scrollbar{display:none}
+  .foldertabs .chip{
+    position:relative;height:42px;padding:0 24px;border-radius:13px 13px 0 0;
+    border:1px solid rgba(110,166,255,.18);border-bottom:none;
+    background:linear-gradient(180deg,rgba(22,43,82,.55),rgba(14,27,54,.32));
+    color:var(--muted);font-size:14.5px;letter-spacing:.01em;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .foldertabs .chip:hover{color:var(--txt);border-color:rgba(110,166,255,.34);background:linear-gradient(180deg,rgba(30,58,108,.7),rgba(16,32,64,.4))}
+  .foldertabs .chip .n{background:rgba(255,255,255,.07);opacity:.9}
+  .foldertabs .chip[aria-pressed="true"]{
+    height:48px;margin-bottom:-2px;color:#fff;z-index:2;
+    border-color:rgba(111,180,255,.5);border-bottom:none;
+    background:linear-gradient(180deg,rgba(35,74,140,.96),rgba(18,38,76,.96));
+    box-shadow:0 -8px 22px rgba(40,120,255,.18), inset 0 1px 0 rgba(255,255,255,.14);
+  }
+  .foldertabs .chip[aria-pressed="true"] .n{background:rgba(255,255,255,.22);opacity:1}
+  .foldertabs .chip.faction-decepticon[aria-pressed="true"]{
+    border-color:rgba(196,130,255,.5);
+    background:linear-gradient(180deg,rgba(84,42,136,.96),rgba(42,20,72,.96));
+    box-shadow:0 -8px 22px rgba(150,40,190,.2), inset 0 1px 0 rgba(255,255,255,.14);
+  }
+
+  .archive{
+    position:relative;border:1px solid rgba(110,166,255,.26);border-radius:0 18px 18px 18px;
+    margin-top:-2px; /* 활성 폴더 탭이 패널 상단 라인을 덮어 이어지도록 */
+    background:
+      linear-gradient(90deg,rgba(110,166,255,.055) 1px,transparent 1px) 0 0/26px 26px,
+      linear-gradient(rgba(110,166,255,.045) 1px,transparent 1px) 0 0/26px 26px,
+      linear-gradient(180deg,rgba(19,38,74,.94),rgba(9,19,40,.94));
+    box-shadow:0 18px 40px rgba(0,0,0,.36), inset 0 1px 0 rgba(255,255,255,.07);
+    padding:9px 14px 9px;overflow:hidden;
+  }
+  .archive::before{ /* 상단 사이버 라인 */
+    content:"";position:absolute;left:0;right:0;top:0;height:2px;
+    background:linear-gradient(90deg,rgba(61,155,255,.9),rgba(111,227,255,.55) 40%,rgba(111,227,255,0) 88%);
+  }
+  .archive::after{ /* 우상단 코너 컷 장식 */
+    content:"";position:absolute;top:0;right:0;width:64px;height:64px;
+    background:linear-gradient(225deg,rgba(111,227,255,.16),transparent 62%);
+    clip-path:polygon(100% 0,100% 100%,0 0);
+  }
+  .archive[data-faction="decepticon"]{border-color:rgba(168,85,247,.3)}
+  .archive[data-faction="decepticon"]::before{background:linear-gradient(90deg,rgba(168,85,247,.9),rgba(255,120,170,.5) 40%,rgba(255,120,170,0) 88%)}
+
+  .ap-head{display:flex;align-items:center;gap:9px;margin:1px 4px 6px}
+  .ap-eyebrow{
+    display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:900;
+    letter-spacing:.22em;text-transform:uppercase;color:rgba(111,227,255,.85);
+  }
+  .ap-eyebrow::before{content:"";width:6px;height:6px;border-radius:1px;transform:rotate(45deg);background:var(--cyan);box-shadow:0 0 8px var(--cyan)}
+  .ap-rule{flex:1;height:1px;background:linear-gradient(90deg,rgba(110,166,255,.32),rgba(110,166,255,0))}
+  .ap-cnt{font-size:11.5px;font-weight:800;color:var(--muted)}
+  .ap-cnt b{color:var(--txt)}
+
+  .archive .filters{padding:0;margin:0;max-width:none;gap:6px}
+  .archive .chip{
+    height:34px;padding:0 13px;border-radius:9px;font-size:13px;
+    border-color:rgba(110,166,255,.16);background:rgba(255,255,255,.035);color:#b9cbe8;
+  }
+  .archive .chip:hover{color:var(--txt);border-color:rgba(110,166,255,.36);background:rgba(255,255,255,.06)}
+  .archive .chip[aria-pressed="true"]{
+    color:#eafaff;border-color:rgba(111,227,255,.55);
+    background:linear-gradient(135deg,rgba(61,155,255,.24),rgba(111,227,255,.14));
+    box-shadow:0 0 0 1px rgba(111,227,255,.16), 0 6px 16px rgba(20,110,190,.24);
+  }
+  .archive .chip[aria-pressed="true"] .n{background:rgba(111,227,255,.2);color:#dff8ff;opacity:1}
+
+  html[data-theme="light"] .foldertabs .chip{background:linear-gradient(180deg,#eaf2fe,#dce8fa);border-color:rgba(23,63,130,.14)}
+  html[data-theme="light"] .foldertabs .chip:hover{background:linear-gradient(180deg,#f2f8ff,#e4eefc);border-color:rgba(23,63,130,.24)}
+  html[data-theme="light"] .foldertabs .chip[aria-pressed="true"]{background:linear-gradient(180deg,#ffffff,#f4f9ff);color:var(--blue-deep);border-color:rgba(23,63,130,.2);box-shadow:0 -8px 20px rgba(40,90,190,.14), inset 0 1px 0 #fff}
+  html[data-theme="light"] .foldertabs .chip.faction-decepticon[aria-pressed="true"]{background:linear-gradient(180deg,#fdf7ff,#f4ecff);color:#5a1f8a;border-color:rgba(120,60,190,.28);box-shadow:0 -8px 20px rgba(120,60,190,.14), inset 0 1px 0 #fff}
+  html[data-theme="light"] .ap-eyebrow{color:#0d7fa8}
+  html[data-theme="light"] .ap-eyebrow::before{background:#0d9fc4;box-shadow:none}
+  html[data-theme="light"] .ap-rule{background:linear-gradient(90deg,rgba(23,63,130,.26),rgba(23,63,130,0))}
+  html[data-theme="light"] .archive{background:linear-gradient(180deg,#ffffff,#f2f7ff);border-color:rgba(23,63,130,.16);box-shadow:0 16px 34px rgba(20,50,100,.12), inset 0 1px 0 #fff}
+  html[data-theme="light"] .archive::before{background:linear-gradient(90deg,rgba(27,111,224,.8),rgba(15,159,196,.4) 40%,rgba(15,159,196,0) 88%)}
+  html[data-theme="light"] .archive::after{background:linear-gradient(225deg,rgba(15,159,196,.12),transparent 62%)}
+  html[data-theme="light"] .archive[data-faction="decepticon"]{border-color:rgba(120,60,190,.22)}
+  html[data-theme="light"] .archive[data-faction="decepticon"]::before{background:linear-gradient(90deg,rgba(150,70,220,.75),rgba(220,70,120,.4) 40%,rgba(220,70,120,0) 88%)}
+  html[data-theme="light"] .archive .chip{background:rgba(23,63,130,.04);color:#40567a;border-color:rgba(23,63,130,.12)}
+  html[data-theme="light"] .archive .chip:hover{background:rgba(23,63,130,.07);border-color:rgba(23,63,130,.24)}
+  html[data-theme="light"] .archive .chip[aria-pressed="true"]{color:#0b3f7a;background:linear-gradient(135deg,#dbeafe,#e8f8ff);border-color:rgba(23,110,190,.4);box-shadow:0 0 0 1px rgba(23,110,190,.1), 0 6px 14px rgba(30,90,190,.12)}
+  html[data-theme="light"] .foldertabs .chip .n{background:rgba(23,63,130,.07);color:inherit;opacity:1}
+  html[data-theme="light"] .foldertabs .chip[aria-pressed="true"] .n{background:rgba(23,110,190,.12);color:var(--blue-deep);opacity:1}
+  html[data-theme="light"] .archive .chip .n{background:rgba(23,63,130,.07);color:#40567a;opacity:1}
+  html[data-theme="light"] .archive .chip[aria-pressed="true"] .n{background:rgba(23,110,190,.14);color:#0b3f7a;opacity:1}
+
+  @media (max-width:720px){
+    .archive-wrap{padding:0 16px 10px}
+    .foldertabs{padding-top:6px}
+    .foldertabs .chip{height:40px;padding:0 15px;font-size:13px}
+    .foldertabs .chip[aria-pressed="true"]{height:45px}
+    .archive{padding:8px 10px;border-radius:0 15px 15px 15px}
+    .archive .chip{height:32px;padding:0 11px;font-size:12.5px;gap:5px}
+    .archive .chip .n{font-size:10px;padding:1px 5px;min-width:18px}
+    .ap-head{margin:1px 2px 6px}
+    .ap-eyebrow{font-size:9px;letter-spacing:.16em}
+  }
+
   @media (prefers-reduced-motion:reduce){
     *{animation:none!important;transition:none!important}
   }
@@ -684,8 +791,17 @@
     </button>
   </div>
 
-  <div class="filters faction-filters" id="factionFilters" role="group" aria-label="진영 필터"></div>
-  <div class="filters" id="filters" role="group" aria-label="역할별 필터"></div>
+  <div class="archive-wrap">
+    <div class="foldertabs filters faction-filters" id="factionFilters" role="group" aria-label="진영 폴더 탭"></div>
+    <div class="archive" id="archivePanel" data-faction="all">
+      <div class="ap-head">
+        <span class="ap-eyebrow">Role Index</span>
+        <span class="ap-rule" aria-hidden="true"></span>
+        <span class="ap-cnt" id="apCount"><b>22</b>명 표시</span>
+      </div>
+      <div class="filters" id="filters" role="group" aria-label="역할별 필터"></div>
+    </div>
+  </div>
 </header>
 
 <main>
@@ -1664,6 +1780,14 @@
     });
   }
 
+  /* 폴더 탭(진영)에 맞춰 아카이브 패널의 강조색·상단 라인·인원 표시를 바꾼다 */
+  function syncArchivePanel(){
+    var panel = document.getElementById("archivePanel");
+    var cnt = document.getElementById("apCount");
+    if(panel) panel.dataset.faction = state.faction;
+    if(cnt) cnt.innerHTML = "<b>" + factionBots().length + "</b>명 표시";
+  }
+
   /* ---------- render ---------- */
   function filtered(){
     var q = state.q.trim().toLowerCase();
@@ -1712,6 +1836,7 @@
       c.setAttribute("aria-pressed", String(c.dataset.role === state.role));
     });
     refreshRoleCounts();
+    syncArchivePanel();
     var favT = document.getElementById("favToggle");
     favT.setAttribute("aria-pressed", String(state.favOnly));
     document.getElementById("favCount").textContent = String(favorites.length);

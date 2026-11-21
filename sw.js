@@ -4,7 +4,7 @@
    - 화면(index.html·매니페스트)은 네트워크 우선 → 새 버전이 바로 반영된다.
    - 그림·아이콘은 캐시 우선 → 오프라인에서도 그림이 보인다.
 */
-const VERSION = "transformers-dex-v8";
+const VERSION = "transformers-dex-v9";
 const SHELL = [
   "./",
   "./index.html",
