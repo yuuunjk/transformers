@@ -209,8 +209,14 @@
 
   .card.decepticon{
     border-color:rgba(168,85,247,.3);
-    background:linear-gradient(180deg,rgba(40,22,64,.74),var(--panel));
+    background:linear-gradient(180deg,rgba(46,26,76,.96),rgba(14,10,26,.94));
   }
+  html[data-theme="light"] .card.decepticon{
+    background:linear-gradient(180deg,#f6f0ff,#ffffff);
+    border-color:rgba(120,60,190,.22);
+  }
+  html[data-theme="light"] .card.decepticon .card-en{color:#7b3fc4}
+  html[data-theme="light"] .card.decepticon .card-tag{color:#4d4560}
   .card.decepticon:hover{
     border-color:rgba(190,120,255,.62);
     box-shadow:0 24px 48px rgba(24,0,40,.6), 0 0 0 1px rgba(168,85,247,.28);
