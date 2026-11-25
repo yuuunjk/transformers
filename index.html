@@ -2653,34 +2653,24 @@
     }catch(e){}
     return null;
   }
-  var MG_AFTER_MODES = { school:1, afterschool:1 };   /* 오후 루틴이 있는 모드 */
+  var MG_AFTER_MODES = { school:1, afterschool:1 };   /* 오후 루틴이 있는 모드 (공휴일·방학은 아침 루틴으로 해금) */
   function slotAllDone(slot){
     return !!(slot && Array.isArray(slot.tasks) && slot.tasks.length &&
       slot.tasks.every(function(v){ return !!v; }));
   }
   function routineCheck(){
     var st = routineState();
-    if(!st) return { mode:"", need:"after", ok:false };
-    var mode = String(st.mode || "");
-    var need = (!mode || MG_AFTER_MODES[mode]) ? "after" : "morning";
-    var days = [todayKey(), todayKeyU()];
-    for(var i = 0; i < days.length; i++){
-      var rec = st.days[days[i]];
-      if(!rec || !rec.slots || typeof rec.slots !== "object") continue;
-      if(mode){
-        if(slotAllDone(rec.slots[mode + ":" + need])) return { mode:mode, need:need, ok:true };
-      }else{
-        var names = Object.keys(rec.slots);
-        var j;
-        for(j = 0; j < names.length; j++){
-          if(/:after$/.test(names[j]) && slotAllDone(rec.slots[names[j]])) return { mode:"", need:"after", ok:true };
-        }
-        for(j = 0; j < names.length; j++){
-          if(/:morning$/.test(names[j]) && slotAllDone(rec.slots[names[j]])) return { mode:"", need:"morning", ok:true };
-        }
-      }
+    var days = [todayKeyU(), todayKey()];   /* 루틴 앱은 0 패딩 없는 날짜 키를 쓴다 */
+    var rec = null;
+    if(st && st.days && typeof st.days === "object"){
+      for(var i = 0; i < days.length && !rec; i++) rec = st.days[days[i]] || null;
     }
-    return { mode:mode, need:need, ok:false };
+    var mode = String((rec && rec.mode) || (st && st.mode) || "school");
+    var need = MG_AFTER_MODES[mode] ? "after" : "morning";
+    var slot = (rec && rec.slots && typeof rec.slots === "object") ? rec.slots[mode + ":" + need] : null;
+    var done = slotAllDone(slot) || !!(slot && slot.claimed === true);
+    if(!done && rec && rec.rewarded) done = !!(need === "after" ? rec.rewarded.after : rec.rewarded.morning);
+    return { mode:mode, need:need, ok:!!done };
   }
   /* 미니게임은 매일 20:30 까지 (20:30 부터는 잠금) */
   function mgTimeOpen(){
