@@ -32,6 +32,7 @@ day.slots[mode + ":morning"] = ms;
 day.slots[mode + ":after"] = as;
 st.days[k] = day;
 localStorage.setItem("lukaPokemonDashboard.v1", JSON.stringify(st));
+if(q.get("reset") === "1") localStorage.removeItem("autobotDex.minigame.v1");
 location.replace("./index.html?tab=minigame");
 </script>
 </body></html>
