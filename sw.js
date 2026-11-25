@@ -1,10 +1,11 @@
 /* 트랜스포머 도감 서비스 워커
    삼성 인터넷·크롬이 웹앱(WebAPK)으로 설치할 수 있게 해 주는 최소 SW.
    - 설치 시: 앱 화면과 22명(오토봇 12 + 디셉티콘 10) 실사 영화 모습을 미리 받아 둔다.
+   - v11: 🎮 미니게임 탭(1:1 VS·키 줄세우기·퀴즈·최애 3인 팀) 추가.
    - 화면(index.html·매니페스트)은 네트워크 우선 → 새 버전이 바로 반영된다.
    - 그림·아이콘은 캐시 우선 → 오프라인에서도 그림이 보인다.
 */
-const VERSION = "transformers-dex-v10";
+const VERSION = "transformers-dex-v11";
 const SHELL = [
   "./",
   "./index.html",

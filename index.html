@@ -758,6 +758,297 @@
     .ap-eyebrow{font-size:9px;letter-spacing:.16em}
   }
 
+  /* ---------- 🎮 미니게임 ---------- */
+  body[data-view="minigame"] #archivePanel{display:none!important}
+  body[data-view="minigame"] .search-row{display:none}
+  body[data-view="minigame"] .archive-wrap{padding-bottom:10px}
+  .mg[hidden],.mg-menu[hidden],.mg-panels[hidden],.mg-panel[hidden],#dexView[hidden]{display:none!important}
+
+  .foldertabs .chip.faction-minigame{border-color:rgba(255,194,74,.34)}
+  .foldertabs .chip.faction-minigame:hover{color:#ffe6b0;border-color:rgba(255,194,74,.6);background:linear-gradient(180deg,rgba(86,60,16,.62),rgba(40,28,8,.42))}
+  .foldertabs .chip.faction-minigame[aria-pressed="true"]{
+    color:#ffefd2;border-color:rgba(255,205,120,.62);
+    background:linear-gradient(180deg,rgba(124,86,20,.96),rgba(52,34,6,.96));
+    box-shadow:0 -8px 22px rgba(255,170,60,.2), inset 0 1px 0 rgba(255,255,255,.16);
+  }
+  html[data-theme="light"] .foldertabs .chip.faction-minigame{background:linear-gradient(180deg,#fff6e6,#fbe9c9);border-color:rgba(180,120,20,.22)}
+  html[data-theme="light"] .foldertabs .chip.faction-minigame:hover{background:linear-gradient(180deg,#fffbf2,#fdf1dc);border-color:rgba(180,120,20,.34)}
+  html[data-theme="light"] .foldertabs .chip.faction-minigame[aria-pressed="true"]{
+    background:linear-gradient(180deg,#fffdf8,#fdf1da);color:#8a5400;border-color:rgba(180,120,20,.34);
+    box-shadow:0 -8px 20px rgba(200,140,30,.16), inset 0 1px 0 #fff;
+  }
+
+  .mg{position:relative;min-width:0;padding:2px 0 6px}
+  .mg-hero{
+    position:relative;display:flex;align-items:center;justify-content:space-between;gap:14px;
+    border:1px solid var(--line-strong);border-radius:20px;padding:16px 18px 16px 20px;margin:2px 0 14px;
+    background:
+      radial-gradient(420px 180px at 88% -20%, rgba(255,194,74,.2), transparent 70%),
+      linear-gradient(135deg, rgba(61,155,255,.16), rgba(168,85,247,.1)),
+      var(--panel);
+    overflow:hidden;box-shadow:var(--shadow);
+  }
+  .mg-hero::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,#ffc24a,#ff6a3d)}
+  .mg-hero h2{margin:3px 0 4px;font-size:23px;font-weight:900;letter-spacing:-.01em}
+  .mg-hero p{margin:0;font-size:13px;color:var(--muted);font-weight:600;line-height:1.5;overflow-wrap:anywhere}
+  .mg-eyebrow{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:900}
+  .mg-hero-badge{font-size:42px;line-height:1;flex:none;filter:drop-shadow(0 6px 16px rgba(255,170,60,.4))}
+
+  .mg-menu{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+  .mg-tile{
+    position:relative;overflow:hidden;display:flex;flex-direction:column;gap:5px;min-width:0;
+    text-align:left;cursor:pointer;padding:16px 15px 13px;border-radius:17px;
+    border:1px solid var(--line);background:linear-gradient(180deg,var(--panel-2),var(--panel));
+    box-shadow:var(--shadow);transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease;
+  }
+  .mg-tile::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--ac,#2f8bff)}
+  .mg-tile::after{content:"";position:absolute;right:-26px;top:-26px;width:94px;height:94px;border-radius:50%;background:var(--ac,#2f8bff);opacity:.11}
+  .mg-tile:hover{transform:translateY(-3px);border-color:var(--line-strong);box-shadow:0 22px 44px rgba(0,0,0,.42)}
+  html[data-theme="light"] .mg-tile:hover{box-shadow:0 18px 34px rgba(20,50,100,.18)}
+  .mg-tile .mg-ico{font-size:24px;line-height:1}
+  .mg-tile .mg-ttl{font-size:16.5px;font-weight:900;letter-spacing:-.01em;line-height:1.25}
+  .mg-tile .mg-txt{font-size:12.5px;color:var(--muted);font-weight:600;line-height:1.5}
+  .mg-tile .mg-foot{margin-top:auto;padding-top:9px;font-size:12px;font-weight:900;color:var(--cyan)}
+  .mg-tile .mg-foot.zero{color:var(--gold)}
+  .mg-tile[data-game="vs"]{--ac:linear-gradient(90deg,#ff4d5e,#ff9a3d)}
+  .mg-tile[data-game="height"]{--ac:linear-gradient(90deg,#2f8bff,#6fe3ff)}
+  .mg-tile[data-game="quiz"]{--ac:linear-gradient(90deg,#8b5cf6,#6fe3ff)}
+  .mg-tile[data-game="team"]{--ac:linear-gradient(90deg,#ffc24a,#ff7a4d)}
+
+  .mg-back{
+    display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 14px;margin-bottom:10px;
+    border-radius:999px;border:1px solid var(--line);background:var(--panel);color:var(--muted);
+    font-size:12.5px;font-weight:900;cursor:pointer;
+  }
+  .mg-back:hover{color:var(--txt);border-color:var(--line-strong)}
+  .mg-panel{
+    border:1px solid var(--line);border-radius:18px;background:var(--panel);padding:16px;
+    min-width:0;box-shadow:var(--shadow);scroll-margin-top:112px;
+  }
+  .mg-panel-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:13px}
+  .mg-title{margin:0;font-size:18.5px;font-weight:900;letter-spacing:-.01em;line-height:1.3}
+  .mg-desc{margin:4px 0 0;font-size:12.5px;color:var(--muted);font-weight:600;line-height:1.5}
+  .mg-limit{
+    flex:none;font-size:11.5px;font-weight:900;color:var(--cyan);background:rgba(111,227,255,.12);
+    border:1px solid rgba(111,227,255,.34);border-radius:999px;padding:5px 11px;white-space:nowrap;
+  }
+  .mg-limit.zero{color:var(--gold);background:rgba(255,194,74,.12);border-color:rgba(255,194,74,.42)}
+  .mg-btn{
+    display:block;width:100%;min-height:48px;margin-top:12px;padding:11px 16px;border-radius:14px;border:none;cursor:pointer;
+    font-weight:900;font-size:15px;color:#fff;background:linear-gradient(135deg,#2f8bff,#1657c8);
+    box-shadow:0 10px 24px rgba(40,120,255,.3);transition:transform .14s ease,opacity .14s ease;
+  }
+  .mg-btn:hover:not(:disabled){transform:translateY(-1px)}
+  .mg-btn:active:not(:disabled){transform:scale(.995)}
+  .mg-btn:disabled{opacity:.42;cursor:not-allowed;box-shadow:none}
+  .mg-btn.gold{background:linear-gradient(135deg,#ffc24a,#ff7a2d);color:#3a2200;box-shadow:0 10px 24px rgba(255,150,40,.3)}
+  .mg-note{margin:10px 0 0;font-size:12.5px;font-weight:800;color:var(--gold);line-height:1.5}
+  .mg-note:empty{display:none}
+
+  /* 1:1 VS */
+  .vs-arena{display:grid;grid-template-columns:minmax(0,1fr) 40px minmax(0,1fr);gap:7px;align-items:center}
+  .vs-side{
+    display:flex;flex-direction:column;gap:6px;min-width:0;border:1px solid var(--line);border-radius:15px;
+    padding:8px;background:rgba(255,255,255,.035);text-align:center;
+  }
+  html[data-theme="light"] .vs-side{background:rgba(255,255,255,.72)}
+  .vs-side img{width:100%;aspect-ratio:1/1;object-fit:cover;object-position:center 28%;border-radius:10px;background:#0a1224}
+  .vs-side .vs-nm{font-size:13.5px;font-weight:900;line-height:1.25;overflow-wrap:anywhere}
+  .vs-side .vs-nm.decepticon{color:#d8b4fe}
+  html[data-theme="light"] .vs-side .vs-nm.decepticon{color:#6b21a8}
+  .vs-side .vs-rl{font-size:10.5px;font-weight:800;color:var(--muted);line-height:1.35;overflow-wrap:anywhere}
+  .vs-select{
+    width:100%;min-width:0;height:36px;border-radius:10px;border:1px solid var(--line);
+    background:var(--panel-solid);color:var(--txt);font:inherit;font-weight:800;font-size:12px;padding:0 6px;cursor:pointer;
+  }
+  .vs-mid{display:grid;place-items:center}
+  .vs-mid span{
+    display:grid;place-items:center;width:38px;height:38px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%,#ff9a3d,#c2300f);color:#fff;font-size:13px;font-weight:900;
+    box-shadow:0 6px 18px rgba(255,110,40,.4);
+  }
+  .vs-result{margin-top:14px;border-top:1px dashed var(--line);padding-top:14px;transition:opacity .2s ease}
+  .vs-result.stale{opacity:.45}
+  .vs-verdict{
+    display:flex;align-items:center;gap:11px;border-radius:14px;padding:12px 13px;margin-bottom:13px;
+    border:1px solid rgba(255,194,74,.42);background:linear-gradient(135deg,rgba(255,194,74,.16),rgba(255,122,45,.08));
+  }
+  .vs-verdict.b{border-color:rgba(168,85,247,.46);background:linear-gradient(135deg,rgba(168,85,247,.2),rgba(255,77,94,.08))}
+  .vs-verdict.tie{border-color:var(--line-strong);background:var(--panel-2)}
+  .vs-crown{font-size:26px;line-height:1;flex:none}
+  .vs-verdict-line{font-size:15.5px;font-weight:900;line-height:1.35;overflow-wrap:anywhere}
+  .vs-verdict-line b{color:var(--gold)}
+  .vs-verdict-sub{margin-top:3px;font-size:12px;font-weight:800;color:var(--muted)}
+  .vs-verdict-sub b{color:var(--txt)}
+  .vs-legend{display:flex;justify-content:space-between;gap:10px;font-size:12px;font-weight:900;margin-bottom:8px}
+  .vs-legend .l{color:var(--cyan)}
+  .vs-legend .r{color:#d8b4fe}
+  html[data-theme="light"] .vs-legend .r{color:#7c3aed}
+  .vs-row{display:grid;grid-template-columns:24px minmax(0,1fr) 54px minmax(0,1fr) 24px;gap:6px;align-items:center;margin-bottom:7px}
+  .vs-val{font-size:12.5px;font-weight:900;text-align:center;color:var(--muted);font-variant-numeric:tabular-nums}
+  .vs-row.a .vs-val.a{color:var(--cyan)}
+  .vs-row.b .vs-val.b{color:#d8b4fe}
+  html[data-theme="light"] .vs-row.b .vs-val.b{color:#7c3aed}
+  .vs-lab{font-size:11px;font-weight:900;text-align:center;color:var(--muted);letter-spacing:-.02em}
+  .vs-row.tie .vs-lab{color:var(--gold)}
+  .vs-bar{display:flex;height:9px;border-radius:999px;background:rgba(140,175,230,.16);overflow:hidden}
+  .vs-bar.a{justify-content:flex-end}
+  .vs-bar i{display:block;height:100%;border-radius:999px;width:0;transition:width .55s cubic-bezier(.2,.8,.2,1)}
+  .vs-predict{
+    margin:12px 0 0;border-radius:13px;padding:11px 13px;font-size:13px;line-height:1.6;font-weight:650;
+    color:var(--txt);background:rgba(111,227,255,.08);border:1px solid rgba(111,227,255,.26);overflow-wrap:anywhere;
+  }
+  .vs-predict b{display:block;font-size:11.5px;letter-spacing:.02em;color:var(--cyan);margin-bottom:4px;font-weight:900}
+
+  /* 키 줄세우기 */
+  .mg-filters{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;margin-bottom:2px}
+  .mg-filters::-webkit-scrollbar{display:none}
+  .mg-fchip{
+    flex:none;height:32px;padding:0 12px;border-radius:999px;border:1px solid var(--line);
+    background:rgba(255,255,255,.04);color:var(--muted);font-size:12px;font-weight:900;cursor:pointer;
+  }
+  .mg-fchip[aria-pressed="true"]{color:#eafaff;border-color:rgba(111,227,255,.5);background:linear-gradient(135deg,rgba(61,155,255,.26),rgba(111,227,255,.14))}
+  html[data-theme="light"] .mg-fchip{background:rgba(23,63,130,.05)}
+  html[data-theme="light"] .mg-fchip[aria-pressed="true"]{color:#0b3f7a;border-color:rgba(23,110,190,.4);background:linear-gradient(135deg,#dbeafe,#e8f8ff)}
+  .ht-list{display:grid;gap:5px;margin-top:8px}
+  .ht-row{
+    display:grid;grid-template-columns:22px 30px minmax(0,1fr) 48px;gap:8px;align-items:center;
+    width:100%;text-align:left;cursor:pointer;padding:6px 8px;border-radius:11px;
+    border:1px solid transparent;background:rgba(255,255,255,.03);
+  }
+  html[data-theme="light"] .ht-row{background:rgba(23,63,130,.035)}
+  .ht-row:hover{border-color:var(--line-strong);background:rgba(255,255,255,.06)}
+  .ht-rank{font-size:11px;font-weight:900;color:var(--muted);text-align:center;font-variant-numeric:tabular-nums}
+  .ht-thumb img{width:30px;height:30px;border-radius:8px;object-fit:cover;background:#0a1224}
+  .ht-body{min-width:0;display:flex;flex-direction:column;gap:4px}
+  .ht-name{font-size:13px;font-weight:900;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .ht-track{display:block;height:7px;border-radius:999px;background:rgba(140,175,230,.16);overflow:hidden}
+  .ht-track i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#2f8bff,#6fe3ff)}
+  .ht-row.dc .ht-track i{background:linear-gradient(90deg,#a855f7,#ff5b7c)}
+  .ht-val{font-size:12px;font-weight:900;color:var(--txt);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+  /* 누구일까 퀴즈 */
+  .qz-start,.qz-done{text-align:center;padding:16px 10px 6px}
+  .qz-start-ico{font-size:38px;line-height:1}
+  .qz-start-txt{margin:8px 0 0;font-size:13px;color:var(--muted);font-weight:700;line-height:1.65}
+  .qz-start-txt b{color:var(--gold)}
+  .qz-hints{display:grid;gap:8px;margin-bottom:13px}
+  .qz-hint{
+    display:flex;gap:8px;align-items:flex-start;border:1px solid var(--line);border-radius:13px;
+    padding:10px 12px;background:rgba(255,255,255,.035);font-size:13.5px;font-weight:700;line-height:1.55;overflow-wrap:anywhere;
+  }
+  html[data-theme="light"] .qz-hint{background:rgba(23,63,130,.035)}
+  .qz-hint b{flex:none;font-size:10.5px;letter-spacing:.02em;color:var(--cyan);font-weight:900;padding-top:3px;white-space:nowrap}
+  .qz-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .qz-choices.done{pointer-events:none}
+  .qz-choice{
+    display:flex;align-items:center;justify-content:center;gap:5px;min-height:52px;padding:9px 8px;
+    border-radius:13px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--txt);
+    font-size:13.5px;font-weight:900;cursor:pointer;line-height:1.25;overflow-wrap:anywhere;text-align:center;
+    transition:border-color .14s ease,background .14s ease;
+  }
+  html[data-theme="light"] .qz-choice{background:rgba(255,255,255,.82)}
+  .qz-choice:hover:not(:disabled){border-color:var(--line-strong);background:rgba(255,255,255,.07)}
+  .qz-choice:disabled{cursor:default}
+  .qz-choice.ok{border-color:#34d399;background:rgba(52,211,153,.18);box-shadow:0 0 0 1px rgba(52,211,153,.35)}
+  .qz-choice.ok::after{content:"✓";margin-left:2px;font-weight:900;color:#34d399}
+  .qz-choice.no{border-color:#ff6b7a;background:rgba(255,77,94,.16)}
+  .qz-choice.no::after{content:"✕";margin-left:2px;font-weight:900;color:#ff6b7a}
+  .qz-choice.dim{opacity:.42}
+  .qz-why{
+    margin-top:12px;border-radius:14px;padding:13px 14px;border:1px solid var(--line);
+    background:rgba(255,255,255,.04);font-size:13px;line-height:1.65;font-weight:600;overflow-wrap:anywhere;
+  }
+  html[data-theme="light"] .qz-why{background:rgba(23,63,130,.035)}
+  .qz-why h4{margin:0 0 6px;font-size:15px;font-weight:900}
+  .qz-why p{margin:0;color:var(--muted)}
+  .qz-why.good{border-color:rgba(52,211,153,.45)}
+  .qz-why.bad{border-color:rgba(255,107,122,.42)}
+  .qz-why .qz-ans{color:var(--gold);font-weight:900}
+
+  /* 내 최애 3인 팀 */
+  .tm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:7px}
+  .tm-pick{
+    position:relative;display:flex;flex-direction:column;gap:4px;align-items:center;min-width:0;
+    padding:5px 5px 6px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.035);cursor:pointer;
+  }
+  html[data-theme="light"] .tm-pick{background:rgba(255,255,255,.75)}
+  .tm-pick img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:8px;background:#0a1224}
+  .tm-pick .nm{font-size:10.5px;font-weight:800;line-height:1.2;text-align:center;overflow-wrap:anywhere;color:var(--txt)}
+  .tm-pick:hover{border-color:var(--line-strong)}
+  .tm-pick.on{border-color:var(--gold);box-shadow:0 0 0 2px rgba(255,194,74,.3)}
+  .tm-pick.on::before{content:"";position:absolute;inset:0;border-radius:12px;background:rgba(255,194,74,.1);pointer-events:none}
+  .tm-pick.on::after{
+    content:attr(data-order);position:absolute;top:-6px;left:-6px;width:20px;height:20px;border-radius:50%;
+    background:linear-gradient(135deg,#ffc24a,#ff7a2d);color:#3a2200;font-size:11px;font-weight:900;
+    display:grid;place-items:center;box-shadow:0 4px 10px rgba(255,150,40,.4);
+  }
+  .tm-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px;flex-wrap:wrap}
+  .tm-count{font-size:12.5px;font-weight:900;color:var(--muted)}
+  .tm-count b{color:var(--gold);font-size:15px}
+  .tm-bar .mg-btn{margin-top:0;width:auto;flex:1 1 180px}
+  .tm-crown{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:900;color:var(--gold);margin-bottom:10px}
+  .tm-members{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:14px}
+  .tm-member{
+    position:relative;display:block;width:100%;min-width:0;text-align:center;cursor:pointer;font:inherit;color:inherit;
+    border:1px solid var(--line);border-radius:14px;padding:6px;background:rgba(255,255,255,.035);
+  }
+  html[data-theme="light"] .tm-member{background:rgba(255,255,255,.75)}
+  .tm-member:hover{border-color:var(--gold)}
+  .tm-member img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:10px;background:#0a1224}
+  .tm-member .nm{display:block;margin-top:5px;font-size:12.5px;font-weight:900;line-height:1.2;overflow-wrap:anywhere}
+  .tm-member .rl{display:block;font-size:10px;font-weight:800;color:var(--muted);margin-top:2px;overflow-wrap:anywhere}
+  .tm-member .tm-no{
+    position:absolute;top:4px;left:4px;width:19px;height:19px;border-radius:50%;
+    background:linear-gradient(135deg,#ffc24a,#ff7a2d);color:#3a2200;font-size:10.5px;font-weight:900;
+    display:grid;place-items:center;box-shadow:0 3px 8px rgba(255,150,40,.45);
+  }
+  .tm-block{margin-bottom:14px}
+  .tm-block h4{margin:0 0 7px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:900}
+  .tm-stat{display:grid;grid-template-columns:52px minmax(0,1fr) 40px;gap:8px;align-items:center;margin-bottom:6px}
+  .tm-stat .lb{font-size:11.5px;font-weight:900;color:var(--muted)}
+  .tm-stat .tr{display:block;height:8px;border-radius:999px;background:rgba(140,175,230,.16);overflow:hidden}
+  .tm-stat .tr i{display:block;height:100%;border-radius:999px}
+  .tm-stat .vl{font-size:11.5px;font-weight:900;text-align:right;font-variant-numeric:tabular-nums}
+  .tm-total{margin-top:8px;font-size:12.5px;font-weight:900;color:var(--muted)}
+  .tm-total b{color:var(--gold);font-size:14px}
+  .tm-syn{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+  .tm-syn li{
+    font-size:12.5px;font-weight:700;line-height:1.5;color:var(--txt);border:1px solid var(--line);
+    border-radius:11px;padding:8px 11px;background:rgba(255,255,255,.035);overflow-wrap:anywhere;
+  }
+  html[data-theme="light"] .tm-syn li{background:rgba(255,255,255,.72)}
+
+  /* 프로필 관계 이름 → 바로 이동 */
+  .rel .who .rel-nm{font:inherit}
+  .rel .who button.rel-nm{
+    display:inline;padding:0;border:0;background:none;cursor:pointer;color:var(--cyan);
+    border-bottom:1.5px dotted rgba(111,227,255,.6);font-weight:900;text-align:left;line-height:inherit;
+  }
+  .rel .who button.rel-nm:hover{color:#fff;border-bottom-color:#fff}
+  html[data-theme="light"] .rel .who button.rel-nm{color:var(--blue-deep);border-bottom-color:rgba(23,110,190,.5)}
+  html[data-theme="light"] .rel .who button.rel-nm:hover{color:#0b3f7a;border-bottom-color:#0b3f7a}
+  .rel .who .jump-ico{font-size:10px;opacity:.8;margin-left:2px;vertical-align:super}
+  .rel .who .rel-sep{color:var(--muted);font-weight:700;margin:0 4px}
+
+  @media (max-width:720px){
+    .mg-hero{padding:14px 15px 14px 17px;border-radius:16px;gap:10px}
+    .mg-hero h2{font-size:20px}
+    .mg-hero-badge{font-size:34px}
+    .mg-panel{padding:14px 13px;border-radius:16px}
+    .mg-title{font-size:17px}
+    .vs-side .vs-nm{font-size:12.5px}
+    .vs-side .vs-rl{font-size:10px}
+    .vs-row{grid-template-columns:22px minmax(0,1fr) 50px minmax(0,1fr) 22px;gap:5px}
+    .qz-choice{min-height:50px;font-size:13px}
+    .ht-row{grid-template-columns:20px 28px minmax(0,1fr) 44px;gap:7px}
+  }
+  @media (max-width:400px){
+    .mg-menu{grid-template-columns:1fr}
+    .vs-arena{grid-template-columns:minmax(0,1fr) 34px minmax(0,1fr);gap:5px}
+    .vs-mid span{width:32px;height:32px;font-size:11.5px}
+  }
+
   @media (prefers-reduced-motion:reduce){
     *{animation:none!important;transition:none!important}
   }
@@ -805,11 +1096,157 @@
 </header>
 
 <main>
-  <div class="result-line">
-    <span id="resultText"><b>22</b>명의 트랜스포머</span>
-    <span class="hint">카드를 누르면 프로필이 열려요</span>
+  <div id="dexView">
+    <div class="result-line">
+      <span id="resultText"><b>22</b>명의 트랜스포머</span>
+      <span class="hint">카드를 누르면 프로필이 열려요</span>
+    </div>
+    <div class="grid" id="grid"></div>
   </div>
-  <div class="grid" id="grid"></div>
+
+  <div class="mg" id="mgView" hidden>
+    <section class="mg-hero">
+      <div>
+        <div class="mg-eyebrow">Cybertron Arcade · Mini Games</div>
+        <h2>🎮 미니게임</h2>
+        <p>22명 로봇과 놀아 보는 네 가지 게임. 횟수는 매일 새로 채워져요.</p>
+      </div>
+      <div class="mg-hero-badge" aria-hidden="true">🎮</div>
+    </section>
+
+    <div class="mg-menu" id="mgMenu">
+      <button class="mg-tile" type="button" data-game="vs">
+        <span class="mg-ico" aria-hidden="true">⚔️</span>
+        <span class="mg-ttl">1:1 VS 대결</span>
+        <span class="mg-txt">두 로봇을 골라 5가지 능력치를 나란히 비교해요.</span>
+        <span class="mg-foot" id="tileVs">오늘 2/2회 남음</span>
+      </button>
+      <button class="mg-tile" type="button" data-game="height">
+        <span class="mg-ico" aria-hidden="true">📏</span>
+        <span class="mg-ttl">키·크기 줄세우기</span>
+        <span class="mg-txt">22명을 키 순서대로 세워 크기를 눈으로 비교해요.</span>
+        <span class="mg-foot">횟수 제한 없이 구경</span>
+      </button>
+      <button class="mg-tile" type="button" data-game="quiz">
+        <span class="mg-ico" aria-hidden="true">🧠</span>
+        <span class="mg-ttl">누구일까? 퀴즈</span>
+        <span class="mg-txt">힌트 3개를 읽고 어떤 로봇인지 맞혀 봐요.</span>
+        <span class="mg-foot" id="tileQuiz">오늘 3/3문제 남음</span>
+      </button>
+      <button class="mg-tile" type="button" data-game="team">
+        <span class="mg-ico" aria-hidden="true">⭐</span>
+        <span class="mg-ttl">내 최애 3인 팀</span>
+        <span class="mg-txt">좋아하는 로봇 3명으로 오늘의 팀을 짜요.</span>
+        <span class="mg-foot" id="tileTeam">오늘 1/1팀 남음</span>
+      </button>
+    </div>
+
+    <div class="mg-panels" id="mgPanels" hidden>
+      <button class="mg-back" type="button" id="mgBack"><span aria-hidden="true">←</span> 미니게임 목록</button>
+
+      <section class="mg-panel" id="mgPanel-vs" hidden aria-labelledby="vsTitle">
+        <div class="mg-panel-head">
+          <div>
+            <h3 class="mg-title" id="vsTitle">⚔️ 1:1 VS 대결</h3>
+            <p class="mg-desc">왼쪽과 오른쪽 로봇을 고르고 「누가 이길까?」를 비교해 보세요.</p>
+          </div>
+          <span class="mg-limit" id="vsLeft">오늘 2/2회 남음</span>
+        </div>
+        <div class="vs-arena">
+          <div class="vs-side">
+            <img id="vsImgA" alt="" width="640" height="640">
+            <div class="vs-nm" id="vsNmA">옵티머스 프라임</div>
+            <div class="vs-rl" id="vsRlA">오토봇 · 지휘관</div>
+            <select class="vs-select" id="vsA" aria-label="왼쪽 로봇 고르기"></select>
+          </div>
+          <div class="vs-mid" aria-hidden="true"><span>VS</span></div>
+          <div class="vs-side">
+            <img id="vsImgB" alt="" width="640" height="640">
+            <div class="vs-nm decepticon" id="vsNmB">메가트론</div>
+            <div class="vs-rl" id="vsRlB">디셉티콘 · 지휘관</div>
+            <select class="vs-select" id="vsB" aria-label="오른쪽 로봇 고르기"></select>
+          </div>
+        </div>
+        <button class="mg-btn" type="button" id="vsBtn">⚔️ 누가 이길까? 비교하기</button>
+        <p class="mg-note" id="vsNote" hidden></p>
+        <div class="vs-result" id="vsResult" hidden></div>
+      </section>
+
+      <section class="mg-panel" id="mgPanel-height" hidden aria-labelledby="htTitle">
+        <div class="mg-panel-head">
+          <div>
+            <h3 class="mg-title" id="htTitle">📏 키·크기 줄세우기</h3>
+            <p class="mg-desc">큰 로봇부터 차례대로 세웠어요. 이름을 누르면 프로필이 열려요.</p>
+          </div>
+        </div>
+        <div class="mg-filters" id="htFilters" role="group" aria-label="진영 고르기">
+          <button class="mg-fchip" type="button" data-f="all" aria-pressed="true">전체 22</button>
+          <button class="mg-fchip" type="button" data-f="autobot" aria-pressed="false">🛡️ 오토봇 12</button>
+          <button class="mg-fchip" type="button" data-f="decepticon" aria-pressed="false">⚔️ 디셉티콘 10</button>
+        </div>
+        <p class="mg-note" id="htSummary"></p>
+        <div class="ht-list" id="htList"></div>
+      </section>
+
+      <section class="mg-panel" id="mgPanel-quiz" hidden aria-labelledby="qzTitle">
+        <div class="mg-panel-head">
+          <div>
+            <h3 class="mg-title" id="qzTitle">🧠 누구일까? 퀴즈</h3>
+            <p class="mg-desc">변신 차종·특징·활약 힌트를 읽고 4명 중에 골라 보세요.</p>
+          </div>
+          <span class="mg-limit" id="qzLeft">오늘 3/3문제 남음</span>
+        </div>
+        <div class="qz-start" id="qzStart">
+          <div class="qz-start-ico" aria-hidden="true">🧠</div>
+          <p class="qz-start-txt">힌트 3개로 어떤 로봇인지 맞혀요.<br>맞히면 정답 공개와 해설이 나와요.</p>
+          <button class="mg-btn" type="button" id="qzStartBtn">첫 문제 받기</button>
+        </div>
+        <div id="qzCard" hidden>
+          <div class="qz-hints" id="qzHints"></div>
+          <div class="qz-choices" id="qzChoices"></div>
+          <div class="qz-why" id="qzWhy" hidden></div>
+          <button class="mg-btn" type="button" id="qzNext" hidden>다음 문제 →</button>
+        </div>
+        <div class="qz-done" id="qzDone" hidden>
+          <div class="qz-start-ico" aria-hidden="true">🌙</div>
+          <p class="qz-start-txt">오늘 <b>3문제</b>를 모두 풀었어요!<br>내일 다시 새로운 문제가 준비돼요.</p>
+        </div>
+        <p class="mg-note" id="qzNote" hidden></p>
+      </section>
+
+      <section class="mg-panel" id="mgPanel-team" hidden aria-labelledby="tmTitle">
+        <div class="mg-panel-head">
+          <div>
+            <h3 class="mg-title" id="tmTitle">⭐ 내 최애 3인 팀</h3>
+            <p class="mg-desc">22명 중 3명을 골라 오늘의 팀을 확정해요. 하루에 한 팀!</p>
+          </div>
+          <span class="mg-limit" id="tmLeft">오늘 1/1팀 남음</span>
+        </div>
+        <div id="tmPicker">
+          <div class="tm-grid" id="tmGrid"></div>
+          <div class="tm-bar">
+            <span class="tm-count"><b id="tmCount">0</b> / 3 선택</span>
+            <button class="mg-btn gold" type="button" id="tmConfirm" disabled>⭐ 오늘의 내 팀 확정</button>
+          </div>
+          <p class="mg-note" id="tmNote" hidden></p>
+        </div>
+        <div id="tmCard" hidden>
+          <div class="tm-crown">⭐ 오늘의 내 팀</div>
+          <div class="tm-members" id="tmMembers"></div>
+          <div class="tm-block">
+            <h4>팀 평균 능력치</h4>
+            <div id="tmStats"></div>
+            <div class="tm-total" id="tmTotal"></div>
+          </div>
+          <div class="tm-block">
+            <h4>팀 시너지</h4>
+            <ul class="tm-syn" id="tmSyn"></ul>
+          </div>
+          <p class="mg-note">오늘 팀을 확정했어요. 내일 새 팀을 짤 수 있어요!</p>
+        </div>
+      </section>
+    </div>
+  </div>
 </main>
 
 <footer>
@@ -1693,7 +2130,7 @@
   var FAV_KEY = "autobotDex.favorites.v1";
   var THEME_KEY = "autobotDex.theme.v1";
   var favorites = loadFavorites();
-  var state = { faction:"all", role:"all", q:"", favOnly:false };
+  var state = { faction:"all", role:"all", q:"", favOnly:false, view:"dex" };
 
   function loadFavorites(){
     try{
@@ -1749,10 +2186,27 @@
       btn.addEventListener("click", function(){
         state.faction = f.key;
         if(state.role !== "all" && !factionBots().some(function(b){return b.role===state.role;})) state.role = "all";
+        if(state.view !== "dex"){
+          state.view = "dex";
+          document.body.setAttribute("data-view", "dex");
+          var dv = document.getElementById("dexView"), mv = document.getElementById("mgView");
+          if(dv) dv.hidden = false;
+          if(mv) mv.hidden = true;
+          window.scrollTo(0, 0);
+        }
         render();
       });
       wrap.appendChild(btn);
     });
+
+    var mgBtn = document.createElement("button");
+    mgBtn.type = "button";
+    mgBtn.className = "chip faction-chip faction-minigame";
+    mgBtn.dataset.faction = "minigame";
+    mgBtn.setAttribute("aria-pressed", "false");
+    mgBtn.innerHTML = '<span aria-hidden="true">🎮</span>미니게임<span class="n">4</span>';
+    mgBtn.addEventListener("click", function(){ setView("minigame"); });
+    wrap.appendChild(mgBtn);
   }
 
   function buildFilters(){
@@ -1830,7 +2284,10 @@
     var grid = document.getElementById("grid");
 
     Array.prototype.forEach.call(document.querySelectorAll("#factionFilters .chip"), function(c){
-      c.setAttribute("aria-pressed", String(c.dataset.faction === state.faction));
+      var on = (c.dataset.faction === "minigame")
+        ? (state.view === "minigame")
+        : (state.view === "dex" && c.dataset.faction === state.faction);
+      c.setAttribute("aria-pressed", String(on));
     });
     Array.prototype.forEach.call(document.querySelectorAll("#filters .chip"), function(c){
       c.setAttribute("aria-pressed", String(c.dataset.role === state.role));
@@ -1911,9 +2368,9 @@
              '</dl>';
     }).join("");
 
-    document.getElementById("mPartnerName").textContent = b.partner.n;
+    document.getElementById("mPartnerName").innerHTML = relNamesHTML(b.partner.n);
     document.getElementById("mPartnerDesc").textContent = b.partner.d;
-    document.getElementById("mRivalName").textContent = b.rival.n;
+    document.getElementById("mRivalName").innerHTML = relNamesHTML(b.rival.n);
     document.getElementById("mRivalDesc").textContent = b.rival.d;
     document.getElementById("mCombat").textContent = b.combat;
 
@@ -2040,10 +2497,669 @@
     if(ev.key === "Escape" && currentId) closeModal();
   });
 
+  /* ================= 🎮 미니게임 ================= */
+  var MG_KEY = "autobotDex.minigame.v1";
+  var MG_MAX = { vs:2, quiz:3, team:1 };
+  var mini = null;
+  var VS = { a:"optimus", b:"megatron" };
+  var htFilter = "all";
+  var quiz = { q:null, answered:false, lastId:null };
+  var teamPick = [];
+  var mgGame = null;
+
+  function mgText(id, t){
+    var el = document.getElementById(id);
+    if(!el) return;
+    el.textContent = t;
+    if(t) el.hidden = false;
+  }
+  function pad2(n){ return (n < 10 ? "0" : "") + n; }
+  function todayKey(){
+    var d = new Date();
+    return d.getFullYear() + "-" + pad2(d.getMonth() + 1) + "-" + pad2(d.getDate());
+  }
+  function botById(id){
+    for(var i = 0; i < BOTS.length; i++){ if(BOTS[i].id === id) return BOTS[i]; }
+    return null;
+  }
+  function shuffle(arr){
+    var a = arr.slice();
+    for(var i = a.length - 1; i > 0; i--){
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+  function hasJong(w){
+    if(!w) return false;
+    var c = w.charCodeAt(w.length - 1);
+    if(c < 0xAC00 || c > 0xD7A3) return false;
+    return (c - 0xAC00) % 28 !== 0;
+  }
+  function josa(w, a, b){ return w + (hasJong(w) ? a : b); }
+  function roJosa(w){
+    if(!w) return "로";
+    var c = w.charCodeAt(w.length - 1);
+    if(c >= 0xAC00 && c <= 0xD7A3){
+      var j = (c - 0xAC00) % 28;
+      return (j === 0 || j === 8) ? "로" : "으로";
+    }
+    return "로";
+  }
+  function heightM(b){
+    var m = String(b.height || "").match(/(\d+(?:\.\d+)?)/);
+    return m ? parseFloat(m[1]) : 0;
+  }
+
+  /* ---- 오늘의 횟수: localStorage(날짜 바뀌면 자동 리셋) ---- */
+  function mgFresh(){
+    return { date: todayKey(), vs:{ count:0, a:"optimus", b:"megatron", last:null }, quiz:{ count:0 }, team:{ list:null } };
+  }
+  function mgLoad(){
+    var m = null;
+    try{ m = JSON.parse(localStorage.getItem(MG_KEY) || "null"); }catch(e){ m = null; }
+    if(!m || typeof m !== "object" || m.date !== todayKey()) m = mgFresh();
+    if(!m.vs || typeof m.vs !== "object") m.vs = { count:0, a:"optimus", b:"megatron", last:null };
+    if(!m.quiz || typeof m.quiz !== "object") m.quiz = { count:0 };
+    if(!m.team || typeof m.team !== "object") m.team = { list:null };
+    m.vs.count = Math.max(0, Math.min(MG_MAX.vs, parseInt(m.vs.count, 10) || 0));
+    m.quiz.count = Math.max(0, Math.min(MG_MAX.quiz, parseInt(m.quiz.count, 10) || 0));
+    if(!Array.isArray(m.team.list) || m.team.list.length !== 3 ||
+       m.team.list.some(function(id){ return !botById(id); })) m.team.list = null;
+    if(!botById(m.vs.a)) m.vs.a = "optimus";
+    if(!botById(m.vs.b)) m.vs.b = "megatron";
+    if(m.vs.last && (!botById(m.vs.last.a) || !botById(m.vs.last.b))) m.vs.last = null;
+    return m;
+  }
+  function mgSync(){
+    if(!mini || mini.date !== todayKey()) mini = mgLoad();
+  }
+  function mgSave(){
+    try{ localStorage.setItem(MG_KEY, JSON.stringify(mini)); }catch(e){}
+  }
+  function vsLeft(){ mgSync(); return Math.max(0, MG_MAX.vs - mini.vs.count); }
+  function quizLeft(){ mgSync(); return Math.max(0, MG_MAX.quiz - mini.quiz.count); }
+  function teamLeft(){ mgSync(); return mini.team.list ? 0 : MG_MAX.team; }
+
+  function syncMGLimits(){
+    mgSync();
+    var v = vsLeft(), q = quizLeft(), t = teamLeft();
+    var vsTxt = "오늘 " + v + "/" + MG_MAX.vs + "회 남음";
+    var qzTxt = "오늘 " + q + "/" + MG_MAX.quiz + "문제 남음";
+    var tmTxt = t ? "오늘 1/1팀 남음" : "오늘 팀 확정 완료";
+    mgText("vsLeft", vsTxt); mgText("tileVs", vsTxt);
+    mgText("qzLeft", qzTxt); mgText("tileQuiz", qzTxt);
+    mgText("tmLeft", tmTxt); mgText("tileTeam", tmTxt);
+    [["vsLeft", v <= 0], ["qzLeft", q <= 0], ["tmLeft", t <= 0],
+     ["tileVs", v <= 0], ["tileQuiz", q <= 0], ["tileTeam", t <= 0]].forEach(function(p){
+      var el = document.getElementById(p[0]);
+      if(el) el.classList.toggle("zero", p[1]);
+    });
+    var vb = document.getElementById("vsBtn");
+    if(vb) vb.disabled = v <= 0;
+    var tb = document.getElementById("tmConfirm");
+    if(tb) tb.disabled = (mini.team.list !== null) || teamPick.length !== 3;
+  }
+
+  /* ---- ① 1:1 VS 대결 ---- */
+  function vsOptionHTML(){
+    return ["autobot", "decepticon"].map(function(f){
+      var label = (f === "autobot") ? "🛡️ 오토봇" : "⚔️ 디셉티콘";
+      return '<optgroup label="' + label + '">' + BOTS.filter(function(b){ return b.faction === f; }).map(function(b){
+        return '<option value="' + b.id + '">' + b.ko + '</option>';
+      }).join("") + '</optgroup>';
+    }).join("");
+  }
+  function vsFillSelects(){
+    var A = document.getElementById("vsA"), B = document.getElementById("vsB");
+    if(!A || !B) return;
+    A.innerHTML = vsOptionHTML();
+    B.innerHTML = vsOptionHTML();
+    A.value = VS.a;
+    B.value = VS.b;
+  }
+  function vsPaintSide(side){
+    var b = botById(side === "a" ? VS.a : VS.b);
+    if(!b) return;
+    var S = side.toUpperCase();
+    var img = document.getElementById("vsImg" + S);
+    var nm = document.getElementById("vsNm" + S);
+    var rl = document.getElementById("vsRl" + S);
+    if(img){ img.src = "./assets/bots/" + b.id + ".webp"; img.alt = b.ko + " 실사 영화 모습"; }
+    if(nm){
+      nm.textContent = b.ko;
+      nm.classList.toggle("decepticon", b.faction === "decepticon");
+    }
+    if(rl) rl.textContent = (b.faction === "decepticon" ? "디셉티콘" : "오토봇") + " · " + ROLE_LABEL[b.role] + " · " + b.height;
+  }
+  function vsPredictLine(a, b){
+    var best = null, bestAbs = 0;
+    STAT_DEFS.forEach(function(s){
+      var d = (a.stats[s.key] || 0) - (b.stats[s.key] || 0);
+      if(Math.abs(d) > bestAbs){ bestAbs = Math.abs(d); best = { s:s, d:d }; }
+    });
+    if(!best || bestAbs === 0) return "다섯 가지 능력치가 완전히 똑같아요. 마지막 한 방이 승부를 가를 것 같아요!";
+    var win = best.d > 0 ? a : b;
+    var lose = best.d > 0 ? b : a;
+    return "가장 큰 차이는 「" + best.s.label + "」! " + josa(win.ko, "은", "는") + " " + bestAbs +
+      "만큼 앞서요. " + josa(lose.ko, "은", "는") + " 다른 능력치로 따라잡아야 이길 수 있어요.";
+  }
+  function vsRender(a, b){
+    var totalA = 0, totalB = 0, winA = 0, winB = 0;
+    var rows = STAT_DEFS.map(function(s){
+      var va = a.stats[s.key] || 0, vb = b.stats[s.key] || 0;
+      totalA += va; totalB += vb;
+      var cls = va > vb ? "a" : (vb > va ? "b" : "tie");
+      if(va > vb) winA++; else if(vb > va) winB++;
+      return '<div class="vs-row ' + cls + '">' +
+        '<span class="vs-val a">' + va + '</span>' +
+        '<span class="vs-bar a"><i data-w="' + (va * 10) + '" style="background:' + s.color + '"></i></span>' +
+        '<span class="vs-lab">' + s.label + '</span>' +
+        '<span class="vs-bar b"><i data-w="' + (vb * 10) + '" style="background:' + s.color + '"></i></span>' +
+        '<span class="vs-val b">' + vb + '</span>' +
+      '</div>';
+    }).join("");
+
+    var winner = null;
+    if(totalA > totalB) winner = "a";
+    else if(totalB > totalA) winner = "b";
+    else if(winA > winB) winner = "a";
+    else if(winB > winA) winner = "b";
+    var W = winner === "a" ? a : (winner === "b" ? b : null);
+    var head = W ? ('<b>' + W.ko + '</b> 우세!') : ('무승부! <b>' + a.ko + '</b>와 <b>' + b.ko + '</b>는 힘이 똑같아요.');
+
+    return '<div class="vs-verdict ' + (winner || "tie") + '">' +
+        '<div class="vs-crown" aria-hidden="true">' + (W ? "🏆" : "🤝") + '</div>' +
+        '<div><div class="vs-verdict-line">' + head + '</div>' +
+        '<div class="vs-verdict-sub">종합 <b>' + totalA + '</b> : <b>' + totalB + '</b> · 우세 항목 <b>' + winA + '</b> : <b>' + winB + '</b></div></div>' +
+      '</div>' +
+      '<div class="vs-legend"><span class="l">' + a.ko + '</span><span class="r">' + b.ko + '</span></div>' +
+      rows +
+      '<p class="vs-predict"><b>🔮 누가 이길까?</b>' + vsPredictLine(a, b) + '</p>';
+  }
+  function vsAnimateBars(){
+    var res = document.getElementById("vsResult");
+    if(!res) return;
+    requestAnimationFrame(function(){
+      Array.prototype.forEach.call(res.querySelectorAll(".vs-bar i"), function(el){
+        el.style.width = el.dataset.w + "%";
+      });
+    });
+  }
+  function vsStale(){
+    var res = document.getElementById("vsResult");
+    if(!res || res.hidden){ mgText("vsNote", ""); return; }
+    mgSync();
+    var last = mini.vs.last;
+    if(!last) return;
+    if(last.a === VS.a && last.b === VS.b){
+      res.classList.remove("stale");
+      mgText("vsNote", vsLeft() <= 0 ? "오늘 비교 " + MG_MAX.vs + "회를 모두 썼어요. 내일 다시 비교할 수 있어요!" : "");
+      return;
+    }
+    res.classList.add("stale");
+    mgText("vsNote", vsLeft() > 0
+      ? "위에서 고른 로봇과 아래 결과가 달라요. 「비교하기」를 누르면 새로 비교해요."
+      : "위에서 고른 로봇과 아래 결과가 달라요. 오늘 비교를 다 써서 내일 다시 할 수 있어요.");
+  }
+  function vsCompare(){
+    mgSync();
+    var a = botById(VS.a), b = botById(VS.b);
+    if(!a || !b) return;
+    if(a.id === b.id){ mgText("vsNote", "서로 다른 로봇 두 명을 골라 주세요!"); return; }
+    if(vsLeft() <= 0){ mgText("vsNote", "오늘 비교 " + MG_MAX.vs + "회를 모두 썼어요. 내일 다시 할 수 있어요!"); return; }
+    mini.vs.count += 1;
+    mini.vs.a = a.id;
+    mini.vs.b = b.id;
+    mini.vs.last = { a:a.id, b:b.id };
+    mgSave();
+    var res = document.getElementById("vsResult");
+    res.hidden = false;
+    res.classList.remove("stale");
+    res.innerHTML = vsRender(a, b);
+    vsAnimateBars();
+    mgText("vsNote", vsLeft() <= 0 ? "오늘 비교 " + MG_MAX.vs + "회를 모두 썼어요. 내일 다시 비교할 수 있어요!" : "");
+    syncMGLimits();
+  }
+
+  /* ---- ② 키·크기 줄세우기 ---- */
+  function htRender(){
+    var pool = BOTS.filter(function(b){ return htFilter === "all" || b.faction === htFilter; });
+    var list = pool.slice().sort(function(x, y){
+      var d = heightM(y) - heightM(x);
+      if(d !== 0) return d;
+      return x.ko < y.ko ? -1 : (x.ko > y.ko ? 1 : 0);
+    });
+    var max = 1;
+    BOTS.forEach(function(b){ var m = heightM(b); if(m > max) max = m; });
+    var el = document.getElementById("htList");
+    if(!el) return;
+    el.innerHTML = list.map(function(b, i){
+      var w = Math.max(6, Math.round(heightM(b) / max * 100));
+      return '<button class="ht-row ' + (b.faction === "decepticon" ? "dc" : "au") + '" type="button" data-id="' + b.id + '" aria-label="' + b.ko + ' 프로필 보기">' +
+        '<span class="ht-rank">' + (i + 1) + '</span>' +
+        '<span class="ht-thumb"><img src="./assets/bots/' + b.id + '.webp" alt="" width="64" height="64" loading="lazy" decoding="async"></span>' +
+        '<span class="ht-body"><span class="ht-name">' + b.ko + '</span>' +
+          '<span class="ht-track"><i style="width:' + w + '%"></i></span></span>' +
+        '<span class="ht-val">' + b.height + '</span>' +
+      '</button>';
+    }).join("");
+    if(htFilter === "all"){
+      var tall = Math.max.apply(null, BOTS.map(heightM));
+      var small = Math.min.apply(null, BOTS.map(heightM));
+      var tallNames = BOTS.filter(function(b){ return heightM(b) === tall; }).map(function(b){ return b.ko; });
+      var smallBots = BOTS.filter(function(b){ return heightM(b) === small; });
+      mgText("htSummary", "가장 큰 로봇은 " + tallNames.join(" · ") + " (" + tall + "m), 가장 작은 로봇은 " +
+        smallBots.map(function(b){ return b.ko; }).join(" · ") + " (" + small + "m)!");
+    }else{
+      var top = list[0];
+      mgText("htSummary", "이 진영에서 가장 큰 로봇은 " + top.ko + " (" + top.height + ")!");
+    }
+  }
+
+  /* ---- ③ 누구일까? 퀴즈 ---- */
+  function firstClause(s){
+    var t = String(s || "");
+    t = t.split(/\s*·\s*/)[0];
+    t = t.replace(/\s*\([^)]*\)/g, "").trim();
+    return t;
+  }
+  function firstSentence(s, max){
+    var t = String(s || "").trim();
+    var m = t.match(/^.{8,90}?[.!?](\s|$)/);
+    if(m) t = m[0].replace(/\s+$/, "");
+    if(t.length > (max || 84)) t = t.slice(0, max || 84).replace(/[\s,·]+$/, "") + "…";
+    return t;
+  }
+  function nameTokens(b){
+    var out = [b.ko, b.en];
+    var parts = String(b.ko).split(" ");
+    if(parts.length > 1){
+      if(parts[0].length >= 2) out.push(parts[0]);
+      if(parts[parts.length - 1].length >= 2) out.push(parts[parts.length - 1]);
+    }
+    return out.filter(function(v, i, arr){ return v && arr.indexOf(v) === i; }).sort(function(x, y){ return y.length - x.length; });
+  }
+  function maskName(text, b){
+    var out = String(text);
+    nameTokens(b).forEach(function(n){ out = out.split(n).join("○○"); });
+    return out;
+  }
+  function mentionsName(text, bots){
+    return bots.some(function(b){
+      return nameTokens(b).some(function(n){ return text.indexOf(n) !== -1; });
+    });
+  }
+  function makeQuiz(){
+    for(var tries = 0; tries < 60; tries++){
+      var cand = BOTS[Math.floor(Math.random() * BOTS.length)];
+      if(cand.id === quiz.lastId) continue;
+      if(!cand.episodes || !cand.episodes.length) continue;
+      var others = BOTS.filter(function(b){ return b.faction === cand.faction && b.id !== cand.id; });
+      var picks = shuffle(others).slice(0, 3);
+      if(picks.length < 3) continue;
+      var ep = cand.episodes[Math.floor(Math.random() * cand.episodes.length)];
+      var hints = [
+        "나는 「" + firstClause(cand.vehicle) + "」" + roJosa(firstClause(cand.vehicle)) + " 변신해요.",
+        maskName(cand.tagline, cand),
+        "「" + maskName(ep.t, cand) + "」 편에서 크게 활약했어요. " + maskName(firstSentence(ep.d, 70), cand)
+      ];
+      var all4 = [cand].concat(picks);
+      var bad = hints.some(function(h){ return mentionsName(h, all4); });
+      if(bad) continue;
+      return {
+        answerBot: cand,
+        hints: hints,
+        choices: shuffle([cand.id].concat(picks.map(function(b){ return b.id; })))
+      };
+    }
+    return null;
+  }
+  function quizNew(){
+    mgSync();
+    if(quizLeft() <= 0){ quizDone(); return; }
+    var q = makeQuiz();
+    if(!q){ mgText("qzNote", "문제를 만들지 못했어요. 버튼을 한 번 더 눌러 주세요!"); return; }
+    mgText("qzNote", "");
+    quiz.q = q;
+    quiz.answered = false;
+    document.getElementById("qzStart").hidden = true;
+    document.getElementById("qzDone").hidden = true;
+    document.getElementById("qzCard").hidden = false;
+    document.getElementById("qzWhy").hidden = true;
+    document.getElementById("qzNext").hidden = true;
+    document.getElementById("qzHints").innerHTML = q.hints.map(function(h, i){
+      var ico = ["🔧", "✨", "🎬"][i];
+      var tag = ["변신", "특징", "활약"][i];
+      return '<div class="qz-hint"><b>' + ico + ' ' + tag + '</b><span>' + h + '</span></div>';
+    }).join("");
+    var ch = document.getElementById("qzChoices");
+    ch.classList.remove("done");
+    ch.innerHTML = q.choices.map(function(id){
+      var b = botById(id);
+      return '<button class="qz-choice" type="button" data-id="' + id + '"><span aria-hidden="true">' +
+        (b.faction === "decepticon" ? "⚔️" : "🛡️") + '</span>' + b.ko + '</button>';
+    }).join("");
+    syncMGLimits();
+  }
+  function quizAnswer(id){
+    if(!quiz.q || quiz.answered) return;
+    quiz.answered = true;
+    mgSync();
+    mini.quiz.count += 1;
+    mgSave();
+    var b = quiz.q.answerBot;
+    quiz.lastId = b.id;
+    var correct = (id === b.id);
+    Array.prototype.forEach.call(document.querySelectorAll("#qzChoices .qz-choice"), function(btn){
+      var bid = btn.dataset.id;
+      if(bid === b.id) btn.classList.add("ok");
+      else if(bid === id) btn.classList.add("no");
+      else btn.classList.add("dim");
+      btn.disabled = true;
+    });
+    var why = document.getElementById("qzWhy");
+    why.hidden = false;
+    why.className = "qz-why " + (correct ? "good" : "bad");
+    why.innerHTML = '<h4>' + (correct ? "정답이에요! 🎉" : '아쉬워요! 정답은 <span class="qz-ans">' + b.ko + '</span>') + '</h4>' +
+      '<p>' + josa(b.ko, "은", "는") + ' ' + firstClause(b.vehicle) + roJosa(firstClause(b.vehicle)) +
+      ' 변신하는 ' + josa(ROLE_LABEL[b.role], "이에요", "예요") + '. ' + firstSentence((b.trivia || [])[0] || "", 110) + '</p>';
+    var next = document.getElementById("qzNext");
+    next.hidden = false;
+    next.textContent = quizLeft() > 0 ? "다음 문제 →" : "오늘은 여기까지 🌙";
+    syncMGLimits();
+  }
+  function quizInit(){
+    mgSync();
+    var start = document.getElementById("qzStart");
+    var card = document.getElementById("qzCard");
+    var done = document.getElementById("qzDone");
+    if(quizLeft() <= 0 && !(quiz.q && !quiz.answered)){
+      start.hidden = true; card.hidden = true; done.hidden = false;
+      return;
+    }
+    done.hidden = true;
+    if(quiz.q && !quiz.answered){ start.hidden = true; card.hidden = false; }
+    else { start.hidden = false; card.hidden = true; }
+  }
+  function quizDone(){
+    document.getElementById("qzStart").hidden = true;
+    document.getElementById("qzCard").hidden = true;
+    document.getElementById("qzDone").hidden = false;
+  }
+
+  /* ---- ④ 내 최애 3인 팀 ---- */
+  function teamStats(list){
+    var out = {};
+    STAT_DEFS.forEach(function(s){
+      var sum = 0;
+      list.forEach(function(b){ sum += (b.stats[s.key] || 0); });
+      out[s.key] = sum / list.length;
+    });
+    return out;
+  }
+  function partnerHit(a, b){
+    var n = (a.partner && a.partner.n) || "";
+    return n.indexOf(b.ko) !== -1 || n.indexOf(String(b.ko).split(" ")[0]) !== -1;
+  }
+  function rivalHit(a, b){
+    var n = (a.rival && a.rival.n) || "";
+    return n.indexOf(b.ko) !== -1 || n.indexOf(String(b.ko).split(" ")[0]) !== -1;
+  }
+  function tmSynergy(bots){
+    var lines = [];
+    var au = bots.filter(function(b){ return b.faction === "autobot"; }).length;
+    if(au === 3) lines.push("🛡️ 오토봇 3인방 — 끝까지 함께 싸우는 단단한 팀이에요.");
+    else if(au === 0) lines.push("⚔️ 디셉티콘 3인방 — 서로 다 믿지는 않아도 무서운 조합이에요.");
+    else lines.push("🌐 " + (au === 2 ? "오토봇 2 + 디셉티콘 1" : "오토봇 1 + 디셉티콘 2") + " — 진영을 넘은 예측 불가 팀이에요!");
+    [[0, 1], [0, 2], [1, 2]].forEach(function(p){
+      var a = bots[p[0]], b = bots[p[1]];
+      if(partnerHit(a, b) || partnerHit(b, a)) lines.push("🤝 " + a.ko + " + " + b.ko + " — 도감에 나온 공식 콤비! 손발이 척척 맞아요.");
+      else if(rivalHit(a, b) || rivalHit(b, a)) lines.push("⚡ " + a.ko + " ↔ " + b.ko + " — 라이벌이 한 팀이 됐어요! 자존심 대결이 붙을지도.");
+    });
+    var st = teamStats(bots), best = null, worst = null;
+    STAT_DEFS.forEach(function(s){
+      if(!best || st[s.key] > best.v) best = { s:s, v:st[s.key] };
+      if(!worst || st[s.key] < worst.v) worst = { s:s, v:st[s.key] };
+    });
+    if(best) lines.push("💥 가장 강한 능력치는 「" + best.s.label + "」 (평균 " + best.v.toFixed(1) + ")");
+    if(worst) lines.push("🛡️ 가장 약한 건 「" + worst.s.label + "」 (평균 " + worst.v.toFixed(1) + ") — 다른 능력치로 메꿔요!");
+    return lines.slice(0, 6);
+  }
+  function tmRender(){
+    mgSync();
+    var picker = document.getElementById("tmPicker");
+    var card = document.getElementById("tmCard");
+    if(mini.team.list){
+      picker.hidden = true;
+      tmShowCard(mini.team.list);
+      return;
+    }
+    picker.hidden = false;
+    card.hidden = true;
+    teamPick = teamPick.filter(function(id){ return botById(id); });
+    var grid = document.getElementById("tmGrid");
+    grid.innerHTML = BOTS.map(function(b){
+      var idx = teamPick.indexOf(b.id);
+      var on = idx !== -1;
+      return '<button class="tm-pick ' + (b.faction === "decepticon" ? "dc" : "au") + (on ? " on" : "") + '" type="button" data-id="' + b.id + '" ' +
+        'data-order="' + (on ? (idx + 1) : "") + '" aria-pressed="' + on + '">' +
+        '<img src="./assets/bots/' + b.id + '.webp" alt="" width="64" height="64" loading="lazy" decoding="async">' +
+        '<span class="nm">' + b.ko + '</span></button>';
+    }).join("");
+    tmUpdateBar();
+  }
+  function tmUpdateBar(){
+    mgText("tmCount", String(teamPick.length));
+    var tb = document.getElementById("tmConfirm");
+    if(tb) tb.disabled = (mini.team && mini.team.list) || teamPick.length !== 3;
+  }
+  function tmToggle(id){
+    mgSync();
+    if(mini.team.list) return;
+    var i = teamPick.indexOf(id);
+    if(i !== -1) teamPick.splice(i, 1);
+    else {
+      if(teamPick.length >= 3){ mgText("tmNote", "3명까지만 고를 수 있어요! 한 명을 빼고 다시 골라 주세요."); return; }
+      teamPick.push(id);
+      mgText("tmNote", "");
+    }
+    tmRender();
+  }
+  function tmConfirm(){
+    mgSync();
+    if(mini.team.list) return;
+    if(teamPick.length !== 3){ mgText("tmNote", "3명을 골라야 팀을 확정할 수 있어요."); return; }
+    mini.team.list = teamPick.slice();
+    mgSave();
+    document.getElementById("tmPicker").hidden = true;
+    tmShowCard(mini.team.list);
+    syncMGLimits();
+  }
+  function tmShowCard(list){
+    var bots = list.map(botById).filter(function(b){ return !!b; });
+    if(bots.length !== 3) return;
+    var card = document.getElementById("tmCard");
+    card.hidden = false;
+    document.getElementById("tmMembers").innerHTML = bots.map(function(b, i){
+      return '<button class="tm-member" type="button" data-id="' + b.id + '" aria-label="' + b.ko + ' 프로필 보기">' +
+        '<span class="tm-no" aria-hidden="true">' + (i + 1) + '</span>' +
+        '<img src="./assets/bots/' + b.id + '.webp" alt="" width="64" height="64">' +
+        '<span class="nm">' + b.ko + '</span><span class="rl">' + ROLE_LABEL[b.role] + '</span></button>';
+    }).join("");
+    var st = teamStats(bots);
+    document.getElementById("tmStats").innerHTML = STAT_DEFS.map(function(s){
+      return '<div class="tm-stat"><span class="lb">' + s.label + '</span>' +
+        '<span class="tr"><i style="width:' + (st[s.key] * 10) + '%;background:' + s.color + '"></i></span>' +
+        '<span class="vl">' + st[s.key].toFixed(1) + '</span></div>';
+    }).join("");
+    var sum = 0;
+    STAT_DEFS.forEach(function(s){ sum += st[s.key]; });
+    document.getElementById("tmTotal").innerHTML = "팀 종합 평균 <b>" + (sum / STAT_DEFS.length).toFixed(1) + "</b> / 10";
+    document.getElementById("tmSyn").innerHTML = tmSynergy(bots).map(function(t){
+      return "<li>" + t + "</li>";
+    }).join("");
+  }
+
+  /* ---- 화면 전환 ---- */
+  function mgOpen(key){
+    mgGame = key;
+    document.getElementById("mgMenu").hidden = true;
+    document.getElementById("mgPanels").hidden = false;
+    ["vs", "height", "quiz", "team"].forEach(function(k){
+      var p = document.getElementById("mgPanel-" + k);
+      if(p) p.hidden = (k !== key);
+    });
+    if(key === "vs"){
+      mgSync();
+      if(mini.vs.last){ VS.a = mini.vs.last.a; VS.b = mini.vs.last.b; }
+      else { VS.a = mini.vs.a; VS.b = mini.vs.b; }
+      vsFillSelects();
+      vsPaintSide("a");
+      vsPaintSide("b");
+      var res = document.getElementById("vsResult");
+      var a = botById(VS.a), b = botById(VS.b);
+      if(mini.vs.last && a && b){
+        res.hidden = false;
+        res.classList.remove("stale");
+        res.innerHTML = vsRender(a, b);
+        vsAnimateBars();
+      }else{
+        res.hidden = true;
+        res.innerHTML = "";
+      }
+      mgText("vsNote", vsLeft() <= 0 ? "오늘 비교 " + MG_MAX.vs + "회를 모두 썼어요. 내일 다시 비교할 수 있어요!" : "");
+      if(vsLeft() <= 0){
+        var btn = document.getElementById("vsBtn");
+        if(btn) btn.disabled = true;
+      }
+    }
+    if(key === "height") htRender();
+    if(key === "quiz") quizInit();
+    if(key === "team") tmRender();
+    syncMGLimits();
+    var panel = document.getElementById("mgPanel-" + key);
+    if(panel && panel.scrollIntoView) panel.scrollIntoView({ block:"start" });
+  }
+  function mgBack(){
+    document.getElementById("mgPanels").hidden = true;
+    document.getElementById("mgMenu").hidden = false;
+    mgGame = null;
+    var menu = document.getElementById("mgMenu");
+    if(menu && menu.scrollIntoView) menu.scrollIntoView({ block:"start" });
+  }
+  function setView(v){
+    state.view = v;
+    document.body.setAttribute("data-view", v);
+    var dex = document.getElementById("dexView");
+    var mg = document.getElementById("mgView");
+    if(dex) dex.hidden = (v === "minigame");
+    if(mg) mg.hidden = (v !== "minigame");
+    if(v === "minigame"){
+      mgSync();
+      mgBack();
+      syncMGLimits();
+    }
+    render();
+    window.scrollTo(0, 0);
+  }
+
+  function mgInit(){
+    Array.prototype.forEach.call(document.querySelectorAll("#mgMenu .mg-tile"), function(t){
+      t.addEventListener("click", function(){ mgOpen(t.dataset.game); });
+    });
+    var back = document.getElementById("mgBack");
+    if(back) back.addEventListener("click", mgBack);
+
+    var va = document.getElementById("vsA"), vb = document.getElementById("vsB");
+    if(va) va.addEventListener("change", function(){ VS.a = va.value; vsPaintSide("a"); vsStale(); });
+    if(vb) vb.addEventListener("change", function(){ VS.b = vb.value; vsPaintSide("b"); vsStale(); });
+    var vbtn = document.getElementById("vsBtn");
+    if(vbtn) vbtn.addEventListener("click", vsCompare);
+
+    var hf = document.getElementById("htFilters");
+    if(hf) hf.addEventListener("click", function(ev){
+      var b = ev.target.closest("[data-f]");
+      if(!b) return;
+      htFilter = b.dataset.f;
+      Array.prototype.forEach.call(hf.querySelectorAll(".mg-fchip"), function(c){
+        c.setAttribute("aria-pressed", String(c.dataset.f === htFilter));
+      });
+      htRender();
+    });
+    var hl = document.getElementById("htList");
+    if(hl) hl.addEventListener("click", function(ev){
+      var row = ev.target.closest("[data-id]");
+      if(row) openModal(row.dataset.id);
+    });
+
+    var qs = document.getElementById("qzStartBtn");
+    if(qs) qs.addEventListener("click", quizNew);
+    var qc = document.getElementById("qzChoices");
+    if(qc) qc.addEventListener("click", function(ev){
+      var b = ev.target.closest(".qz-choice");
+      if(b && !b.disabled) quizAnswer(b.dataset.id);
+    });
+    var qn = document.getElementById("qzNext");
+    if(qn) qn.addEventListener("click", function(){
+      if(quizLeft() > 0) quizNew();
+      else quizDone();
+    });
+
+    var tg = document.getElementById("tmGrid");
+    if(tg) tg.addEventListener("click", function(ev){
+      var b = ev.target.closest(".tm-pick");
+      if(b) tmToggle(b.dataset.id);
+    });
+    var tc = document.getElementById("tmConfirm");
+    if(tc) tc.addEventListener("click", tmConfirm);
+    var tm = document.getElementById("tmMembers");
+    if(tm) tm.addEventListener("click", function(ev){
+      var b = ev.target.closest("[data-id]");
+      if(b) openModal(b.dataset.id);
+    });
+
+    var mc = document.getElementById("modalCard");
+    if(mc) mc.addEventListener("click", function(ev){
+      var j = ev.target.closest("[data-jump]");
+      if(!j) return;
+      ev.preventDefault();
+      ev.stopPropagation();
+      openModal(j.dataset.jump);
+    });
+  }
+
+  /* ---------- 관계 이름 → 프로필 바로 이동 ---------- */
+  function matchBotName(t){
+    var n = String(t || "").replace(/\s+/g, "");
+    if(!n) return null;
+    for(var i = 0; i < BOTS.length; i++){
+      if(BOTS[i].ko.replace(/\s+/g, "") === n) return BOTS[i];
+    }
+    for(var j = 0; j < BOTS.length; j++){
+      var k = BOTS[j].ko.replace(/\s+/g, "");
+      if(n.length >= 2 && (k.indexOf(n) === 0 || n.indexOf(k) === 0)) return BOTS[j];
+    }
+    return null;
+  }
+  function relNamesHTML(str){
+    return String(str || "").split(/\s*·\s*/).map(function(tok){
+      var t = tok.trim();
+      if(!t) return "";
+      var hit = matchBotName(t);
+      if(!hit) return '<span class="rel-nm">' + t + '</span>';
+      return '<button class="rel-nm" type="button" data-jump="' + hit.id + '" title="' + hit.ko + ' 프로필 보기">' +
+        t + '<span class="jump-ico" aria-hidden="true">↗</span></button>';
+    }).filter(function(v){ return !!v; }).join('<span class="rel-sep" aria-hidden="true">·</span>');
+  }
+
   /* ---------- start ---------- */
+  document.body.setAttribute("data-view", "dex");
   buildFactionFilters();
   buildFilters();
   render();
+  mgInit();
+  setView("dex");
 
   /* ---------- service worker ---------- */
   if("serviceWorker" in navigator){
