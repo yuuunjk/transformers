@@ -2749,8 +2749,10 @@
       var small = Math.min.apply(null, BOTS.map(heightM));
       var tallNames = BOTS.filter(function(b){ return heightM(b) === tall; }).map(function(b){ return b.ko; });
       var smallBots = BOTS.filter(function(b){ return heightM(b) === small; });
-      mgText("htSummary", "가장 큰 로봇은 " + tallNames.join(" · ") + " (" + tall + "m), 가장 작은 로봇은 " +
-        smallBots.map(function(b){ return b.ko; }).join(" · ") + " (" + small + "m)!");
+      var tallTxt = BOTS.filter(function(b){ return heightM(b) === tall; })[0].height;
+      var smallTxt = smallBots[0].height;
+      mgText("htSummary", "가장 큰 로봇은 " + tallNames.join(" · ") + " (" + tallTxt + "), 가장 작은 로봇은 " +
+        smallBots.map(function(b){ return b.ko; }).join(" · ") + " (" + smallTxt + ")!");
     }else{
       var top = list[0];
       mgText("htSummary", "이 진영에서 가장 큰 로봇은 " + top.ko + " (" + top.height + ")!");
@@ -3038,15 +3040,13 @@
     if(key === "quiz") quizInit();
     if(key === "team") tmRender();
     syncMGLimits();
-    var panel = document.getElementById("mgPanel-" + key);
-    if(panel && panel.scrollIntoView) panel.scrollIntoView({ block:"start" });
+    window.scrollTo(0, 0);
   }
   function mgBack(){
     document.getElementById("mgPanels").hidden = true;
     document.getElementById("mgMenu").hidden = false;
     mgGame = null;
-    var menu = document.getElementById("mgMenu");
-    if(menu && menu.scrollIntoView) menu.scrollIntoView({ block:"start" });
+    window.scrollTo(0, 0);
   }
   function setView(v){
     state.view = v;
