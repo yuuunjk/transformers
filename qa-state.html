@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><title>QA routine state</title></head><body>
+<script>
+/* QA 전용: 루틴 앱과 같은 키·구조로 오늘 기록을 심고 앱으로 넘어간다. 검증 후 삭제한다. */
+var q = new URLSearchParams(location.search);
+var d = new Date();
+var k = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+var mode = q.get("mode") || "school";
+function tasks(v){
+  v = String(v);
+  if(v === "1") return [true, true, true];        /* 전부 완료 */
+  if(v === "2") return [true, false, true];       /* 일부만 완료 */
+  return [false, false, false];                   /* 아직 */
+}
+var st = { xp:0, wildIndex:0, caught:{}, mode:mode, days:{} };
+var slots = {};
+slots[mode + ":morning"] = { tasks:tasks(q.get("morning")), claimed:q.get("morning") === "1" };
+slots[mode + ":after"] = { tasks:tasks(q.get("after")), claimed:q.get("after") === "1" };
+st.days[k] = { slots:slots };
+localStorage.setItem("lukaPokemonDashboard.v1", JSON.stringify(st));
+location.replace("./index.html?tab=minigame");
+</script>
+</body></html>
