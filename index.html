@@ -1019,6 +1019,29 @@
   }
   html[data-theme="light"] .tm-syn li{background:rgba(255,255,255,.72)}
 
+  /* 오후 루틴 완료 전 잠금 화면 */
+  .mgl-wrap{display:grid;place-items:center;min-height:330px;padding:6px 0 10px}
+  .mgl-card{
+    position:relative;overflow:hidden;width:min(560px,100%);text-align:center;border-radius:22px;
+    padding:26px 22px 22px;border:1px solid var(--line-strong);
+    background:
+      radial-gradient(460px 220px at 50% -25%, rgba(61,155,255,.2), transparent 70%),
+      linear-gradient(180deg,var(--panel-2),var(--panel));
+    box-shadow:var(--shadow);
+  }
+  .mgl-ico{font-size:44px;line-height:1;margin-bottom:8px;filter:drop-shadow(0 8px 18px rgba(61,155,255,.35))}
+  .mgl-card h2{margin:4px 0 10px;font-size:22px;font-weight:900;letter-spacing:-.01em}
+  .mgl-main{margin:0 0 6px;font-size:15.5px;font-weight:900;line-height:1.45;color:var(--txt);overflow-wrap:anywhere}
+  .mgl-sub{margin:0 0 16px;font-size:13px;font-weight:600;line-height:1.65;color:var(--muted);overflow-wrap:anywhere}
+  .mgl-link{
+    display:flex;align-items:center;justify-content:center;gap:8px;max-width:340px;
+    margin:0 auto 16px;text-decoration:none;
+  }
+  .mgl-list{
+    list-style:none;margin:0;padding:13px 0 0;border-top:1px dashed var(--line);
+    display:grid;gap:7px;font-size:12px;line-height:1.55;font-weight:700;color:var(--muted);
+  }
+
   /* 프로필 관계 이름 → 바로 이동 */
   .rel .who .rel-nm{font:inherit}
   .rel .who button.rel-nm{
@@ -1105,6 +1128,23 @@
   </div>
 
   <div class="mg" id="mgView" hidden>
+    <div class="mgl-wrap" id="mgLock" hidden>
+      <div class="mgl-card">
+        <div class="mgl-ico" aria-hidden="true">🔒</div>
+        <div class="mg-eyebrow">Cybertron Arcade · Mini Games</div>
+        <h2>🎮 미니게임</h2>
+        <p class="mgl-main">오늘 오후 루틴을 끝내면 미니게임이 열려요!</p>
+        <p class="mgl-sub">루틴 대시보드에서 오후 루틴을 완료하고,<br>루틴 앱의 버튼으로 시작해 주세요.</p>
+        <a class="mg-btn gold mgl-link" href="https://yuuunjk.github.io/luka-daily-routine/">
+          <span aria-hidden="true">🏠</span> 루틴 앱 열기
+        </a>
+        <ul class="mgl-list">
+          <li>⚔️ 1:1 VS 대결 · 📏 키 줄세우기 · 🧠 누구일까? 퀴즈 · ⭐ 내 최애 3인 팀</li>
+          <li>오후 루틴을 끝낸 날 하루 동안 열려요. 자정이 지나면 다시 잠겨요.</li>
+        </ul>
+      </div>
+    </div>
+    <div id="mgOpenArea" hidden>
     <section class="mg-hero">
       <div>
         <div class="mg-eyebrow">Cybertron Arcade · Mini Games</div>
@@ -1245,6 +1285,7 @@
           <p class="mg-note">오늘 팀을 확정했어요. 내일 새 팀을 짤 수 있어요!</p>
         </div>
       </section>
+    </div>
     </div>
   </div>
 </main>
@@ -2553,7 +2594,7 @@
 
   /* ---- 오늘의 횟수: localStorage(날짜 바뀌면 자동 리셋) ---- */
   function mgFresh(){
-    return { date: todayKey(), vs:{ count:0, a:"optimus", b:"megatron", last:null }, quiz:{ count:0 }, team:{ list:null } };
+    return { date: todayKey(), unlock:null, vs:{ count:0, a:"optimus", b:"megatron", last:null }, quiz:{ count:0 }, team:{ list:null } };
   }
   function mgLoad(){
     var m = null;
@@ -2562,6 +2603,7 @@
     if(!m.vs || typeof m.vs !== "object") m.vs = { count:0, a:"optimus", b:"megatron", last:null };
     if(!m.quiz || typeof m.quiz !== "object") m.quiz = { count:0 };
     if(!m.team || typeof m.team !== "object") m.team = { list:null };
+    if(!m.unlock || typeof m.unlock !== "object" || m.unlock.date !== todayKey()) m.unlock = null;
     m.vs.count = Math.max(0, Math.min(MG_MAX.vs, parseInt(m.vs.count, 10) || 0));
     m.quiz.count = Math.max(0, Math.min(MG_MAX.quiz, parseInt(m.quiz.count, 10) || 0));
     if(!Array.isArray(m.team.list) || m.team.list.length !== 3 ||
@@ -2580,6 +2622,76 @@
   function vsLeft(){ mgSync(); return Math.max(0, MG_MAX.vs - mini.vs.count); }
   function quizLeft(){ mgSync(); return Math.max(0, MG_MAX.quiz - mini.quiz.count); }
   function teamLeft(){ mgSync(); return mini.team.list ? 0 : MG_MAX.team; }
+
+  /* ---- 오후 루틴 완료 연동: 그날만 잠금 해제 ---- */
+  var ROUTINE_URL = "https://yuuunjk.github.io/luka-daily-routine/";
+  var ROUTINE_LS = "lukaPokemonDashboard.v1";
+  function todayKeyU(){   /* 루틴 앱과 맞춘 0 없는 형식 (예: 2026-11-5) */
+    var d = new Date();
+    return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+  }
+  function normDayStr(s){
+    var m = String(s || "").match(/(\d{4})\D+(\d{1,2})\D+(\d{1,2})/);
+    if(!m) return "";
+    return m[1] + "-" + pad2(parseInt(m[2], 10)) + "-" + pad2(parseInt(m[3], 10));
+  }
+  function routineAfterDone(){
+    try{
+      var raw = localStorage.getItem(ROUTINE_LS);
+      if(!raw) return false;
+      var st = JSON.parse(raw);
+      if(!st || !st.days || typeof st.days !== "object") return false;
+      var days = [todayKey(), todayKeyU()];
+      for(var i = 0; i < days.length; i++){
+        var rec = st.days[days[i]];
+        if(!rec || !rec.slots || typeof rec.slots !== "object") continue;
+        var names = Object.keys(rec.slots);
+        for(var j = 0; j < names.length; j++){
+          if(!/:after$/.test(names[j])) continue;
+          var slot = rec.slots[names[j]];
+          if(slot && Array.isArray(slot.tasks) && slot.tasks.length &&
+             slot.tasks.every(function(v){ return !!v; })) return true;
+        }
+      }
+    }catch(e){}
+    return false;
+  }
+  function mgSetUnlocked(src){
+    mgSync();
+    mini.unlock = { date: todayKey(), src: src || "routine" };
+    mgSave();
+  }
+  function mgUnlocked(){
+    mgSync();
+    if(mini.unlock && mini.unlock.date === todayKey()) return true;
+    if(routineAfterDone()){ mgSetUnlocked("after-routine"); return true; }
+    return false;
+  }
+  function mgApplyLock(){
+    var ok = mgUnlocked();
+    var lock = document.getElementById("mgLock");
+    var area = document.getElementById("mgOpenArea");
+    if(lock) lock.hidden = ok;
+    if(area) area.hidden = !ok;
+    return ok;
+  }
+  function mgReadParams(){
+    var out = {};
+    var q = String(location.search || "").replace(/^\?/, "");
+    if(!q) return out;
+    q.split("&").forEach(function(kv){
+      if(!kv) return;
+      var i = kv.indexOf("=");
+      var k = i < 0 ? kv : kv.slice(0, i);
+      var v = i < 0 ? "" : kv.slice(i + 1);
+      try{
+        k = decodeURIComponent(k.replace(/\+/g, " "));
+        v = decodeURIComponent(v.replace(/\+/g, " "));
+      }catch(e){}
+      out[k] = v;
+    });
+    return out;
+  }
 
   function syncMGLimits(){
     mgSync();
@@ -3057,7 +3169,12 @@
     if(mg) mg.hidden = (v !== "minigame");
     if(v === "minigame"){
       mgSync();
-      mgBack();
+      if(mgApplyLock()) mgBack();
+      else {
+        var mp = document.getElementById("mgMenu"), mpn = document.getElementById("mgPanels");
+        if(mp) mp.hidden = true;
+        if(mpn) mpn.hidden = true;
+      }
       syncMGLimits();
     }
     render();
@@ -3159,7 +3276,12 @@
   buildFilters();
   render();
   mgInit();
-  setView("dex");
+  var mgParams = mgReadParams();
+  if(mgParams.from === "routine"){
+    var mgDay = normDayStr(mgParams.day || "");
+    if(!mgParams.day || mgDay === todayKey()) mgSetUnlocked("routine-link");
+  }
+  setView(mgParams.tab === "minigame" ? "minigame" : "dex");
 
   /* ---------- service worker ---------- */
   if("serviceWorker" in navigator){
