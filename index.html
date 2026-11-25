@@ -643,8 +643,10 @@
     .relations{grid-template-columns:1fr}
   }
   @media (max-width:720px){
-    .header-inner{padding:11px 16px 8px;gap:10px}
-    .header-tools{gap:6px}
+    .header-inner{padding:11px 16px 8px;gap:10px;flex-wrap:nowrap}
+    .header-tools{gap:6px;flex:0 0 auto}
+    .brand{flex:1 1 0;min-width:0}
+    .eyebrow{font-size:9.5px;letter-spacing:.16em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .brand-mark{width:42px;height:42px;border-radius:12px}
     .brand-sub{display:none}
     .install-btn{height:42px;padding:0 11px;font-size:12.5px;gap:5px;border-radius:12px}
@@ -786,20 +788,6 @@
   body[data-view="minigame"] .search-row{display:none}
   body[data-view="minigame"] .archive-wrap{padding-bottom:10px}
   .mg[hidden],#dexView[hidden],#mgView [hidden]{display:none!important}
-
-  .foldertabs .chip.faction-minigame{border-color:rgba(255,194,74,.34)}
-  .foldertabs .chip.faction-minigame:hover{color:#ffe6b0;border-color:rgba(255,194,74,.6);background:linear-gradient(180deg,rgba(86,60,16,.62),rgba(40,28,8,.42))}
-  .foldertabs .chip.faction-minigame[aria-pressed="true"]{
-    color:#ffefd2;border-color:rgba(255,205,120,.62);
-    background:linear-gradient(180deg,rgba(124,86,20,.96),rgba(52,34,6,.96));
-    box-shadow:0 -8px 22px rgba(255,170,60,.2), inset 0 1px 0 rgba(255,255,255,.16);
-  }
-  html[data-theme="light"] .foldertabs .chip.faction-minigame{background:linear-gradient(180deg,#fff6e6,#fbe9c9);border-color:rgba(180,120,20,.22)}
-  html[data-theme="light"] .foldertabs .chip.faction-minigame:hover{background:linear-gradient(180deg,#fffbf2,#fdf1dc);border-color:rgba(180,120,20,.34)}
-  html[data-theme="light"] .foldertabs .chip.faction-minigame[aria-pressed="true"]{
-    background:linear-gradient(180deg,#fffdf8,#fdf1da);color:#8a5400;border-color:rgba(180,120,20,.34);
-    box-shadow:0 -8px 20px rgba(200,140,30,.16), inset 0 1px 0 #fff;
-  }
 
   .mg{position:relative;min-width:0;padding:2px 0 6px}
   .mg-hero{
@@ -2365,7 +2353,7 @@
 
     var mgBtn = document.createElement("button");
     mgBtn.type = "button";
-    mgBtn.className = "chip faction-chip faction-minigame";
+    mgBtn.className = "chip faction-chip";
     mgBtn.dataset.faction = "minigame";
     mgBtn.setAttribute("aria-pressed", "false");
     mgBtn.innerHTML = '<span aria-hidden="true">🎮</span>미니게임<span class="n">4</span>';
