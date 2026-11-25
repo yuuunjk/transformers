@@ -129,6 +129,25 @@
   }
   .icon-btn:hover{transform:translateY(-1px);border-color:var(--line-strong)}
   .icon-btn:active{transform:scale(.96)}
+  .install-btn{
+    height:44px;padding:0 14px;border-radius:13px;cursor:pointer;
+    display:inline-flex;align-items:center;gap:7px;white-space:nowrap;
+    border:1px solid rgba(111,180,255,.5);
+    background:linear-gradient(135deg,rgba(61,155,255,.28),rgba(120,90,255,.2));
+    color:var(--txt);font-size:14px;font-weight:800;letter-spacing:-.01em;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.12), 0 6px 16px rgba(40,110,230,.18);
+    transition:transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+  }
+  .install-btn .ib-emoji{font-size:17px;line-height:1;display:block}
+  .install-btn .ib-label{display:block}
+  .install-btn:hover{transform:translateY(-1px);border-color:rgba(150,205,255,.8);box-shadow:inset 0 1px 0 rgba(255,255,255,.16), 0 9px 20px rgba(40,110,230,.24)}
+  .install-btn:active{transform:scale(.96)}
+  .install-btn[hidden]{display:none}
+  html[data-theme="light"] .install-btn{
+    border-color:rgba(23,110,190,.4);
+    background:linear-gradient(135deg,rgba(61,155,255,.16),rgba(120,90,255,.12));
+    box-shadow:inset 0 1px 0 #fff, 0 6px 14px rgba(30,90,190,.14);
+  }
 
   .search-row{
     max-width:1180px;margin:0 auto;padding:0 20px 12px;
@@ -625,8 +644,11 @@
   }
   @media (max-width:720px){
     .header-inner{padding:11px 16px 8px;gap:10px}
+    .header-tools{gap:6px}
     .brand-mark{width:42px;height:42px;border-radius:12px}
     .brand-sub{display:none}
+    .install-btn{height:42px;padding:0 11px;font-size:12.5px;gap:5px;border-radius:12px}
+    .install-btn .ib-emoji{font-size:15px}
     .search-row{padding:0 16px 12px}
     .filters{padding:0 16px 14px}
     main{padding:2px 16px 48px}
@@ -1086,6 +1108,60 @@
     .vs-mid span{width:32px;height:32px;font-size:11.5px}
   }
 
+  /* ---------- 📲 앱 설치 안내 ---------- */
+  .install-modal{
+    position:fixed;inset:0;z-index:90;display:none;
+    align-items:center;justify-content:center;padding:20px;overflow-y:auto;
+    background:rgba(3,7,16,.72);
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  }
+  .install-modal.open{display:flex;animation:fadeIn .18s ease both}
+  body.install-lock{overflow:hidden}
+  .install-card{
+    position:relative;width:min(560px,100%);margin:auto;
+    padding:26px 24px 22px;border-radius:24px;
+    border:1px solid var(--line-strong);
+    background:linear-gradient(165deg,var(--panel-solid),var(--panel));
+    box-shadow:var(--shadow), 0 30px 80px rgba(0,0,0,.5);
+    animation:pop .24s cubic-bezier(.2,.9,.25,1) both;
+  }
+  .install-close{
+    position:absolute;top:14px;right:14px;width:38px;height:38px;border-radius:12px;
+    border:1px solid var(--line);background:var(--panel-2);color:var(--muted);
+    font-size:15px;font-weight:900;cursor:pointer;display:grid;place-items:center;
+    transition:color .15s ease, border-color .15s ease;
+  }
+  .install-close:hover{color:var(--txt);border-color:var(--line-strong)}
+  .install-eyebrow{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);font-weight:800;margin-bottom:6px}
+  .install-card h2{margin:0 0 8px;font-size:22px;font-weight:900;letter-spacing:-.02em;line-height:1.32;padding-right:38px}
+  .install-lead{margin:0 0 16px;font-size:13.5px;line-height:1.65;color:var(--muted);font-weight:600}
+  .install-guides{display:grid;gap:10px}
+  .ig{
+    padding:14px 15px 13px;border-radius:16px;
+    border:1px solid var(--line);background:rgba(120,170,255,.05);
+  }
+  html[data-theme="light"] .ig{background:rgba(23,110,190,.04)}
+  .ig.is-this{border-color:rgba(111,180,255,.55);background:linear-gradient(135deg,rgba(61,155,255,.14),rgba(120,90,255,.08))}
+  html[data-theme="light"] .ig.is-this{background:linear-gradient(135deg,rgba(61,155,255,.11),rgba(120,90,255,.06))}
+  .ig-head{display:flex;align-items:center;gap:8px;margin-bottom:9px}
+  .ig-ico{font-size:15px;line-height:1}
+  .ig-head h3{margin:0;font-size:14.5px;font-weight:900;letter-spacing:-.01em}
+  .ig-badge{
+    margin-left:auto;font-size:10px;font-weight:900;letter-spacing:.02em;white-space:nowrap;
+    padding:3px 8px;border-radius:999px;color:#06121f;
+    background:linear-gradient(135deg,var(--cyan),var(--blue));
+  }
+  .ig ol{margin:0;padding-left:18px;display:grid;gap:6px}
+  .ig li{font-size:13px;line-height:1.6;font-weight:600;color:var(--muted)}
+  .ig li b{color:var(--txt);font-weight:800}
+  .install-foot{margin:14px 0 0;font-size:11.5px;color:var(--muted);font-weight:600;text-align:center}
+  @media (max-width:480px){
+    .install-modal{padding:14px}
+    .install-card{padding:22px 17px 18px;border-radius:20px}
+    .install-card h2{font-size:19.5px}
+    .ig li{font-size:12.5px}
+  }
+
   @media (prefers-reduced-motion:reduce){
     *{animation:none!important;transition:none!important}
   }
@@ -1103,6 +1179,7 @@
       </div>
     </div>
     <div class="header-tools">
+      <button class="install-btn" id="installBtn" type="button" aria-label="앱으로 설치하기" title="홈 화면에 앱으로 설치"><span class="ib-emoji" aria-hidden="true">📲</span><span class="ib-label">앱 설치</span></button>
       <button class="icon-btn" id="themeBtn" type="button" aria-label="낮/밤 화면 바꾸기" title="낮/밤 화면 바꾸기">🌙</button>
     </div>
   </div>
@@ -1304,6 +1381,42 @@
   <div>트랜스포머 도감 · 팬이 만든 어린이용 도감입니다 · 모든 기록은 이 기기에만 저장돼요</div>
   <div>설정 참고: Transformers Wiki(TFWiki)와 각 작품의 공식 설정</div>
 </footer>
+
+<div class="install-modal" id="installModal" role="dialog" aria-modal="true" aria-labelledby="installTitle" hidden>
+  <div class="install-card" role="document">
+    <button class="install-close" id="installClose" type="button" aria-label="닫기">✕</button>
+    <div class="install-eyebrow">Add to Home Screen</div>
+    <h2 id="installTitle">📲 홈 화면에 앱으로 담기</h2>
+    <p class="install-lead">홈 화면에 아이콘으로 담아 두면 주소를 치지 않고 한 번에 열려요. 화면도 앱처럼 꽉 차게 나와요.</p>
+    <div class="install-guides">
+      <section class="ig" id="igAndroid">
+        <div class="ig-head">
+          <span class="ig-ico" aria-hidden="true">🌐</span>
+          <h3>갤럭시탭 · 삼성 인터넷</h3>
+          <span class="ig-badge" hidden>이 기기</span>
+        </div>
+        <ol>
+          <li>주소창 오른쪽의 <b>↓ 아이콘</b>을 누르거나, 오른쪽 위 <b>≡ 메뉴</b>를 열어요.</li>
+          <li><b>현재 페이지 추가</b>를 누르고 <b>홈 화면</b>을 골라요.</li>
+          <li><b>추가</b>를 누르면 홈 화면에 <b>트랜스포머</b> 아이콘이 생겨요.</li>
+        </ol>
+      </section>
+      <section class="ig" id="igIos">
+        <div class="ig-head">
+          <span class="ig-ico" aria-hidden="true">🍎</span>
+          <h3>아이폰 · 사파리</h3>
+          <span class="ig-badge" hidden>이 기기</span>
+        </div>
+        <ol>
+          <li>아래쪽 <b>공유 버튼</b>(□↑)을 눌러요.</li>
+          <li>목록을 내려 <b>홈 화면에 추가</b>를 눌러요.</li>
+          <li>오른쪽 위 <b>추가</b>를 누르면 홈 화면에 아이콘이 생겨요.</li>
+        </ol>
+      </section>
+    </div>
+    <p class="install-foot">이미 앱으로 열리고 있다면 이 안내는 필요 없어요.</p>
+  </div>
+</div>
 
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
   <div class="modal-card" id="modalCard">
@@ -2528,6 +2641,89 @@
   document.getElementById("themeBtn").addEventListener("click", function(){
     var light = document.documentElement.getAttribute("data-theme") === "light";
     applyTheme(light ? "dark" : "light");
+  });
+
+  /* ================= 📲 앱 설치 ================= */
+  var installBtn = document.getElementById("installBtn");
+  var installModal = document.getElementById("installModal");
+  var installCloseBtn = document.getElementById("installClose");
+  var deferredInstall = null;
+  var standaloneMq = window.matchMedia ? window.matchMedia("(display-mode: standalone)") : null;
+
+  function isStandalone(){
+    return (standaloneMq && standaloneMq.matches) || window.navigator.standalone === true;
+  }
+  function syncInstallBtn(){
+    if(!installBtn) return;
+    installBtn.hidden = isStandalone();
+  }
+  function markThisDevice(){
+    var ua = navigator.userAgent || "";
+    var isIOS = /iP(hone|ad|od)/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    var card = document.getElementById(isIOS ? "igIos" : "igAndroid");
+    if(!card) return;
+    card.classList.add("is-this");
+    var badge = card.querySelector(".ig-badge");
+    if(badge) badge.hidden = false;
+  }
+  function openInstallModal(){
+    if(!installModal) return;
+    markThisDevice();
+    installModal.hidden = false;
+    installModal.classList.add("open");
+    document.body.classList.add("install-lock");
+    if(installCloseBtn) installCloseBtn.focus();
+  }
+  function closeInstallModal(){
+    if(!installModal) return;
+    installModal.classList.remove("open");
+    installModal.hidden = true;
+    document.body.classList.remove("install-lock");
+    if(installBtn && !isStandalone()) installBtn.focus();
+  }
+
+  window.addEventListener("beforeinstallprompt", function(ev){
+    ev.preventDefault();
+    deferredInstall = ev;
+    syncInstallBtn();
+  });
+  window.addEventListener("appinstalled", function(){
+    deferredInstall = null;
+    if(installBtn) installBtn.hidden = true;
+  });
+  if(standaloneMq && standaloneMq.addEventListener){
+    standaloneMq.addEventListener("change", syncInstallBtn);
+  }
+  syncInstallBtn();
+
+  if(installBtn){
+    installBtn.addEventListener("click", function(){
+      var prompt = deferredInstall;
+      if(prompt && typeof prompt.prompt === "function"){
+        deferredInstall = null;
+        try { prompt.prompt(); } catch(e){ openInstallModal(); return; }
+        if(prompt.userChoice && typeof prompt.userChoice.then === "function"){
+          prompt.userChoice.then(function(choice){
+            if(choice && choice.outcome === "accepted"){
+              installBtn.hidden = true;
+            } else {
+              openInstallModal();
+            }
+          }).catch(function(){ openInstallModal(); });
+        }
+        return;
+      }
+      openInstallModal();
+    });
+  }
+  if(installCloseBtn) installCloseBtn.addEventListener("click", closeInstallModal);
+  if(installModal){
+    installModal.addEventListener("click", function(ev){
+      if(ev.target === installModal) closeInstallModal();
+    });
+  }
+  document.addEventListener("keydown", function(ev){
+    if(ev.key === "Escape" && installModal && !installModal.hidden) closeInstallModal();
   });
 
   document.getElementById("mNav").addEventListener("click", function(ev){
