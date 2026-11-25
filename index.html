@@ -852,7 +852,7 @@
     padding:8px;background:rgba(255,255,255,.035);text-align:center;
   }
   html[data-theme="light"] .vs-side{background:rgba(255,255,255,.72)}
-  .vs-side img{width:100%;aspect-ratio:1/1;object-fit:cover;object-position:center 28%;border-radius:10px;background:#0a1224}
+  .vs-side img{width:100%;max-width:200px;margin:0 auto;aspect-ratio:1/1;object-fit:cover;object-position:center 28%;border-radius:10px;background:#0a1224}
   .vs-side .vs-nm{font-size:13.5px;font-weight:900;line-height:1.25;overflow-wrap:anywhere}
   .vs-side .vs-nm.decepticon{color:#d8b4fe}
   html[data-theme="light"] .vs-side .vs-nm.decepticon{color:#6b21a8}
@@ -1053,6 +1053,16 @@
   .rel .who .jump-ico{font-size:10px;opacity:.8;margin-left:2px;vertical-align:super}
   .rel .who .rel-sep{color:var(--muted);font-weight:700;margin:0 4px}
 
+  @media (min-width:900px){
+    .vs-arena{max-width:720px;margin:0 auto}
+    .vs-result{max-width:760px;margin-left:auto;margin-right:auto}
+    .ht-list,.mg-filters{max-width:880px;margin-left:auto;margin-right:auto}
+    .qz-hints,.qz-choices,.qz-why,.qz-start,.qz-done{max-width:680px;margin-left:auto;margin-right:auto}
+    .mg-panel .mg-note{max-width:680px;margin-left:auto;margin-right:auto}
+    .mg-panel .mg-btn{max-width:680px;margin-left:auto;margin-right:auto}
+    .tm-grid,.tm-bar,.tm-members,.tm-block,.tm-crown{max-width:760px;margin-left:auto;margin-right:auto}
+    .mgl-card{max-width:620px}
+  }
   @media (max-width:720px){
     .mg-hero{padding:14px 15px 14px 17px;border-radius:16px;gap:10px}
     .mg-hero h2{font-size:20px}
