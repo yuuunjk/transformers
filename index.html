@@ -762,7 +762,7 @@
   body[data-view="minigame"] #archivePanel{display:none!important}
   body[data-view="minigame"] .search-row{display:none}
   body[data-view="minigame"] .archive-wrap{padding-bottom:10px}
-  .mg[hidden],.mg-menu[hidden],.mg-panels[hidden],.mg-panel[hidden],#dexView[hidden],#mgLock[hidden],#mgOpenArea[hidden],.mgl-link[hidden]{display:none!important}
+  .mg[hidden],#dexView[hidden],#mgView [hidden]{display:none!important}
 
   .foldertabs .chip.faction-minigame{border-color:rgba(255,194,74,.34)}
   .foldertabs .chip.faction-minigame:hover{color:#ffe6b0;border-color:rgba(255,194,74,.6);background:linear-gradient(180deg,rgba(86,60,16,.62),rgba(40,28,8,.42))}
@@ -2919,9 +2919,10 @@
   /* ---- ③ 누구일까? 퀴즈 ---- */
   function firstClause(s){
     var t = String(s || "");
+    t = t.replace(/\s*\([^)]*\)/g, "");   /* 괄호 설명을 먼저 지운다 (괄호 안에 · 가 있는 차종이 있다) */
     t = t.split(/\s*·\s*/)[0];
-    t = t.replace(/\s*\([^)]*\)/g, "").trim();
-    return t;
+    t = t.split("(")[0];
+    return t.trim();
   }
   function firstSentence(s, max){
     var t = String(s || "").trim();
