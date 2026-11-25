@@ -762,7 +762,7 @@
   body[data-view="minigame"] #archivePanel{display:none!important}
   body[data-view="minigame"] .search-row{display:none}
   body[data-view="minigame"] .archive-wrap{padding-bottom:10px}
-  .mg[hidden],.mg-menu[hidden],.mg-panels[hidden],.mg-panel[hidden],#dexView[hidden]{display:none!important}
+  .mg[hidden],.mg-menu[hidden],.mg-panels[hidden],.mg-panel[hidden],#dexView[hidden],#mgLock[hidden],#mgOpenArea[hidden],.mgl-link[hidden]{display:none!important}
 
   .foldertabs .chip.faction-minigame{border-color:rgba(255,194,74,.34)}
   .foldertabs .chip.faction-minigame:hover{color:#ffe6b0;border-color:rgba(255,194,74,.6);background:linear-gradient(180deg,rgba(86,60,16,.62),rgba(40,28,8,.42))}
@@ -1034,13 +1034,12 @@
   .mgl-main{margin:0 0 6px;font-size:15.5px;font-weight:900;line-height:1.45;color:var(--txt);overflow-wrap:anywhere}
   .mgl-sub{margin:0 0 16px;font-size:13px;font-weight:600;line-height:1.65;color:var(--muted);overflow-wrap:anywhere}
   .mgl-link{
-    display:flex;align-items:center;justify-content:center;gap:8px;max-width:340px;
-    margin:0 auto 16px;text-decoration:none;
+    display:inline-flex;align-items:center;gap:7px;margin:0 auto;padding:9px 16px;border-radius:999px;
+    border:1px solid var(--line);background:rgba(255,255,255,.04);text-decoration:none;
+    font-size:12.5px;font-weight:900;color:var(--muted);
   }
-  .mgl-list{
-    list-style:none;margin:0;padding:13px 0 0;border-top:1px dashed var(--line);
-    display:grid;gap:7px;font-size:12px;line-height:1.55;font-weight:700;color:var(--muted);
-  }
+  html[data-theme="light"] .mgl-link{background:rgba(255,255,255,.7);color:#40567a}
+  .mgl-link:hover{color:var(--txt);border-color:var(--line-strong)}
 
   /* 프로필 관계 이름 → 바로 이동 */
   .rel .who .rel-nm{font:inherit}
@@ -1130,18 +1129,14 @@
   <div class="mg" id="mgView" hidden>
     <div class="mgl-wrap" id="mgLock" hidden>
       <div class="mgl-card">
-        <div class="mgl-ico" aria-hidden="true">🔒</div>
+        <div class="mgl-ico" id="mglIco" aria-hidden="true">🔒</div>
         <div class="mg-eyebrow">Cybertron Arcade · Mini Games</div>
         <h2>🎮 미니게임</h2>
-        <p class="mgl-main">오늘 오후 루틴을 끝내면 미니게임이 열려요!</p>
-        <p class="mgl-sub">루틴 대시보드에서 오후 루틴을 완료하고,<br>루틴 앱의 버튼으로 시작해 주세요.</p>
-        <a class="mg-btn gold mgl-link" href="https://yuuunjk.github.io/luka-daily-routine/">
-          <span aria-hidden="true">🏠</span> 루틴 앱 열기
+        <p class="mgl-main" id="mglMain">오늘 오후 루틴을 마치면 미니게임이 열려요!</p>
+        <p class="mgl-sub" id="mglSub">루틴 앱에서 오후 루틴을 모두 체크하면<br>이 화면이 저절로 열려요.</p>
+        <a class="mgl-link" id="mglLink" href="https://yuuunjk.github.io/luka-daily-routine/">
+          <span aria-hidden="true">🏠</span> 루틴 앱 가기
         </a>
-        <ul class="mgl-list">
-          <li>⚔️ 1:1 VS 대결 · 📏 키 줄세우기 · 🧠 누구일까? 퀴즈 · ⭐ 내 최애 3인 팀</li>
-          <li>오후 루틴을 끝낸 날 하루 동안 열려요. 자정이 지나면 다시 잠겨요.</li>
-        </ul>
       </div>
     </div>
     <div id="mgOpenArea" hidden>
@@ -2594,7 +2589,7 @@
 
   /* ---- 오늘의 횟수: localStorage(날짜 바뀌면 자동 리셋) ---- */
   function mgFresh(){
-    return { date: todayKey(), unlock:null, vs:{ count:0, a:"optimus", b:"megatron", last:null }, quiz:{ count:0 }, team:{ list:null } };
+    return { date: todayKey(), vs:{ count:0, a:"optimus", b:"megatron", last:null }, quiz:{ count:0 }, team:{ list:null } };
   }
   function mgLoad(){
     var m = null;
@@ -2603,7 +2598,6 @@
     if(!m.vs || typeof m.vs !== "object") m.vs = { count:0, a:"optimus", b:"megatron", last:null };
     if(!m.quiz || typeof m.quiz !== "object") m.quiz = { count:0 };
     if(!m.team || typeof m.team !== "object") m.team = { list:null };
-    if(!m.unlock || typeof m.unlock !== "object" || m.unlock.date !== todayKey()) m.unlock = null;
     m.vs.count = Math.max(0, Math.min(MG_MAX.vs, parseInt(m.vs.count, 10) || 0));
     m.quiz.count = Math.max(0, Math.min(MG_MAX.quiz, parseInt(m.quiz.count, 10) || 0));
     if(!Array.isArray(m.team.list) || m.team.list.length !== 3 ||
@@ -2623,9 +2617,11 @@
   function quizLeft(){ mgSync(); return Math.max(0, MG_MAX.quiz - mini.quiz.count); }
   function teamLeft(){ mgSync(); return mini.team.list ? 0 : MG_MAX.team; }
 
-  /* ---- 오후 루틴 완료 연동: 그날만 잠금 해제 ---- */
-  var ROUTINE_URL = "https://yuuunjk.github.io/luka-daily-routine/";
+  /* ---- 오후 루틴 완료 연동: 같은 도메인의 루틴 앱 기록을 직접 읽는다 ----
+     키 lukaPokemonDashboard.v1 → { days: { "YYYY-M-D": { slots: { "school:after": { tasks:[bool...], claimed:bool } } } } }
+     오늘 날짜(0 없는 형식)의 `*:after` 슬롯 tasks 가 하나도 빠짐없이 true 면 '오후 루틴 완료'로 본다. */
   var ROUTINE_LS = "lukaPokemonDashboard.v1";
+  var ROUTINE_LS_PREFIX = "lukaPokemonDashboard";
   function todayKeyU(){   /* 루틴 앱과 맞춘 0 없는 형식 (예: 2026-11-5) */
     var d = new Date();
     return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
@@ -2635,45 +2631,94 @@
     if(!m) return "";
     return m[1] + "-" + pad2(parseInt(m[2], 10)) + "-" + pad2(parseInt(m[3], 10));
   }
-  function routineAfterDone(){
+  function routineState(){
     try{
       var raw = localStorage.getItem(ROUTINE_LS);
-      if(!raw) return false;
-      var st = JSON.parse(raw);
-      if(!st || !st.days || typeof st.days !== "object") return false;
-      var days = [todayKey(), todayKeyU()];
-      for(var i = 0; i < days.length; i++){
-        var rec = st.days[days[i]];
-        if(!rec || !rec.slots || typeof rec.slots !== "object") continue;
-        var names = Object.keys(rec.slots);
-        for(var j = 0; j < names.length; j++){
-          if(!/:after$/.test(names[j])) continue;
-          var slot = rec.slots[names[j]];
-          if(slot && Array.isArray(slot.tasks) && slot.tasks.length &&
-             slot.tasks.every(function(v){ return !!v; })) return true;
-        }
+      if(raw){
+        var st = JSON.parse(raw);
+        if(st && st.days && typeof st.days === "object") return st;
       }
     }catch(e){}
-    return false;
+    /* 키 이름 버전이 바뀌어도 루틴 앱 기록이면 찾아 쓴다 (다른 앱의 캐시 키는 건너뛴다) */
+    try{
+      for(var i = 0; i < localStorage.length; i++){
+        var k = localStorage.key(i);
+        if(!k || k.indexOf(ROUTINE_LS_PREFIX) !== 0 || k === ROUTINE_LS) continue;
+        if(/\.(cheer|wx)\./.test(k)) continue;
+        var raw2 = localStorage.getItem(k);
+        if(!raw2 || raw2.length < 40) continue;
+        var st2 = JSON.parse(raw2);
+        if(st2 && st2.days && typeof st2.days === "object") return st2;
+      }
+    }catch(e){}
+    return null;
   }
-  function mgSetUnlocked(src){
-    mgSync();
-    mini.unlock = { date: todayKey(), src: src || "routine" };
-    mgSave();
+  var MG_AFTER_MODES = { school:1, afterschool:1 };   /* 오후 루틴이 있는 모드 */
+  function slotAllDone(slot){
+    return !!(slot && Array.isArray(slot.tasks) && slot.tasks.length &&
+      slot.tasks.every(function(v){ return !!v; }));
   }
-  function mgUnlocked(){
-    mgSync();
-    if(mini.unlock && mini.unlock.date === todayKey()) return true;
-    if(routineAfterDone()){ mgSetUnlocked("after-routine"); return true; }
-    return false;
+  function routineCheck(){
+    var st = routineState();
+    if(!st) return { mode:"", need:"after", ok:false };
+    var mode = String(st.mode || "");
+    var need = (!mode || MG_AFTER_MODES[mode]) ? "after" : "morning";
+    var days = [todayKey(), todayKeyU()];
+    for(var i = 0; i < days.length; i++){
+      var rec = st.days[days[i]];
+      if(!rec || !rec.slots || typeof rec.slots !== "object") continue;
+      if(mode){
+        if(slotAllDone(rec.slots[mode + ":" + need])) return { mode:mode, need:need, ok:true };
+      }else{
+        var names = Object.keys(rec.slots);
+        var j;
+        for(j = 0; j < names.length; j++){
+          if(/:after$/.test(names[j]) && slotAllDone(rec.slots[names[j]])) return { mode:"", need:"after", ok:true };
+        }
+        for(j = 0; j < names.length; j++){
+          if(/:morning$/.test(names[j]) && slotAllDone(rec.slots[names[j]])) return { mode:"", need:"morning", ok:true };
+        }
+      }
+    }
+    return { mode:mode, need:need, ok:false };
+  }
+  /* 미니게임은 매일 20:30 까지 (20:30 부터는 잠금) */
+  function mgTimeOpen(){
+    var n = new Date();
+    return (n.getHours() * 60 + n.getMinutes()) < (20 * 60 + 30);
+  }
+  function mgLockState(){
+    if(!mgTimeOpen()) return { ok:false, reason:"time", need:"after" };
+    var chk = routineCheck();
+    if(chk.ok) return { ok:true, reason:"", need:chk.need };
+    return { ok:false, reason:"routine", need:chk.need };
+  }
+  function mgPaintLock(st){
+    var main = document.getElementById("mglMain");
+    var sub = document.getElementById("mglSub");
+    var link = document.getElementById("mglLink");
+    var ico = document.getElementById("mglIco");
+    if(st.reason === "time"){
+      if(ico) ico.textContent = "🌙";
+      if(main) main.textContent = "미니게임은 오후 8시 30분까지만 열려요! 내일 다시 해 봐요";
+      if(sub) sub.innerHTML = "잠들 준비 시간이에요.<br>내일 루틴을 마치고 다시 만나요!";
+      if(link) link.hidden = true;
+    }else{
+      var morning = (st.need === "morning");
+      if(ico) ico.textContent = "🔒";
+      if(main) main.textContent = morning ? "오늘 아침 루틴을 마치면 미니게임이 열려요!" : "오늘 오후 루틴을 마치면 미니게임이 열려요!";
+      if(sub) sub.innerHTML = (morning ? "루틴 앱에서 아침 루틴을 모두 체크하면" : "루틴 앱에서 오후 루틴을 모두 체크하면") + "<br>이 화면이 저절로 열려요.";
+      if(link) link.hidden = false;
+    }
   }
   function mgApplyLock(){
-    var ok = mgUnlocked();
+    var st = mgLockState();
     var lock = document.getElementById("mgLock");
     var area = document.getElementById("mgOpenArea");
-    if(lock) lock.hidden = ok;
-    if(area) area.hidden = !ok;
-    return ok;
+    if(lock) lock.hidden = st.ok;
+    if(area) area.hidden = !st.ok;
+    if(!st.ok) mgPaintLock(st);
+    return st.ok;
   }
   function mgReadParams(){
     var out = {};
@@ -3181,6 +3226,19 @@
     window.scrollTo(0, 0);
   }
 
+  /* 검증·디버깅용 읽기 전용 손잡이 (스스로 잠금을 풀지는 못한다) */
+  window.__tfMini = { lockState: mgLockState, timeOpen: mgTimeOpen, apply: mgApplyLock, routine: routineCheck };
+
+  function mgWatchClock(){
+    setInterval(function(){
+      if(state.view !== "minigame") return;
+      var area = document.getElementById("mgOpenArea");
+      var wasOpen = !!(area && !area.hidden);
+      var ok = mgApplyLock();
+      if(!wasOpen && ok) mgBack();
+    }, 20000);
+  }
+
   function mgInit(){
     Array.prototype.forEach.call(document.querySelectorAll("#mgMenu .mg-tile"), function(t){
       t.addEventListener("click", function(){ mgOpen(t.dataset.game); });
@@ -3276,11 +3334,8 @@
   buildFilters();
   render();
   mgInit();
+  mgWatchClock();
   var mgParams = mgReadParams();
-  if(mgParams.from === "routine"){
-    var mgDay = normDayStr(mgParams.day || "");
-    if(!mgParams.day || mgDay === todayKey()) mgSetUnlocked("routine-link");
-  }
   setView(mgParams.tab === "minigame" ? "minigame" : "dex");
 
   /* ---------- service worker ---------- */
