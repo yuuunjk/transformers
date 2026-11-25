@@ -2651,11 +2651,21 @@
   function markThisDevice(){
     var ua = navigator.userAgent || "";
     var isIOS = /iP(hone|ad|od)/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    var isAndroid = /Android/i.test(ua);
+    var cards = document.querySelectorAll(".ig");
+    for(var i = 0; i < cards.length; i++){
+      cards[i].classList.remove("is-this");
+      var oldBadge = cards[i].querySelector(".ig-badge");
+      if(oldBadge) oldBadge.hidden = true;
+    }
+    if(!isIOS && !isAndroid) return;
     var card = document.getElementById(isIOS ? "igIos" : "igAndroid");
     if(!card) return;
     card.classList.add("is-this");
     var badge = card.querySelector(".ig-badge");
     if(badge) badge.hidden = false;
+    var list = card.parentNode;
+    if(list && list.firstElementChild !== card) list.insertBefore(card, list.firstElementChild);
   }
   function openInstallModal(){
     if(!installModal) return;
