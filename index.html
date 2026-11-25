@@ -1150,7 +1150,7 @@
       </div>
     </div>
     <div id="mgOpenArea" hidden>
-    <section class="mg-hero">
+    <section class="mg-hero" id="mgHero">
       <div>
         <div class="mg-eyebrow">Cybertron Arcade · Mini Games</div>
         <h2>🎮 미니게임</h2>
@@ -3166,6 +3166,8 @@
     mgGame = key;
     document.getElementById("mgMenu").hidden = true;
     document.getElementById("mgPanels").hidden = false;
+    var hero = document.getElementById("mgHero");
+    if(hero) hero.hidden = true;   /* 게임 화면에서는 큰 머리말을 잠시 접어 자리를 넓힌다 */
     ["vs", "height", "quiz", "team"].forEach(function(k){
       var p = document.getElementById("mgPanel-" + k);
       if(p) p.hidden = (k !== key);
@@ -3203,6 +3205,8 @@
   function mgBack(){
     document.getElementById("mgPanels").hidden = true;
     document.getElementById("mgMenu").hidden = false;
+    var hero = document.getElementById("mgHero");
+    if(hero) hero.hidden = false;
     mgGame = null;
     window.scrollTo(0, 0);
   }
