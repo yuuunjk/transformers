@@ -3289,7 +3289,11 @@
       (fa === fb ? "화력이 똑같아서(둘 다 " + fa + ") 먼저 맞히는 쪽이 이겨요."
                  : "화력 " + fa + " vs " + fb + " — 한 방의 무게는 " + josa(fa > fb ? a.ko : b.ko, "이", "가") + " 더 무거워요."));
     var roleA = ROLE_LABEL[a.role], roleB = ROLE_LABEL[b.role];
-    out.push("역할은 " + roleA + " 대 " + roleB + " — 「" + ROLE_TAC[a.role] + "」 쪽과 「" + ROLE_TAC[b.role] + "」 쪽의 맞대결이에요.");
+    if(a.role === b.role){
+      out.push("역할은 둘 다 " + roleA + josaOnly(roleA, "이라서", "라서") + " — 「" + ROLE_TAC[a.role] + "」하는 쪽끼리의 맞대결이에요. 같은 역할끼리는 누가 먼저 판을 짜느냐가 승부를 갈라요.");
+    }else{
+      out.push("역할은 " + roleA + " 대 " + roleB + " — 「" + ROLE_TAC[a.role] + "」 쪽과 「" + ROLE_TAC[b.role] + "」 쪽의 맞대결이에요.");
+    }
     return out;
   }
 
